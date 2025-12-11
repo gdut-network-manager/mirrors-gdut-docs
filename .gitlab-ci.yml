@@ -48,6 +48,8 @@ deploy:
     # 配置 SSH
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
+    # 启动 SSH Agent
+    - eval $(ssh-agent -s)
     # 添加私钥（从 GitLab CI/CD 变量中获取）
     - echo ${SSH_PRIVATE_KEY} | base64 -d > ~/.ssh/id_rsa
     - chmod 400 ~/.ssh/id_rsa
