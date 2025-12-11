@@ -1,0 +1,64 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* 设置字体 */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@font-face{
+    font-family: 'MyriadPro';
+    src: url('/font/MyriadPro-Regular.otf');
+}
+@font-face{
+    font-family: 'MyriadPro';
+    src: url('/font/MyriadPro-Bold.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: "SFMono";
+    src: url('/font/SFMono-Bold-1.otf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: "SFMono";
+    src: url('/font/SFMono-Medium-8.otf');
+    font-weight: medium;
+}
+
+/* 设置代码块字体（pre 元素） */
+pre {
+  font-family: "Fira Code", Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace !important;
+}
+
+/* 设置内联代码字体（code 元素） */
+code {
+  font-family: "SFMono", "Fira Code", Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace !important;
+}
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #971943;
+  --ifm-color-primary-dark: #861239;
+  --ifm-color-primary-darker: #7b0c31;
+  --ifm-color-primary-darkest: #670626;
+  --ifm-color-primary-light: #a6204d;
+  --ifm-color-primary-lighter: #b62757;
+  --ifm-color-primary-lightest: #c83063;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #971943;
+  --ifm-color-primary-dark: #861239;
+  --ifm-color-primary-darker: #7b0c31;
+  --ifm-color-primary-darkest: #670626;
+  --ifm-color-primary-light: #a6204d;
+  --ifm-color-primary-lighter: #b62757;
+  --ifm-color-primary-lightest: #c83063;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+
