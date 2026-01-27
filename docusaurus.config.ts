@@ -147,10 +147,14 @@ const config: Config = {
               label: '镜像站状态',
               href: 'https://mirrors.gdut.edu.cn/status.html',
             },
-	    {
+            {
+              label: '容器镜像库',
+              href: 'https://registry.gdut.edu.cn/',
+            },
+	          {
               label: '校内测速站',
               href: 'https://speed.gdut.edu.cn',
-	    },
+	          },
           ],
         },
         {
