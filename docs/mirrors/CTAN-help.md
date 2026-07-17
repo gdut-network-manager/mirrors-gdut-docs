@@ -6,51 +6,53 @@ sidebar_position: 1
 
 ### 收录架构
 
-* 全部
+- 全部
 
 ### 收录版本
 
-* 全部
+- 全部
 
 ### 更新时间
 
 每6小时更新一次
 
-
 ---
 
 ## 项目简介
 
-CTAN (The Comprehensive $T_{E}X$ Archive Network) 是所有 $T_{E}X$ 排版系统相关材料的汇集地，收录了编译引擎、宏包及字体等的源代码与说明文档。目前，绝大多数 $L^{A}T_{E}X$ 宏包会被上传至 CTAN 核心站点，随后同步到遍布全球的各个镜像。
+CTAN（The Comprehensive TeX Archive Network）是所有 $\TeX$ 排版系统相关材料的汇集地，收录了编译引擎、宏包及字体等的源代码与说明文档。目前，绝大多数 $\LaTeX$ 宏包会被上传至 CTAN 核心站点，随后同步到遍布全球的各个镜像。
 
 ## 使用说明
 
-本文提供了 $T_{E}X\text{Live}$  和 $\text{MiK}T_{E}X$ 两大主要发行版的镜像配置方法。
+本文提供了 $\TeX$ Live 和 MiKTeX 两大主要发行版的镜像配置方法。
 
-### $T_{E}X\text{Live}$
+### $\TeX$ Live
 
 #### 安装方法
 
-$T_{E}X\text{Live}$ 发行版的常见安装方法可以参考[此文档](https://mirrors.gdut.edu.cn/CTAN/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf)。
+$\TeX$ Live 发行版的常见安装方法可以参考[此文档](https://mirrors.gdut.edu.cn/CTAN/info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.pdf)。
 
 除每年更新的完整版 ISO 镜像以外，CTAN 镜像中也包含在线安装器。这种方法可以使安装的所有宏包均为最新版本，但受网络连接状况影响较大。操作方法为 *（很可能需要管理员权限）*：
 
 1. 下载 install-tl.zip 并解压缩
-	```bash
-	https://mirrors.gdut.edu.cn/CTAN/systems/texlive/tlnet/install-tl.zip
-	```
+
+   ```bash
+   https://mirrors.gdut.edu.cn/CTAN/systems/texlive/tlnet/install-tl.zip
+   ```
+
 2. 安装
-  - Windows 下双击运行其中的 `install-tl.bat`。如果有图形化界面，可以在进入安装器前的右下角按钮指定使用镜像源。
-  - Linux 使用如下命令:
-    ```bash
-	perl install-tl --repository https://mirrors.gdut.edu.cn/CTAN/systems/texlive/tlnet
-	``` 
+   - Windows 下双击运行其中的 `install-tl.bat`。如果有图形化界面，可以在进入安装器前的右下角按钮指定使用镜像源。
+   - Linux 使用如下命令：
+
+     ```bash
+     perl install-tl --repository https://mirrors.gdut.edu.cn/CTAN/systems/texlive/tlnet
+     ```
 
 #### 切换镜像
 
-$T_{E}X\text{Live}$ 使用的 CTAN 镜像源可以从内置的包管理器 `tlmgr` 更改（很可能需要管理员权限）。
+$\TeX$ Live 使用的 CTAN 镜像源可以从内置的包管理器 `tlmgr` 更改（很可能需要管理员权限）。
 
-在命令行中执行:
+在命令行中执行：
 
 ```bash
 sudo tlmgr option repository https://mirrors.gdut.edu.cn/CTAN/systems/texlive/tlnet
@@ -66,19 +68,18 @@ sudo tlmgr update --all --repository https://mirrors.gdut.edu.cn/CTAN/systems/te
 
 其中的 `update --all` 指令可根据需要修改。
 
-### $\text{MiK}T_{E}X$
+### MiKTeX
 
-MiK $T_{E}X$ 发行版的特点在于仅安装用户需要的宏包，节省了磁盘空间占用，但在部分实现细节上与 TeX Live 有所出入。该发行版支持 Windows、Linux 和 macOS。
+MiKTeX 发行版的特点在于仅安装用户需要的宏包，节省了磁盘空间占用，但在部分实现细节上与 $\TeX$ Live 有所出入。该发行版支持 Windows、Linux 和 macOS。
 
 #### 安装
 
-$\text{MiK}_{E}X$ 仅提供 Windows 和 macOS 的独立安装包，前往 [$T_{E}X$ 排版系统下载页](https://mirrorz.org/app/TeX%E6%8E%92%E7%89%88%E7%B3%BB%E7%BB%9F)即可。在 Linux 下的安装请参考[官方文档](https://miktex.org/howto/install-miktex-unx)。
+MiKTeX 仅提供 Windows 和 macOS 的独立安装包，前往 [$\TeX$ 排版系统下载页](https://mirrorz.org/app/TeX%E6%8E%92%E7%89%88%E7%B3%BB%E7%BB%9F) 即可。在 Linux 下的安装请参考[官方文档](https://miktex.org/howto/install-miktex-unx)。
 
 #### 使用镜像
 
-$\text{MiK}T_{E}X$ 使用的 CTAN 镜像源可以从内置的 $\text{MiK}T_{E}X$ Console 图形化应用程序进行切换，也可以使用如下命令：
+MiKTeX 使用的 CTAN 镜像源可以从内置的 MiKTeX Console 图形化应用程序进行切换，也可以使用如下命令：
 
 ```bash
 mpm --set-repository=https://mirrors.gdut.edu.cn/CTAN/systems/win32/miktex/tm/packages/
 ```
-
