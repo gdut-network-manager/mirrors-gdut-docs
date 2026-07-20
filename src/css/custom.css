@@ -1,43 +1,47 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Custom CSS for GDUT Mirror Docs
+ * Aligned with the GDUT mirror site's design system.
+ * Built on Docusaurus 3 / Infima CSS framework.
  */
 
-/* 设置字体 */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
-@font-face{
-    font-family: 'MyriadPro';
-    src: url('/font/MyriadPro-Regular.otf');
-}
-@font-face{
-    font-family: 'MyriadPro';
-    src: url('/font/MyriadPro-Bold.otf');
-    font-weight: bold;
+/* ── Fonts ────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'MyriadPro';
+  src: url('/font/MyriadPro-Regular.otf');
 }
 @font-face {
-    font-family: "SFMono";
-    src: url('/font/SFMono-Bold-1.otf');
-    font-weight: bold;
+  font-family: 'MyriadPro';
+  src: url('/font/MyriadPro-Bold.otf');
+  font-weight: bold;
 }
 @font-face {
-    font-family: "SFMono";
-    src: url('/font/SFMono-Medium-8.otf');
-    font-weight: medium;
+  font-family: "SFMono";
+  src: url('/font/SFMono-Bold-1.otf');
+  font-weight: bold;
+}
+@font-face {
+  font-family: "SFMono";
+  src: url('/font/SFMono-Medium-8.otf');
+  font-weight: medium;
 }
 
-/* 设置代码块字体（pre 元素） */
+/* Code block font (pre) */
 pre {
   font-family: "Fira Code", Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace !important;
 }
 
-/* 设置内联代码字体（code 元素） */
+/* Inline code font (code) */
 code {
   font-family: "SFMono", "Fira Code", Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace !important;
 }
 
-/* You can override the default Infima variables here. */
+/* ── Design Tokens — Light ────────────────────────────────────────── */
+
 :root {
+  /* Primary (GDUT crimson) */
   --ifm-color-primary: #971943;
   --ifm-color-primary-dark: #861239;
   --ifm-color-primary-darker: #7b0c31;
@@ -47,9 +51,54 @@ code {
   --ifm-color-primary-lightest: #c83063;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Typography */
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Background & surface */
+  --ifm-background-color: #f5f7fa;
+  --ifm-background-surface-color: #ffffff;
+
+  /* Text */
+  --ifm-color-content: #1a202c;
+  --ifm-color-content-secondary: #4a5568;
+  --color-text-muted: #718096;
+
+  /* Borders & hover */
+  --ifm-color-emphasis-300: #e2e8f0;
+  --ifm-color-emphasis-100: #f7fafc;
+
+  /* Island radius tokens */
+  --island-radius-sm: 8px;
+  --island-radius-md: 16px;
+  --island-radius-lg: 24px;
+  --island-radius-xl: 32px;
+  --island-radius-pill: 9999px;
+  --island-gap: 1.5rem;
+  --island-margin: 1rem;
+
+  /* Shadow scale */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
+  --island-shadow: var(--shadow-md);
+
+  --doc-sidebar-width: 320px;
+
+  /* Glassmorphism — Light (simple, no saturate) */
+  --glass-bg-navbar: rgba(255, 255, 255, 0.7);
+  --glass-bg-sidebar: rgba(255, 255, 255, 0.7);
+  --glass-bg-card: rgba(255, 255, 255, 0.95);
+  --glass-bg-code: rgba(0, 0, 0, 0.03);
+  --glass-blur-navbar: blur(12px);
+  --glass-blur-sidebar: blur(12px);
+  --glass-blur-card: blur(12px);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* ── Design Tokens — Dark ─────────────────────────────────────────── */
+
 [data-theme='dark'] {
   --ifm-color-primary: #971943;
   --ifm-color-primary-dark: #861239;
@@ -59,6 +108,352 @@ code {
   --ifm-color-primary-lighter: #b62757;
   --ifm-color-primary-lightest: #c83063;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Background & surface */
+  --ifm-background-color: #0f172a;
+  --ifm-background-surface-color: #1e293b;
+
+  /* Text */
+  --ifm-color-content: #f1f5f9;
+  --ifm-color-content-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+
+  /* Borders & hover */
+  --ifm-color-emphasis-300: #334155;
+  --ifm-color-emphasis-100: #1e293b;
+
+  /* Shadow scale — Dark */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --island-shadow: var(--shadow-md);
+
+  /* Glassmorphism — Dark */
+  --glass-bg-navbar: rgba(30, 41, 59, 0.7);
+  --glass-bg-sidebar: rgba(30, 41, 59, 0.7);
+  --glass-bg-card: rgba(30, 41, 59, 0.95);
+  --glass-bg-code: rgba(255, 255, 255, 0.05);
+  --glass-blur-navbar: blur(12px);
+  --glass-blur-sidebar: blur(12px);
+  --glass-blur-card: blur(12px);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* ── Body ─────────────────────────────────────────────────────────── */
 
+body {
+  font-family: var(--ifm-font-family-base);
+  background-color: var(--ifm-background-color);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(151, 25, 67, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(151, 25, 67, 0.05) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* ── Navbar (floating glass pill) ─────────────────────────────────── */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  background: var(--glass-bg-navbar);
+  backdrop-filter: var(--glass-blur-navbar);
+  -webkit-backdrop-filter: var(--glass-blur-navbar);
+  border: none;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 0;
+  box-shadow: var(--shadow-sm);
+  margin: 0;
+  z-index: var(--ifm-z-index-fixed);
+}
+
+.navbar__inner {
+  border-radius: inherit;
+}
+
+/* ── Sidebar (glass island — preserve sticky/scroll/width) ────────── */
+
+.theme-doc-sidebar-container {
+  position: sticky !important;
+  align-self: flex-start;
+  top: calc(var(--ifm-navbar-height) + var(--island-margin));
+  height: calc(100vh - var(--ifm-navbar-height) - var(--island-margin) * 2);
+  background: var(--glass-bg-sidebar);
+  backdrop-filter: var(--glass-blur-sidebar);
+  -webkit-backdrop-filter: var(--glass-blur-sidebar);
+  border: var(--glass-border);
+  border-radius: var(--island-radius-lg);
+  box-shadow: var(--island-shadow);
+  margin: 0 var(--island-margin) var(--island-margin);
+  margin-top: var(--island-margin) !important;
+  overflow: hidden;
+  border-right: none;
+  clip-path: none;
+  transition: transform var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+              box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.theme-doc-sidebar-container > div {
+  position: relative !important;
+  top: 0 !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.theme-doc-sidebar-container [class*="sidebar_"]:not([class*="sidebarViewport"]):not([class*="sidebarHidden"]):not([class*="sidebarLogo"]) {
+  padding-top: 0 !important;
+  top: 0 !important;
+  max-height: 100% !important;
+  width: 100% !important;
+}
+
+.menu__link {
+  min-width: 0 !important;
+}
+
+.menu__caret {
+  flex-shrink: 0;
+}
+
+/* ── Card (glass island with hover effect) ────────────────────────── */
+
+.card {
+  position: relative;
+  background: var(--glass-bg-card);
+  backdrop-filter: var(--glass-blur-card);
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-md);
+  box-shadow: var(--island-shadow);
+  transition: transform var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+              box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ── Code block ───────────────────────────────────────────────────── */
+
+.theme-code-block {
+  position: relative;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--island-radius-sm);
+  border: var(--glass-border);
+}
+
+/* ── Dark Mode: Dracula Syntax Highlighting ───────────────────────── */
+
+[data-theme='dark'] .prism-code {
+  color: #F8F8F2 !important;
+  background-color: #282A36 !important;
+}
+
+[data-theme='dark'] .token.constant,
+[data-theme='dark'] .token.builtin,
+[data-theme='dark'] .token.keyword,
+[data-theme='dark'] .token.variable {
+  color: rgb(189, 147, 249) !important;
+}
+
+[data-theme='dark'] .token.function {
+  color: rgb(80, 250, 123) !important;
+}
+
+[data-theme='dark'] .token.punctuation,
+[data-theme='dark'] .token.symbol {
+  color: rgb(248, 248, 242) !important;
+}
+
+[data-theme='dark'] .token.string,
+[data-theme='dark'] .token.char,
+[data-theme='dark'] .token.tag,
+[data-theme='dark'] .token.selector {
+  color: rgb(255, 121, 198) !important;
+}
+
+[data-theme='dark'] .token.comment {
+  color: rgb(98, 114, 164) !important;
+}
+
+[data-theme='dark'] .token.attr-name {
+  color: rgb(241, 250, 140) !important;
+}
+
+[data-theme='dark'] .token.number,
+[data-theme='dark'] .token.boolean {
+  color: rgb(189, 147, 249) !important;
+}
+
+[data-theme='dark'] .token.operator,
+[data-theme='dark'] .token.entity,
+[data-theme='dark'] .token.url {
+  color: rgb(248, 248, 242) !important;
+}
+
+[data-theme='dark'] .token.property {
+  color: rgb(241, 250, 140) !important;
+}
+
+[data-theme='dark'] .token.deleted {
+  color: rgb(255, 85, 85) !important;
+}
+
+[data-theme='dark'] .token.inserted {
+  color: rgb(80, 250, 123) !important;
+}
+
+/* ── Footer (solid surface, no glass) ─────────────────────────────── */
+
+.footer {
+  position: relative;
+  background: var(--ifm-background-surface-color);
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+  text-align: center;
+}
+
+.footer__link-item {
+  color: var(--color-text-muted);
+}
+
+.footer__link-item:hover {
+  color: var(--ifm-color-primary);
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+  padding-top: var(--island-margin);
+  margin-top: var(--island-margin);
+}
+
+/* ── Island Hover Effect (signature — card & sidebar only) ────────── */
+
+.card::before,
+.theme-doc-sidebar-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #971943 0%, #b8345e 100%);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.card:hover::before,
+.theme-doc-sidebar-container:hover::before {
+  opacity: 1;
+}
+
+.theme-doc-sidebar-container:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ── Mouse-Following Light Effect (::after — not on footer) ───────── */
+
+.navbar::after,
+.card::after,
+.theme-code-block::after,
+.theme-doc-sidebar-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.navbar:hover::after,
+.card:hover::after,
+.theme-code-block:hover::after,
+.theme-doc-sidebar-container:hover::after {
+  opacity: 1;
+}
+
+[data-theme='dark'] .navbar::after,
+[data-theme='dark'] .card::after,
+[data-theme='dark'] .theme-code-block::after,
+[data-theme='dark'] .theme-doc-sidebar-container::after {
+  background: radial-gradient(
+    circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.08),
+    transparent 70%
+  );
+}
+
+/* ── SVG Refraction Filter (progressive enhancement) ──────────────── */
+
+@supports (backdrop-filter: url(#x)) {
+  .card {
+    backdrop-filter: url(#liquid-glass-refraction) blur(12px) saturate(1.5);
+  }
+}
+
+/* ── Accessibility ────────────────────────────────────────────────── */
+
+@media (prefers-reduced-transparency: reduce) {
+  .navbar,
+  .theme-doc-sidebar-container,
+  .card,
+  .theme-code-block {
+    background: var(--ifm-background-color);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover,
+  .theme-doc-sidebar-container:hover {
+    transform: none;
+  }
+}
+
+/* ── Sidebar Collapse/Expand Buttons ──────────────────────────────── */
+
+/* Collapse button (hideable sidebar) */
+.collapseSidebarButton_PEFL,
+[class*="collapseSidebarButton_"] {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-top: var(--glass-border);
+  border-radius: 0 0 var(--island-radius-lg) var(--island-radius-lg);
+  color: var(--ifm-color-content-secondary);
+  height: 2.5rem;
+}
+
+[class*="collapseSidebarButton_"]:hover {
+  background: var(--ifm-hover-overlay);
+}
+
+/* Expand sidebar button (when sidebar is hidden) */
+[class*="expandButton_"] {
+  background: var(--glass-bg-sidebar);
+  backdrop-filter: var(--glass-blur-sidebar);
+  -webkit-backdrop-filter: var(--glass-blur-sidebar);
+  border: var(--glass-border);
+  border-radius: var(--island-radius-lg);
+  box-shadow: var(--island-shadow);
+  transition: background var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+[class*="expandButton_"]:hover,
+[class*="expandButton_"]:focus {
+  background: var(--ifm-hover-overlay);
+}

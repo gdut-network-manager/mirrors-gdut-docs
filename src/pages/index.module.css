@@ -1,23 +1,306 @@
 /**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
+ * Homepage — Bento grid layout matching the GDUT mirror site style.
+ * Uses design tokens from src/css/custom.css (island radius, glass, shadows).
  */
 
-.heroBanner {
-  padding: 4rem 0;
+/* ── Hero ─────────────────────────────────────────────────────────── */
+
+.hero {
   text-align: center;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+[data-theme='dark'] .hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.heroLogo {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--island-radius-lg);
+  box-shadow: var(--shadow-md);
+  object-fit: contain;
+}
+
+.heroTitle {
+  background: linear-gradient(135deg, #971943 0%, #b8345e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.heroSubtitle {
+  color: var(--ifm-color-content-secondary);
+  font-size: 1.125rem;
+  margin: 0;
 }
 
 .buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.buttons > * {
+  min-width: 160px;
+}
+
+/* ── Main Container ───────────────────────────────────────────────── */
+
+.mainContainer {
+  width: 100%;
+  max-width: var(--ifm-container-width);
+  margin: 0 auto;
+  padding: 2rem var(--island-margin) 4rem;
+}
+
+/* ── Bento Grid (12-col) ──────────────────────────────────────────── */
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--island-gap);
+  align-items: start;
+}
+
+.bentoMain {
+  grid-column: span 8;
+}
+
+.bentoSidebar {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: var(--island-gap);
+}
+
+/* ── Island (glass card with hover effect) ────────────────────────── */
+
+.island {
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg-card);
+  backdrop-filter: var(--glass-blur-card);
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-lg);
+  box-shadow: var(--island-shadow);
+  padding: 1.75rem;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.island::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #971943 0%, #b8345e 100%);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.island:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.island:hover::before {
+  opacity: 1;
+}
+
+.islandCompact {
+  padding: 1.25rem;
+}
+
+/* ── Island Header ────────────────────────────────────────────────── */
+
+.islandHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.islandIcon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: var(--ifm-color-primary);
+}
+
+.islandTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ifm-color-content);
+}
+
+/* ── Mirror Links Grid ────────────────────────────────────────────── */
+
+.mirrorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.mirrorCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 1.5rem 1rem;
+  border-radius: var(--island-radius-md);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: transparent;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background 150ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mirrorCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #971943 0%, #b8345e 100%);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.mirrorCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  background: var(--ifm-color-emphasis-100);
+  text-decoration: none;
+}
+
+.mirrorCard:hover::before {
+  opacity: 1;
+}
+
+.mirrorIcon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.mirrorName {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ifm-color-content);
+  text-align: center;
+}
+
+/* ── Link List (sidebar islands) ──────────────────────────────────── */
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.linkListItem {
+  padding-left: 16px;
+  position: relative;
+}
+
+.linkListItem::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+}
+
+.linkItem {
+  color: var(--ifm-color-content);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all 150ms ease;
+}
+
+.linkItem:hover {
+  color: var(--ifm-color-primary);
+  padding-left: 4px;
+  text-decoration: none;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+
+@media screen and (max-width: 996px) {
+  .hero {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .bentoMain,
+  .bentoSidebar {
+    grid-column: span 12;
+  }
+
+  .bentoSidebar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .mirrorGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bentoSidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .buttons {
+    flex-direction: column;
+    width: 100%;
+  }
 }

@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build output
+build/
+.docusaurus/
+
+# Cache
+.cache/
+
+# Misc
+.DS_Store
+*.local
+*.log
