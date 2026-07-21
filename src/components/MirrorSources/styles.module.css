@@ -307,6 +307,7 @@
   overflow-x: auto;
   font-family: var(--ifm-font-family-monospace);
   font-size: 0.8125rem;
+  font-weight: 500;
   line-height: 1.7;
   white-space: pre;
   tab-size: 4;

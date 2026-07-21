@@ -6,7 +6,7 @@
 
 /* ── Fonts ────────────────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import 'katex/dist/katex.min.css';
 
 @font-face {
@@ -18,25 +18,47 @@
   src: url('/font/MyriadPro-Bold.otf');
   font-weight: bold;
 }
+
 @font-face {
-  font-family: "SFMono";
-  src: url('/font/SFMono-Bold-1.otf');
-  font-weight: bold;
+  font-family: 'FiraCode NerdFont';
+  src: url('/font/FiraCodeNerdFont-Regular.ttf');
+  font-weight: 400;
+  font-display: swap;
 }
 @font-face {
-  font-family: "SFMono";
-  src: url('/font/SFMono-Medium-8.otf');
-  font-weight: medium;
+  font-family: 'FiraCode NerdFont';
+  src: url('/font/FiraCodeNerdFont-Medium.ttf');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FiraCode NerdFont';
+  src: url('/font/FiraCodeNerdFont-SemiBold.ttf');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FiraCode NerdFont';
+  src: url('/font/FiraCodeNerdFont-Bold.ttf');
+  font-weight: 700;
+  font-display: swap;
 }
 
-/* Code block font (pre) */
-pre {
-  font-family: "Fira Code", Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace !important;
+:root {
+  --ifm-font-family-monospace: 'FiraCode NerdFont', Consolas, Menlo, Monaco, monospace;
 }
 
-/* Inline code font (code) */
+pre,
 code {
-  font-family: "SFMono", "Fira Code", Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace !important;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+pre {
+  font-weight: 500;
+}
+
+code {
+  font-weight: 500;
 }
 
 /* ── Design Tokens — Light ────────────────────────────────────────── */
