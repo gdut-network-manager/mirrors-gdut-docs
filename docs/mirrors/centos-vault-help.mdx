@@ -2,6 +2,9 @@
 sidebar_position: 1
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # CentOS Vault 镜像使用帮助
 
 ## 简介
@@ -33,7 +36,10 @@ yum makecache
 
 ## 配置参考
 
-如果是 CentOS 6 ，则把 `/etc/yum.repos.d/CentOS-Base.repo` 修改为下面的内容：
+根据你的 CentOS 版本选择对应的配置：
+
+<Tabs groupId="centos-version">
+  <TabItem value="centos6" label="CentOS 6">
 
 ```ini title="/etc/yum.repos.d/CentOS-Base.repo"
 [base]
@@ -61,3 +67,36 @@ gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 ```
+
+  </TabItem>
+  <TabItem value="centos7" label="CentOS 7">
+
+```ini title="/etc/yum.repos.d/CentOS-Base.repo"
+[base]
+name=CentOS-$releasever - Base
+baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/os/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+[updates]
+name=CentOS-$releasever - Updates
+baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/updates/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+[extras]
+name=CentOS-$releasever - Extras
+baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/extras/$basearch/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+[centosplus]
+name=CentOS-$releasever - Plus
+baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/centosplus/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+```
+
+  </TabItem>
+</Tabs>
