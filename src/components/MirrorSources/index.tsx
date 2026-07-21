@@ -11,6 +11,8 @@ import {useState, useMemo, useCallback} from 'react';
 import type {ReactNode} from 'react';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import IconCopy from '@theme/Icon/Copy';
+import IconSuccess from '@theme/Icon/Success';
 import type {MirrorSourcesProps, GenState} from './types';
 import {
   generateAptTraditional,
@@ -115,7 +117,6 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
       try {
         await navigator.clipboard.writeText(text);
       } catch {
-        // Fallback for non-secure contexts
         const textarea = document.createElement('textarea');
         textarea.value = text;
         textarea.style.position = 'fixed';
@@ -134,6 +135,12 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
     },
     [],
   );
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  }, []);
 
   // ── Toggle configs ─────────────────────────────────────────────────
 
@@ -183,6 +190,44 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
   const visibleToggles = toggles.filter((t) => t.show);
 
   // ── Render ─────────────────────────────────────────────────────────
+
+  const renderCopyButton = (target: 'config' | 'quick', text: string) => (
+    <button
+      type="button"
+      className={
+        copied === target
+          ? `${styles.copyButton} ${styles.copyButtonCopied}`
+          : styles.copyButton
+      }
+      onClick={() => handleCopy(text, target)}
+      aria-label={copied === target ? '已复制' : '复制代码'}
+      title="复制"
+    >
+      <span className={styles.copyButtonIcons} aria-hidden="true">
+        <IconCopy className={styles.copyButtonIcon} />
+        <IconSuccess className={styles.copyButtonSuccessIcon} />
+      </span>
+    </button>
+  );
+
+  const renderCodeBlock = (
+    filePath: string,
+    content: string,
+    target: 'config' | 'quick',
+  ) => (
+    <div
+      className={styles.codeBlock}
+      onMouseMove={handleMouseMove}
+    >
+      <div className={styles.codeHeader}>
+        <span className={styles.codeFilePath}>{filePath}</span>
+        {renderCopyButton(target, content)}
+      </div>
+      <pre className={styles.codeContent}>
+        <code>{content}</code>
+      </pre>
+    </div>
+  );
 
   return (
     <div className={styles.container}>
@@ -236,59 +281,14 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
       </div>
 
       {quickConfigType === 'none' ? (
-        <div className={styles.codeBlock}>
-          <div className={styles.codeHeader}>
-            <span className={styles.codeFilePath}>{displayFilePath}</span>
-            <button
-              type="button"
-              className={styles.copyButton}
-              onClick={() => handleCopy(configText, 'config')}
-              aria-label="复制配置内容"
-            >
-              {copied === 'config' ? '已复制' : '复制'}
-            </button>
-          </div>
-          <pre className={styles.codeContent}>
-            <code>{configText}</code>
-          </pre>
-        </div>
+        renderCodeBlock(displayFilePath, configText, 'config')
       ) : (
         <Tabs className={styles.tabs}>
           <TabItem value="manual" label="手动配置">
-            <div className={styles.codeBlock}>
-              <div className={styles.codeHeader}>
-                <span className={styles.codeFilePath}>{displayFilePath}</span>
-                <button
-                  type="button"
-                  className={styles.copyButton}
-                  onClick={() => handleCopy(configText, 'config')}
-                  aria-label="复制配置内容"
-                >
-                  {copied === 'config' ? '已复制' : '复制'}
-                </button>
-              </div>
-              <pre className={styles.codeContent}>
-                <code>{configText}</code>
-              </pre>
-            </div>
+            {renderCodeBlock(displayFilePath, configText, 'config')}
           </TabItem>
           <TabItem value="quick" label="快速配置">
-            <div className={styles.codeBlock}>
-              <div className={styles.codeHeader}>
-                <span className={styles.codeFilePath}>快速配置命令</span>
-                <button
-                  type="button"
-                  className={styles.copyButton}
-                  onClick={() => handleCopy(quickConfigText, 'quick')}
-                  aria-label="复制快速配置命令"
-                >
-                  {copied === 'quick' ? '已复制' : '复制'}
-                </button>
-              </div>
-              <pre className={styles.codeContent}>
-                <code>{quickConfigText}</code>
-              </pre>
-            </div>
+            {renderCodeBlock('快速配置命令', quickConfigText, 'quick')}
           </TabItem>
         </Tabs>
       )}

@@ -176,10 +176,39 @@
 /* ── Code Block ─────────────────────────────────────────────────────── */
 
 .codeBlock {
-  border-radius: var(--island-radius-md);
+  position: relative;
+  border-radius: var(--island-radius-sm);
   overflow: hidden;
-  border: 1px solid var(--ifm-color-emphasis-300);
+  border: var(--glass-border);
   box-shadow: var(--shadow-md);
+}
+
+.codeBlock::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.codeBlock:hover::after {
+  opacity: 1;
+}
+
+[data-theme='dark'] .codeBlock::after {
+  background: radial-gradient(
+    circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.08),
+    transparent 70%
+  );
 }
 
 .codeHeader {
@@ -187,18 +216,16 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.625rem 1rem;
-  background: rgba(15, 23, 42, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-[data-theme='dark'] .codeHeader {
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--ms-code-header-bg);
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  position: relative;
+  z-index: 4;
 }
 
 .codeFilePath {
   font-family: var(--ifm-font-family-monospace);
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--ms-code-header-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -208,39 +235,73 @@
 }
 
 .copyButton {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  background: var(--ms-code-copy-bg);
+  color: var(--ms-code-copy-text);
+  border: 1px solid var(--ms-code-copy-border);
   border-radius: var(--island-radius-sm);
-  color: rgba(255, 255, 255, 0.7);
-  padding: 0.25rem 0.75rem;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  font-family: var(--ifm-font-family-base);
+  padding: 0.4rem;
+  line-height: 0;
   cursor: pointer;
-  transition: background 150ms ease, color 150ms ease,
-    border-color 150ms ease, transform 100ms ease;
+  transition: opacity var(--ifm-transition-fast) ease-in-out,
+    background 150ms ease, color 150ms ease;
   flex-shrink: 0;
-  white-space: nowrap;
+  opacity: 0.4;
 }
 
-.copyButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.95);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.copyButton:active {
-  transform: scale(0.97);
-}
-
+.copyButton:hover,
 .copyButton:focus-visible {
-  outline: 2px solid var(--ifm-color-primary);
-  outline-offset: 2px;
+  opacity: 1 !important;
+  background: var(--ms-code-copy-hover-bg);
+  color: var(--ms-code-copy-hover-text);
+  outline: none;
+}
+
+.codeBlock:hover .copyButton {
+  opacity: 0.4;
+}
+
+.copyButtonIcons {
+  position: relative;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.copyButtonIcon,
+.copyButtonSuccessIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  fill: currentColor;
+  opacity: inherit;
+  width: inherit;
+  height: inherit;
+  transition: all var(--ifm-transition-fast) ease;
+}
+
+.copyButtonSuccessIcon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.33);
+  opacity: 0;
+  color: #00d600;
+}
+
+.copyButtonCopied .copyButtonIcon {
+  transform: scale(0.33);
+  opacity: 0;
+}
+
+.copyButtonCopied .copyButtonSuccessIcon {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition-delay: 0.075s;
 }
 
 .codeContent {
-  background: #1e293b;
-  color: #e2e8f0;
+  background: var(--ms-code-bg);
+  color: var(--ms-code-text);
   padding: 1rem 1.25rem;
   margin: 0;
   overflow-x: auto;
@@ -249,11 +310,6 @@
   line-height: 1.7;
   white-space: pre;
   tab-size: 4;
-}
-
-[data-theme='dark'] .codeContent {
-  background: #282a36;
-  color: #f8f8f2;
 }
 
 .tabs {
@@ -302,7 +358,9 @@
   .controlPanel,
   .switchTrack,
   .switchTrack::after,
-  .copyButton {
+  .copyButton,
+  .copyButtonIcon,
+  .copyButtonSuccessIcon {
     transition: none;
   }
 
