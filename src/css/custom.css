@@ -223,6 +223,8 @@ body {
 
 .theme-doc-sidebar-container [class*="sidebar_"]:not([class*="sidebarViewport"]):not([class*="sidebarHidden"]):not([class*="sidebarLogo"]) {
   padding-top: 0 !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
   top: 0 !important;
   max-height: 100% !important;
   width: 100% !important;
