@@ -1,0 +1,55 @@
+---
+sidebar_position: 1
+---
+
+import MirrorSources from '@site/src/components/MirrorSources';
+
+# CentOS 镜像使用帮助
+
+## 简介
+
+CentOS 是基于 RHEL 源代码编译的企业级 Linux 发行版，提供稳定、免费的服务器操作系统。本镜像同步了 CentOS 官方软件仓库。
+
+## 镜像信息
+
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：每6小时更新一次
+
+## 使用说明
+
+首先备份 `/etc/yum.repos.d/CentOS-Base.repo`
+
+根据对应的CentOS版本，编辑`/etc/yum.repos.d/CentOS-Base.repo`文件, 修改为对应内容。（详见后面配置参考）
+
+最后运行以下命令生成缓存
+
+```bash
+yum clean all
+yum makecache
+```
+
+## 配置参考
+
+注：CentOS 6/7 已停止维护，如需使用 CentOS 6/7 的源，请移步[CentOS Vault](centos-vault-help)。
+
+如果是 CentOS 8 ，则把 `/etc/yum.repos.d/CentOS-Base.repo` 修改为下面的内容：
+
+<MirrorSources
+  type="yum"
+  host="mirrors.gdut.edu.cn"
+  path="/centos"
+  versions={[
+    { label: 'CentOS 8', codename: '8' },
+  ]}
+  repos={[
+    { id: 'BaseOS', name: 'CentOS-$releasever - Base', pathTemplate: '$releasever/BaseOS/$basearch/os/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+    { id: 'AppStream', name: 'CentOS-$releasever - AppStream', pathTemplate: '$releasever/AppStream/$basearch/os/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+    { id: 'PowerTools', name: 'CentOS-$releasever - PowerTools', pathTemplate: '$releasever/PowerTools/$basearch/os/', enabled: false, gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+    { id: 'extras', name: 'CentOS-$releasever - Extras', pathTemplate: '$releasever/extras/$basearch/os/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+    { id: 'centosplus', name: 'CentOS-$releasever - Plus', pathTemplate: '$releasever/centosplus/$basearch/os/', enabled: false, gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+  ]}
+  filePath="/etc/yum.repos.d/CentOS-Base.repo"
+  options={{ https: false, source: false, proposed: false, security: false, sudo: true }}
+  quickConfigType="yum"
+/>

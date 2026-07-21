@@ -2,22 +2,15 @@
 sidebar_position: 1
 ---
 
-# Pypi镜像使用帮助
+# PyPI 镜像使用帮助
 
-### 收录架构
+## 简介
 
-* 全部
+PyPI（Python Package Index）是 Python 编程语言的官方软件包仓库，收录了众多第三方 Python 包。本镜像提供 PyPI 仓库的缓存代理服务，加速 Python 包的下载。
 
-### 收录版本
+## 镜像信息
 
-* 全部
-
-### 更新时间
-
-由于pypi镜像大小高达7TB+，故我们不进行全量镜像，而是进行缓存。所有数据被请求过一次后即会缓存到服务器硬盘，缓存30天（对于会变动的文件，缓存时间为2小时）。
-
-
----
+- **更新策略**：缓存代理。由于 PyPI 镜像大小高达 7TB+，故不进行全量镜像，而是进行缓存。所有数据被请求过一次后即会缓存到服务器硬盘，缓存 30 天（对于会变动的文件，缓存时间为 2 小时）。
 
 ## 使用说明
 
@@ -51,7 +44,6 @@ trusted-host = mirrors.gdut.edu.cn
 %APPDATA%/pip/pip.ini
 ```
 
-
 1. 打开此电脑，在最上面的的文件夹窗口输入：`%APPDATA%`
 2. 按回车跳转进入目录，并新建一个文件夹：`pip`
 3. 创建文件：`pip.ini`
@@ -72,4 +64,3 @@ trusted-host = mirrors.gdut.edu.cn
 pip config set global.index-url http://mirrors.gdut.edu.cn/pypi/simple
 pip config set install.trusted-host mirrors.gdut.edu.cn
 ```
-

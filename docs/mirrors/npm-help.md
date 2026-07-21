@@ -2,26 +2,19 @@
 sidebar_position: 1
 ---
 
-# npm镜像使用帮助
+# npm 镜像使用帮助
 
-### 收录架构
+## 简介
 
-* 全部
+npm 是 Node.js 的默认包管理器，用于安装、共享和管理 JavaScript 包。本镜像提供 npm 仓库的缓存代理服务，加速 Node.js 包的下载。
 
-### 收录版本
+## 镜像信息
 
-* 全部
-
-### 更新时间
-
-proxy代理仓库
-
-
----
+- **更新策略**：缓存代理，实时回源上游仓库。
 
 ## 使用说明
 
-proxy代理仓库。本站也支持https，如果npm使用http的源报错，可以尝试将url改成https。
+本镜像站支持 HTTPS，如果 npm 使用 HTTP 的源报错，可以尝试将 URL 改成 HTTPS。
 
 ### 临时使用
 
@@ -38,4 +31,3 @@ npm config get registry
 # 或
 npm info express
 ```
-

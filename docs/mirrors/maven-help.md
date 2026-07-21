@@ -2,28 +2,21 @@
 sidebar_position: 1
 ---
 
-# Maven镜像使用帮助
+# Maven 镜像使用帮助
 
-### 收录架构
+## 简介
 
-* 全部
+Maven 是 Java 项目管理和构建工具，用于管理项目的依赖、构建、文档和发布。本镜像提供 Maven 中央仓库的缓存代理服务，加速 Java 依赖包的下载。
 
-### 收录版本
+## 镜像信息
 
-* 全部
-
-### 更新时间
-
-proxy代理仓库
-
-
----
+- **更新策略**：缓存代理，实时回源上游仓库。
 
 ## 使用说明
 
-proxy代理仓库，不支持仓库搜索功能。
+本镜像为缓存代理仓库，不支持仓库搜索功能。
 
-### 一、在IntelliJ IDEA中使用
+### 在 IntelliJ IDEA 中使用
 
 在用户目录下的 .m2 文件夹中创建一个 `settings.xml` 文件，内容如下
 
@@ -46,9 +39,9 @@ Build, Execution, Deployment -> Build Tools -> Maven
 
 勾选 User settings file 后面的 Override，并指向前面的 `settings.xml` 文件
 
- ![IDEA Maven Settings](/img/maven.png)
+![IDEA Maven Settings](pathname://img/maven.png)
 
-### 二、在Maven软件中使用
+### 在 Maven 中使用
 
 以Maven 3.5.2为例：
 
@@ -71,7 +64,7 @@ vim ./apache-maven-3.5.2/conf/settings.xml
 </mirror>
 ```
 
-### 三、在Maven项目pom中使用
+### 在 Maven 项目 POM 中使用
 
 打开项目配置文件 `pom.xml`
 

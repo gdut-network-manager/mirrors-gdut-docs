@@ -4,98 +4,92 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Docker镜像使用帮助
+# Docker 镜像使用帮助
 
-### 收录架构
-
-* 全部
-
-### 支持的容器镜像库
-
-* Docker-Hub (docker.io)
-* GitHub Container Registry (ghcr.io)
-* RedHat Quay.io (quay.io)
-* Kubernetes Container Registry (registry.k8s.io)
-* Microsoft Artifact Registry (mcr.microsoft.com)
-* Google Container Registry (gcr.io)
-* Kubernetes Container Registry (k8s.gcr.io)
-* Elastic Docker Registry (docker.elastic.co)
-* NVIDIA Container Registry (nvcr.io)
-
-### 更新时间
-
-缓存加速
-
-
----
-
-## 使用说明
+## 简介
 
 基于 Harbor 实现的容器镜像代理仓库，支持搜索已经缓存下来的镜像，目前镜像站的容器镜像库有两种代理模式。
 
-### 一、前缀添加模式
+## 镜像信息
 
-#### 1. 对于使用 Docker-Hub 镜像仓库
+- **架构**：全部
+- **支持的容器镜像库**：
+  - Docker Hub (docker.io)
+  - GitHub Container Registry (ghcr.io)
+  - RedHat Quay.io (quay.io)
+  - Kubernetes Container Registry (registry.k8s.io)
+  - Microsoft Artifact Registry (mcr.microsoft.com)
+  - Google Container Registry (gcr.io)
+  - Kubernetes Container Registry (k8s.gcr.io)
+  - Elastic Docker Registry (docker.elastic.co)
+  - NVIDIA Container Registry (nvcr.io)
+- **更新策略**：缓存加速
+
+## 使用说明
+
+### 前缀添加模式
+
+#### Docker Hub (docker.io)
 
 ```bash
 docker pull registry.gdut.edu.cn/docker/google/pause:latest
 # 如果是官方镜像或者单级存储则加上默认的库名称library即可
-docekr pull registry.gdut.edu.cn/docker/library/nginx:latest
+docker pull registry.gdut.edu.cn/docker/library/nginx:latest
 ```
 
-#### 2. 对于使用 GitHub Container Registry (ghcr.io) 镜像仓库
+#### GitHub Container Registry (ghcr.io)
 
 ```bash
 docker pull registry.gdut.edu.cn/ghcr.io/hay-kot/homebox:latest
 ```
 
-#### 3. 对于使用 RedHat Quay.io (quay.io) 镜像仓库
+#### RedHat Quay.io (quay.io)
 
 ```bash
 docker pull registry.gdut.edu.cn/quay.io/coreos/flannel:v0.15.1
 ```
 
-#### 4. 对于使用 Kubernetes Container Registry (registry.k8s.io) 镜像仓库
+#### Kubernetes Container Registry (registry.k8s.io)
 
 ```bash
 docker pull registry.gdut.edu.cn/registry.k8s.io/coredns/coredns:v1.6.6
 # 如果是官方镜像或者单级存储则按如下所示拉取
-docekr pull registry.gdut.edu.cn/registry.k8s.io/kube-apiserver:v1.26.8
+docker pull registry.gdut.edu.cn/registry.k8s.io/kube-apiserver:v1.26.8
 ```
 
-#### 5. 对于使用 Microsoft Artifact Registry (mcr.microsoft.com) 镜像仓库
+#### Microsoft Artifact Registry (mcr.microsoft.com)
 
 ```bash
 docker pull registry.gdut.edu.cn/mcr.microsoft.com/coreos/flannel:v0.15.1
 ```
 
-#### 6. 对于使用 Google Container Registry (gcr.io) 镜像仓库
+#### Google Container Registry (gcr.io)
 
 ```bash
 docker pull registry.gdut.edu.cn/gcr.io/kaniko-project/executor:v1.13.0-debug
 ```
 
-#### 7. 对于使用旧版 Kubernetes Container Registry (k8s.gcr.io) 镜像仓库
+#### Kubernetes Container Registry (k8s.gcr.io)
 
 ```bash
 docker pull registry.gdut.edu.cn/registry.k8s.io/kube-proxy:v1.24.16
 ```
 
-#### 8. 对于使用 Elastic Docker Registry (docker.elastic.co) 镜像仓库
+#### Elastic Docker Registry (docker.elastic.co)
 
 ```bash
 docker pull registry.gdut.edu.cn/docker.elastic.co/elasticsearch/elasticsearch:8.17.1
 ```
 
-#### 9. 对于使用 NVIDIA Container Registry (nvcr.io) 镜像仓库
+#### NVIDIA Container Registry (nvcr.io)
 
 ```bash
 docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 ```
 
-所有镜像拉下来后该重新打Tag就重新打Tag
+拉取镜像后，如需重新打 Tag，请自行执行 `docker tag` 命令。
 
-#### 附: 本镜像站支持的主流容器镜像库对应的代理地址
+#### 代理地址对照表
 
 | **容器镜像库** | **原地址** | **代理地址** |
 |----|----|----|
@@ -110,15 +104,15 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 | **Elastic Docker registry** | `docker.elastic.co/foo/bar:latest` | `registry.gdut.edu.cn/docker.elastic.co/foo/bar:latest` |
 | **NVIDIA Container Registry** | `nvcr.io/foo/bar:latest` | `registry.gdut.edu.cn/nvcr.io/foo/bar:latest` |
 
-### 二、域名置换模式
+### 域名置换模式
 
 这种模式主要用在 Docker Daemon 配置中
 
-由于学校未提供 `registry.gdut.edu.cn` 的子域名的解析及公共 TLS 证书,因此需要进行亿些额外的配置
+由于学校未提供 `registry.gdut.edu.cn` 的子域名的解析及公共 TLS 证书，因此需要进行一些额外的配置
 
-#### 1. 配置 Hosts 文件
+#### 配置 Hosts 文件
 
-在本机所在的 Hosts 文件中添加以下记录，Hosts 文件的路径会因系统而已，请自行百度：
+在本机所在的 Hosts 文件中添加以下记录，Hosts 文件的路径会因系统而异，请自行百度：
 
 ```ini
 # GDUT Mirrors Registry
@@ -133,11 +127,11 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 # GDUT Mirrors Registry END
 ```
 
-#### 2. 信任镜像站的自签署 CA 证书
+#### 信任镜像站的自签署 CA 证书
 
 [点此](https://mirrors.gdut.edu.cn/certs/mirrors-ca.crt)下载镜像站的CA证书，然后安装到本机并信任该证书
 
-#### 3. 修改 Docker Daemon 配置
+#### 修改 Docker Daemon 配置
 
 对 Docker Daemon 配置进行修改，在`registry-mirrors`中将本镜像站的Docker镜像加速地址添加上去：
 
@@ -149,13 +143,13 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 }
 ```
 
-#### 4. 重启Docker
+#### 重启 Docker
 
 重启 Docker，让新配置生效，自此大功告成。
 
-#### 附a: 快速配置脚本：
+#### 快速配置脚本
 
-本镜像站供了一个快速配置脚本，可以用于快速配置 Docker 镜像源。
+本镜像站提供了一个快速配置脚本，可以用于快速配置 Docker 镜像源。
 
 使用方法：直接执行以下命令即可（需要有管理员权限）
 
@@ -172,7 +166,7 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
   </TabItem>
 </Tabs>
 
-#### 附b: 本镜像站支持的主流容器镜像库对应的代理地址
+#### 代理地址对照表
 
 | **容器镜像库** | **原地址** | **代理地址** |
 |----|----|----|
@@ -186,6 +180,3 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 | **Google Container Registry** | `gcr.io/foo/bar:latest` | `gcr.registry.gdut.edu.cn/foo/bar:latest` |
 | **Elastic Docker registry** | `docker.elastic.co/foo/bar:latest` | `elastic.registry.gdut.edu.cn/foo/bar:latest` |
 | **NVIDIA Container Registry** | `nvcr.io/foo/bar:latest` | `nvcr.registry.gdut.edu.cn/foo/bar:latest` |
-
-### 对于想要在此上传自己镜像的
-

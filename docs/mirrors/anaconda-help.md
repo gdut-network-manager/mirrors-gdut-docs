@@ -2,19 +2,23 @@
 sidebar_position: 1
 ---
 
-# Anaconda镜像使用帮助
+# Anaconda 镜像使用帮助
+
+## 简介
+
+Anaconda 是一个用于科学计算的 Python 发行版，支持 Linux、Mac、Windows，包含了众多流行的科学计算、数据分析的 Python 包。本镜像提供 Anaconda 仓库的缓存代理服务，加速 Conda 包的下载。
+
+## 镜像信息
+
+- **更新策略**：缓存代理，缓存 30 天。由于 Anaconda 镜像高达 3TB+，故不进行全量镜像，而是进行缓存。回源站点为清华开源软件镜像站。所有数据被请求过一次后即会缓存到服务器硬盘，缓存 30 天（对于会变动的文件，缓存时间为 2 小时）。
 
 ## 使用说明
 
-由于Anaconda镜像高达3TB+，故我们不进行全量镜像，而是进行缓存。回源站点为清华开源软件镜像站。所有数据被请求过一次后即会缓存到服务器硬盘，缓存30天（对于会变动的文件，缓存时间为2小时）。
-
-Anaconda 是一个用于科学计算的 Python 发行版，支持 Linux, Mac, Windows, 包含了众多流行的科学计算、数据分析的 Python 包。
-
 Anaconda 安装包可以到 https://mirrors.gdut.edu.cn/anaconda/archive/ 下载。
 
-修改用户目录下的 `.condar` 文件:
+修改用户目录下的 `.condarc` 文件：
 
-```yaml title=".condar"
+```yaml title=".condarc"
 channels:
   - defaults
 show_channel_urls: true
@@ -51,7 +55,6 @@ Miniconda 是一个 Anaconda 的轻量级替代，默认只包含了 `python` �
 
 Miniconda 安装包可以到 https://mirrors.gdut.edu.cn/anaconda/miniconda/ 下载。
 
-## 文档参考
+## 相关链接
 
-[清华大学开源软件镜像站](https://mirror.tuna.tsinghua.edu.cn/help/anaconda/)
-
+- [清华大学开源软件镜像站](https://mirror.tuna.tsinghua.edu.cn/help/anaconda/)

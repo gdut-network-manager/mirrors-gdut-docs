@@ -2,28 +2,23 @@
 sidebar_position: 1
 ---
 
-# ArchlinuxCN镜像使用帮助
+# ArchlinuxCN 镜像使用帮助
 
-### 收录架构
+## 简介
 
-* 全部
+archlinuxcn 仓库是由 Arch Linux 中文社区维护的第三方软件仓库，提供官方仓库中未收录的软件包，如中文输入法、常用桌面应用等。本镜像提供 archlinuxcn 仓库的镜像服务。
 
-### 收录版本
+## 镜像信息
 
-* 全部
-
-### 更新时间
-
-每6小时更新一次
-
-
----
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：每6小时更新一次
 
 ## 使用说明
 
 在 `/etc/pacman.conf` 文件末尾添加以下两行：
 
-```toml title="/etc/pacman.conf"
+```ini title="/etc/pacman.conf"
 [archlinuxcn]
 Server = http://mirrors.gdut.edu.cn/archlinuxcn/$arch
 ```
@@ -39,4 +34,3 @@ sudo pacman -S archlinuxcn-keyring
 ```bash
 sudo pacman -Sy
 ```
-

@@ -1,0 +1,50 @@
+---
+sidebar_position: 1
+---
+
+import MirrorSources from '@site/src/components/MirrorSources';
+
+# Debian 镜像使用帮助
+
+## 简介
+
+Debian 是一个完全由自由软件组成的类 Unix 操作系统，由 Debian 项目维护。本镜像提供 Debian 官方软件仓库的镜像服务。
+
+## 镜像信息
+
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：每6小时更新一次
+
+## 使用说明
+
+根据对应的 Debian 版本，编辑 `/etc/apt/sources.list` 文件，修改为如下内容。（操作前请做好相应备份）
+
+<MirrorSources
+  type="apt-traditional"
+  host="mirrors.gdut.edu.cn"
+  path="/debian"
+  versions={[
+    { label: '12 (bookworm)', codename: 'bookworm' },
+    { label: '11 (bullseye)', codename: 'bullseye' },
+    { label: '10 (buster)', codename: 'buster' },
+    { label: '9 (stretch)', codename: 'stretch' },
+  ]}
+  components={['main', 'contrib', 'non-free', 'non-free-firmware']}
+  filePath="/etc/apt/sources.list"
+  options={{ https: true, source: true, proposed: false, security: true }}
+  securityHost="deb.debian.org"
+  securityPath="/debian-security"
+/>
+
+:::note[提示]
+
+`non-free-firmware` 组件仅在 Debian 12 (bookworm) 及以上版本中可用，低版本请忽略该组件。
+
+:::
+
+或者直接使用以下命令进行替换：
+
+```bash
+sed -i 's|deb.debian.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list
+```

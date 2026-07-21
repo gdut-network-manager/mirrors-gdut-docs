@@ -1,0 +1,315 @@
+/**
+ * MirrorSources component styles.
+ * Uses design tokens from src/css/custom.css (glassmorphism, island radius, shadows).
+ * Supports dark mode via [data-theme='dark'].
+ */
+
+/* ── Container ──────────────────────────────────────────────────────── */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--island-gap);
+  margin: 1.5rem 0;
+}
+
+/* ── Control Panel (glassmorphism card) ─────────────────────────────── */
+
+.controlPanel {
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg-card);
+  backdrop-filter: var(--glass-blur-card);
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-md);
+  box-shadow: var(--island-shadow);
+  padding: 1.5rem;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.controlPanel:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Gradient top bar on hover (matches existing card pattern) */
+.controlPanel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #971943 0%, #b8345e 100%);
+  opacity: 0;
+  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.controlPanel:hover::before {
+  opacity: 1;
+}
+
+.controlPanelTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--ifm-color-content);
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Controls Grid ──────────────────────────────────────────────────── */
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.controlItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 40px;
+}
+
+.controlLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-color-content-secondary);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── Select ─────────────────────────────────────────────────────────── */
+
+.select {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-sm);
+  color: var(--ifm-color-content);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-family: var(--ifm-font-family-base);
+  cursor: pointer;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+  max-width: 180px;
+  flex-shrink: 1;
+}
+
+.select:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.select:focus {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px rgba(151, 25, 67, 0.15);
+}
+
+[data-theme='dark'] .select:focus {
+  box-shadow: 0 0 0 2px rgba(151, 25, 67, 0.3);
+}
+
+/* ── Toggle Switch (iOS-style) ──────────────────────────────────────── */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.switchInput {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.switchTrack {
+  position: absolute;
+  inset: 0;
+  background: var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-pill);
+  transition: background 200ms ease;
+}
+
+.switchTrack::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.switchInput:checked ~ .switchTrack {
+  background: var(--ifm-color-primary);
+}
+
+.switchInput:checked ~ .switchTrack::after {
+  transform: translateX(20px);
+}
+
+.switchInput:focus-visible ~ .switchTrack {
+  box-shadow: 0 0 0 2px var(--ifm-background-color),
+    0 0 0 4px var(--ifm-color-primary);
+}
+
+/* ── Code Block ─────────────────────────────────────────────────────── */
+
+.codeBlock {
+  border-radius: var(--island-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  box-shadow: var(--shadow-md);
+}
+
+.codeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 1rem;
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] .codeHeader {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.codeFilePath {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+  margin-right: 0.75rem;
+}
+
+.copyButton {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--island-radius-sm);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: var(--ifm-font-family-base);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease,
+    border-color 150ms ease, transform 100ms ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.copyButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.copyButton:active {
+  transform: scale(0.97);
+}
+
+.copyButton:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.codeContent {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem 1.25rem;
+  margin: 0;
+  overflow-x: auto;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  white-space: pre;
+  tab-size: 4;
+}
+
+[data-theme='dark'] .codeContent {
+  background: #282a36;
+  color: #f8f8f2;
+}
+
+/* ── Quick Config Button ────────────────────────────────────────────── */
+
+.quickConfigButton {
+  align-self: flex-start;
+  font-weight: 600;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────── */
+
+@media screen and (max-width: 768px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .controlItem {
+    min-height: 44px;
+  }
+
+  .controlPanel {
+    padding: 1.25rem;
+  }
+
+  .codeContent {
+    font-size: 0.75rem;
+    padding: 0.875rem 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .controlLabel {
+    font-size: 0.8125rem;
+  }
+
+  .codeHeader {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .codeContent {
+    font-size: 0.6875rem;
+    padding: 0.75rem;
+  }
+}
+
+/* ── Accessibility ──────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .controlPanel,
+  .switchTrack,
+  .switchTrack::after,
+  .copyButton {
+    transition: none;
+  }
+
+  .controlPanel:hover {
+    transform: none;
+  }
+}

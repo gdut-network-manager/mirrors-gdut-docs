@@ -87,11 +87,11 @@ code {
   --doc-sidebar-width: 320px;
 
   /* Glassmorphism — Light (simple, no saturate) */
-  --glass-bg-navbar: rgba(255, 255, 255, 0.7);
+  --glass-bg-navbar: rgba(245, 247, 250, 0.75);
   --glass-bg-sidebar: rgba(255, 255, 255, 0.7);
   --glass-bg-card: rgba(255, 255, 255, 0.95);
   --glass-bg-code: rgba(0, 0, 0, 0.03);
-  --glass-blur-navbar: blur(12px);
+  --glass-blur-navbar: blur(16px) saturate(160%);
   --glass-blur-sidebar: blur(12px);
   --glass-blur-card: blur(12px);
   --glass-border: 1px solid rgba(255, 255, 255, 0.3);
@@ -130,11 +130,11 @@ code {
   --island-shadow: var(--shadow-md);
 
   /* Glassmorphism — Dark */
-  --glass-bg-navbar: rgba(30, 41, 59, 0.7);
+  --glass-bg-navbar: rgba(15, 23, 42, 0.75);
   --glass-bg-sidebar: rgba(30, 41, 59, 0.7);
   --glass-bg-card: rgba(30, 41, 59, 0.95);
   --glass-bg-code: rgba(255, 255, 255, 0.05);
-  --glass-blur-navbar: blur(12px);
+  --glass-blur-navbar: blur(16px) saturate(160%);
   --glass-blur-sidebar: blur(12px);
   --glass-blur-card: blur(12px);
   --glass-border: 1px solid rgba(255, 255, 255, 0.1);

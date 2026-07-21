@@ -2,26 +2,17 @@
 sidebar_position: 1
 ---
 
-# Termux镜像使用帮助
+# Termux 镜像使用帮助
 
-### 收录架构
+## 简介
 
-* 全部
+Termux 是一个 Android 终端模拟器和 Linux 环境应用，无需 root 权限或额外设置即可直接使用。本镜像提供 Termux 软件包仓库的镜像服务，加速 Termux 软件包的下载。
 
-### 收录版本
+## 镜像信息
 
-* 全部
-
-### 更新时间
-
-每6小时更新一次
-
-
----
+- **更新策略**：每 6 小时更新一次
 
 ## 使用说明
-
-[Termux](https://termux.com/) is an Android terminal emulator and Linux environment app that works directly with no rooting or setup required.
 
 执行如下命令对源进行替换和更新：
 
@@ -36,4 +27,3 @@ apt update && apt upgrade
 # The termux repository mirror from GDUT:
 deb https://mirrors.gdut.edu.cn/termux stable main
 ```
-

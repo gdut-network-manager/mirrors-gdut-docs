@@ -1,0 +1,37 @@
+---
+sidebar_position: 1
+---
+
+import MirrorSources from '@site/src/components/MirrorSources';
+
+# Kali 镜像使用帮助
+
+## 简介
+
+Kali Linux 是一个基于 Debian 的 Linux 发行版，专为数字取证和渗透测试而设计。它由 Offensive Security 维护和资助，预装了大量安全测试工具。本镜像提供 Kali Linux 官方软件仓库的镜像服务。
+
+## 镜像信息
+
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：由于服务器磁盘空间不足，我们暂时不进行全量镜像，而是进行缓存。所有数据被请求过一次后即会缓存到服务器硬盘，缓存30天（对于会变动的文件，缓存时间为2小时）。
+
+## 使用说明
+
+根据对应的 Kali 版本，编辑 `/etc/apt/sources.list` 文件，修改为如下内容。（操作前请做好相应备份）
+
+<MirrorSources
+  type="apt-traditional"
+  host="mirrors.gdut.edu.cn"
+  path="/kali"
+  versions={[{ label: 'kali-rolling', codename: 'kali-rolling' }]}
+  components={['main', 'non-free', 'contrib']}
+  filePath="/etc/apt/sources.list"
+  options={{ https: true, source: true, proposed: false, security: false }}
+/>
+
+或者直接使用以下命令进行替换：
+
+```bash
+sed -i 's|http.kali.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list
+```

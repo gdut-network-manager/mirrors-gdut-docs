@@ -2,26 +2,17 @@
 sidebar_position: 1
 ---
 
-# OpenEuler镜像使用帮助
+# OpenEuler 镜像使用帮助
 
-### 收录架构
-
-* 全部
-
-### 收录版本
-
-* 全部
-
-### 更新时间
-
-每6小时更新一次
-
-
----
-
-## 介绍
+## 简介
 
 OpenEuler是一个开源免费的Linux发行版系统，通过开放的社区形式与全球的开发者共同构建一个开放、多元和架构包容的软件生态体系，OpenEuler同时是一个创新的系统，倡导客户在系统上提出创新想法、开拓新思路、实践新方案。
+
+## 镜像信息
+
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：每6小时更新一次
 
 ## 使用说明
 
@@ -40,11 +31,11 @@ yum clean all
 yum makecache
 ```
 
-### 配置参考
+## 配置参考
 
-这里以OpenEuler22.09为例，将 `/etc/yum.repos.d/CentOS-Base.repo` 修改为下面的内容：
+这里以OpenEuler22.09为例，将 `/etc/yum.repos.d/openEuler.repo` 修改为下面的内容：
 
-```toml title="/etc/yum.repos.d/CentOS-Base.repo"
+```ini title="/etc/yum.repos.d/openEuler.repo"
 [OS]
 name=OS
 baseurl=https://mirrors.gdut.edu.cn/openeuler/openEuler-22.09/OS/$basearch/
@@ -93,4 +84,3 @@ gpgkey=https://mirrors.gdut.edu.cn/openeuler/openEuler-22.09/OS/$basearch/RPM-GP
 ```bash
 sed -i 's|http://repo.openeuler.org|https://mirrors.gdut.edu.cn/openeuler/|g' /etc/yum.repos.d/openEuler.repo
 ```
-

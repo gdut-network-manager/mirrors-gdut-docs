@@ -4,22 +4,17 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Homebrew镜像使用帮助
+# Homebrew 镜像使用帮助
 
-### 收录架构
+## 简介
 
-* 全部
+Homebrew 是 macOS 和 Linux 的包管理器，提供软件的安装、卸载和更新功能。本镜像提供 Homebrew / Linuxbrew 源程序以及 formula / cask 索引的镜像服务。
 
-### 收录版本
+## 镜像信息
 
-* 全部
-
-### 更新时间
-
-每6小时更新一次
-
-
----
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：每6小时更新一次
 
 ## 使用说明
 
@@ -63,7 +58,7 @@ export HOMEBREW_INSTALL_FROM_API=1
 # export HOMEBREW_PIP_INDEX_URL
 ```
 
-前往 [Homebrew Bottles 镜像使用帮助](/docs/mirrors/homebrew-bottles-help) 中「临时替换」一节设置好 `HOMEBREW_API_DOMAIN` 与 `HOMEBREW_BOTTLE_DOMAIN`。
+前往 [Homebrew Bottles 镜像使用帮助](homebrew-bottles-help) 中「临时替换」一节设置好 `HOMEBREW_API_DOMAIN` 与 `HOMEBREW_BOTTLE_DOMAIN`。
 
 最后，在终端运行以下命令以安装 Homebrew / Linuxbrew：
 
@@ -84,17 +79,17 @@ rm -rf brew-install
 <Tabs groupId="operating-systems">
   <TabItem value="mac" label="macOS">
     以下针对基于 Apple Silicon CPU 设备上的 macOS 系统（命令行运行 `uname -m` 应输出 `arm64`）上的 Homebrew：
-  
+
     ```bash
     test -r ~/.bash_profile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
     test -r ~/.zprofile && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
     ```
-  
+
     对基于 Intel CPU 设备上的 macOS 系统（命令行运行 `uname -m` 应输出 `x86_64`）的用户可跳过本步。
   </TabItem>
   <TabItem value="linux" label="Linux">
     以下针对 Linux 系统上的 Linuxbrew：
-  
+
     ```bash
     test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
     test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -102,7 +97,7 @@ rm -rf brew-install
     test -r ~/.profile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.profile
     test -r ~/.zprofile && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.zprofile
     ```
-  
+
     参考了 https://docs.brew.sh/Homebrew-on-Linux。
   </TabItem>
 </Tabs>
@@ -117,24 +112,24 @@ export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.gdut.edu.cn/git/homebrew/brew.g
 brew update
 ```
 
-前往 [Homebrew Bottles 镜像使用帮助](/docs/mirrors/homebrew-bottles-help) 中「临时替换」一节设置好 `HOMEBREW_API_DOMAIN`
+前往 [Homebrew Bottles 镜像使用帮助](homebrew-bottles-help) 中「临时替换」一节设置好 `HOMEBREW_API_DOMAIN`
 
 <Tabs groupId="operating-systems">
   <TabItem value="mac" label="macOS">
     ```bash
     # 手动设置
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gdut.edu.cn/git/homebrew/homebrew-core.git"
-    
+
     # 注：自 brew 4.0 起，大部分 Homebrew 用户无需设置 homebrew/core 和 homebrew/cask 镜像，只需设置 HOMEBREW_API_DOMAIN 即可。
     # 如果需要使用 Homebrew 的开发命令 (如 `brew cat <formula>`)，则仍然需要设置 homebrew/core 和 homebrew/cask 镜像。
     # 请按需执行如下两行命令：
     brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.gdut.edu.cn/git/homebrew/homebrew-core.git
     brew tap --custom-remote --force-auto-update homebrew/cask https://mirrors.gdut.edu.cn/git/homebrew/homebrew-cask.git
-    
+
     # 除 homebrew/core 和 homebrew/cask 仓库外的 tap 仓库仍然需要设置镜像
     brew tap --custom-remote --force-auto-update homebrew/command-not-found https://mirrors.gdut.edu.cn/git/homebrew/homebrew-command-not-found.git
     brew update
-    
+
     # 或使用下面的几行命令自动设置
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gdut.edu.cn/git/homebrew/homebrew-core.git"
     for tap in core cask command-not-found; do
@@ -146,12 +141,12 @@ brew update
   <TabItem value="linux" label="Linux">
     ```bash
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gdut.edu.cn/git/homebrew/homebrew-core.git"
-    
+
     # 注：自 brew 4.0 起，使用默认 prefix (即 "/home/linuxbrew/.linuxbrew") 的大部分 Homebrew 用户无需设置 homebrew/core 镜像，只需设置 HOMEBREW_API_DOMAIN 即可。
     # 如果不是默认 prefix 或者需要使用 Homebrew 的开发命令 (如 `brew cat <formula>`)，则仍然需要设置 homebrew/core 镜像。
     # 请按需执行如下命令：
     brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.gdut.edu.cn/git/homebrew/homebrew-core.git
-    
+
     # 除 homebrew/core 仓库外的 tap 仓库仍然需要设置镜像
     brew tap --custom-remote --force-auto-update homebrew/command-not-found https://mirrors.gdut.edu.cn/git/homebrew/homebrew-command-not-found.git
     brew update
@@ -186,7 +181,7 @@ test -r ~/.zprofile && echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gd
     unset HOMEBREW_API_DOMAIN
     unset HOMEBREW_BREW_GIT_REMOTE
     git -C "$(brew --repo)" remote set-url origin https://github.com/Homebrew/brew
-    
+
     # 以下针对 macOS 系统上的 Homebrew
     unset HOMEBREW_CORE_GIT_REMOTE
     BREW_TAPS="$(BREW_TAPS="$(brew tap 2>/dev/null)"; echo -n "${BREW_TAPS//$'\n'/:}")"
@@ -195,7 +190,7 @@ test -r ~/.zprofile && echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gd
             brew tap --custom-remote "homebrew/${tap}" "https://github.com/Homebrew/homebrew-${tap}"
         fi
     done
-    
+
     # 重新拉取远程
     brew update
     ```
@@ -206,13 +201,13 @@ test -r ~/.zprofile && echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gd
     unset HOMEBREW_API_DOMAIN
     unset HOMEBREW_BREW_GIT_REMOTE
     git -C "$(brew --repo)" remote set-url origin https://github.com/Homebrew/brew
-    
+
     # 以下针对 Linux 系统上的 Linuxbrew
     unset HOMEBREW_API_DOMAIN
     unset HOMEBREW_CORE_GIT_REMOTE
     brew tap --custom-remote homebrew/core https://github.com/Homebrew/homebrew-core
     brew tap --custom-remote homebrew/command-not-found https://github.com/Homebrew/homebrew-command-not-found
-    
+
     # 重新拉取远程
     brew update
     ```
@@ -224,5 +219,3 @@ test -r ~/.zprofile && echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gd
 **重置回默认远程后，用户应该删除 shell 的 profile 设置中的环境变量 `HOMEBREW_BREW_GIT_REMOTE` 和 `HOMEBREW_CORE_GIT_REMOTE` 以免运行 `brew update` 时远程再次被更换。**
 
 :::
-
-

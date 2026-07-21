@@ -2,26 +2,19 @@
 sidebar_position: 1
 ---
 
-# CentOS Vault镜像使用帮助
+# CentOS Vault 镜像使用帮助
 
-### 收录架构
+## 简介
 
-* 全部
+CentOS Vault 是储存 CentOS 过时版本的仓库。CentOS 各版本在停止维护后，其软件包会被归档到 CentOS Vault，方便用户继续获取旧版本的软件包。
 
-### 收录版本
+## 镜像信息
 
-* 全部
-
-### 更新时间
-
-由于CentOS Vault镜像占用空间大，并且访问数量少，所以我们只进行缓存，所有文件缓存30天。
-
-
----
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：由于镜像占用空间大且访问量少，采用缓存方式，所有文件缓存30天
 
 ## 使用说明
-
-这是储存CentOS过时版本的仓库。
 
 首先备份 `/etc/yum.repos.d/CentOS-Base.repo`
 
@@ -42,7 +35,7 @@ yum makecache
 
 如果是 CentOS 6 ，则把 `/etc/yum.repos.d/CentOS-Base.repo` 修改为下面的内容：
 
-```toml title="/etc/yum.repos.d/CentOS-Base.repo"
+```ini title="/etc/yum.repos.d/CentOS-Base.repo"
 [base]
 name=CentOS-$releasever - Base
 baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/os/$basearch/
@@ -68,6 +61,3 @@ gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 ```
-
-
-

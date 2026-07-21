@@ -1,0 +1,47 @@
+---
+sidebar_position: 1
+---
+
+import MirrorSources from '@site/src/components/MirrorSources';
+
+# Raspbian 镜像使用帮助
+
+## 简介
+
+Raspbian 是专门用于 ARM 卡片式计算机 Raspberry Pi® "树莓派"的操作系统。
+
+Raspbian 是树莓派的开发与维护机构 The Raspbeery Pi Foundation "树莓派基金会"，推荐用于树莓派的首选系统。
+
+由于以下原因，Raspbian 需要单独组建软件仓库，而不能使用 Debian 的仓库：
+
+- Debian下所有的软件包都需要用 armhf 重新编译。
+- 树莓派有部分特有的软件包，例如 BCM2835 CPU 的 GPIO 底层操作库。
+- 树莓派用户倾向于探索、尝试最新的软件。这与 Debian 软件源的策略完全不同。
+
+## 镜像信息
+
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：每6小时更新一次
+
+## 使用说明
+
+推荐同时修改[RaspberryPi源](raspberrypi-help)。
+
+根据对应的 Debian 版本，编辑 `/etc/apt/sources.list` 文件，修改为如下内容。（操作前请做好相应备份）
+
+<MirrorSources
+  type="apt-traditional"
+  host="mirrors.gdut.edu.cn"
+  path="/raspbian/raspbian"
+  versions={[
+    { label: '12 (bookworm)', codename: 'bookworm' },
+    { label: '11 (bullseye)', codename: 'bullseye' },
+    { label: '10 (buster)', codename: 'buster' },
+  ]}
+  components={['main', 'non-free', 'contrib']}
+  filePath="/etc/apt/sources.list"
+  options={{ https: true, source: true, proposed: false, security: true }}
+  securityHost="deb.debian.org"
+  securityPath="/debian-security"
+/>

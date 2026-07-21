@@ -1,0 +1,76 @@
+---
+sidebar_position: 1
+---
+
+import MirrorSources from '@site/src/components/MirrorSources';
+
+# Ubuntu Ports 镜像使用帮助
+
+## 简介
+
+Ubuntu Ports 是 Ubuntu 为非 x86/x64 架构提供的软件仓库，适用于 `arm64`、`armhf`、`ppc64el`、`riscv64`、`s390x` 等架构的设备。
+
+## 镜像信息
+
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：由于服务器磁盘空间不足，我们暂时不进行全量镜像，而是进行缓存。所有数据被请求过一次后即会缓存到服务器硬盘，缓存30天（对于会变动的文件，缓存时间为2小时）。
+
+## 使用说明
+
+在 Ubuntu 24.04 之前，Ubuntu 的软件源配置文件使用传统的 One-Line-Style，路径为 `/etc/apt/sources.list`；从 Ubuntu 24.04 开始，Ubuntu 的软件源配置文件变更为 DEB822 格式，路径为 `/etc/apt/sources.list.d/ubuntu.sources`。
+
+可以通过以下命令查看当前系统版本：
+
+```bash
+cat /etc/os-release
+```
+
+`VERSION_ID` 后面的版本号即为当前系统版本，`VERSION_CODENAME` 后面的是代号。代号在软件源配置文件中会被使用。**请在下面的配置中选择符合你的机器的版本号，在替换配置前确认代号一致，否则之后的更新操作可能导致系统出现问题。**
+
+### 传统格式（`/etc/apt/sources.list`）
+
+将系统自带的 `/etc/apt/sources.list` 文件做个备份，然后根据下方配置替换内容即可。
+
+<MirrorSources
+  type="apt-traditional"
+  host="mirrors.gdut.edu.cn"
+  path="/ubuntu-ports"
+  versions={[
+    { label: '24.04 LTS (noble)', codename: 'noble' },
+    { label: '22.04 LTS (jammy)', codename: 'jammy' },
+    { label: '20.04 LTS (focal)', codename: 'focal' },
+    { label: '18.04 LTS (bionic)', codename: 'bionic' },
+  ]}
+  components={['main', 'restricted', 'universe', 'multiverse']}
+  filePath="/etc/apt/sources.list"
+  options={{ https: true, source: true, proposed: true, security: true }}
+  securityHost="ports.ubuntu.com"
+  securityPath="/ubuntu-ports"
+/>
+
+### DEB822 格式（`/etc/apt/sources.list.d/ubuntu.sources`）
+
+自 Ubuntu 24.04 起，Ubuntu 开始支持通过 DEB822 格式的配置文件来配置 deb 镜像源。
+
+<MirrorSources
+  type="apt-deb822"
+  host="mirrors.gdut.edu.cn"
+  path="/ubuntu-ports"
+  versions={[
+    { label: '24.04 LTS (noble)', codename: 'noble' },
+    { label: '22.04 LTS (jammy)', codename: 'jammy' },
+  ]}
+  components={['main', 'restricted', 'universe', 'multiverse']}
+  filePath="/etc/apt/sources.list.d/ubuntu.sources"
+  options={{ https: true, source: true, proposed: true, security: true }}
+  securityHost="ports.ubuntu.com"
+  securityPath="/ubuntu-ports"
+  signedByKey="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
+/>
+
+:::note[提示]
+
+因镜像站同步有延迟，可能会导致生产环境系统不能及时检查、安装上最新的安全更新，不建议替换 security 源。如有此需求，可关闭上方「本站安全源」开关，安全更新将使用官方源。
+
+:::
