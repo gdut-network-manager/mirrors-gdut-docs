@@ -75,15 +75,7 @@ const config: Config = {
     ],
   ],
 
-  stylesheets: [
-    {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css',
-      type: 'text/css',
-      integrity:
-        'sha384-n8MVd4RsNIqrm8vz4AsSxN7j2YzM9kQpQYB9A4fFQ1YyY7M7fL6f3L6G7Kp3KQvE',
-      crossorigin: 'anonymous',
-    },
-  ],
+  stylesheets: [],
 
   themes: [
     // ... Your other themes.
