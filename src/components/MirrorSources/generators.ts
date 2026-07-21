@@ -223,7 +223,7 @@ export function generateYum(
     fields.push(`enabled=${enabled}`);
     fields.push('gpgcheck=1');
     if (repo.gpgKey) {
-      fields.push(`gpgkey=${repo.gpgKey}`);
+      fields.push(`gpgkey=${repo.gpgKey.replace(/{codename}/g, state.version.codename)}`);
     }
     return fields.join('\n');
   });

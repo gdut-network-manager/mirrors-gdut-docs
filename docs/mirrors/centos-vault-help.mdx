@@ -2,8 +2,7 @@
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import MirrorSources from '@site/src/components/MirrorSources';
 
 # CentOS Vault 镜像使用帮助
 
@@ -38,65 +37,21 @@ yum makecache
 
 根据你的 CentOS 版本选择对应的配置：
 
-<Tabs groupId="centos-version">
-  <TabItem value="centos6" label="CentOS 6">
-
-```ini title="/etc/yum.repos.d/CentOS-Base.repo"
-[base]
-name=CentOS-$releasever - Base
-baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/os/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
-
-[updates]
-name=CentOS-$releasever - Updates
-baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/updates/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
-
-[extras]
-name=CentOS-$releasever - Extras
-baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/extras/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
-
-[centosplus]
-name=CentOS-$releasever - Plus
-baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/centosplus/$basearch/
-gpgcheck=1
-enabled=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
-```
-
-  </TabItem>
-  <TabItem value="centos7" label="CentOS 7">
-
-```ini title="/etc/yum.repos.d/CentOS-Base.repo"
-[base]
-name=CentOS-$releasever - Base
-baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/os/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-
-[updates]
-name=CentOS-$releasever - Updates
-baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/updates/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-
-[extras]
-name=CentOS-$releasever - Extras
-baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/extras/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-
-[centosplus]
-name=CentOS-$releasever - Plus
-baseurl=http://mirrors.gdut.edu.cn/centos-vault/$releasever/centosplus/$basearch/
-gpgcheck=1
-enabled=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-```
-
-  </TabItem>
-</Tabs>
+<MirrorSources
+  type="yum"
+  host="mirrors.gdut.edu.cn"
+  path="/centos-vault"
+  versions={[
+    { label: 'CentOS 6', codename: '6' },
+    { label: 'CentOS 7', codename: '7' },
+  ]}
+  repos={[
+    { id: 'base', name: 'CentOS-$releasever - Base', pathTemplate: '$releasever/os/$basearch/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{codename}' },
+    { id: 'updates', name: 'CentOS-$releasever - Updates', pathTemplate: '$releasever/updates/$basearch/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{codename}' },
+    { id: 'extras', name: 'CentOS-$releasever - Extras', pathTemplate: '$releasever/extras/$basearch/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{codename}' },
+    { id: 'centosplus', name: 'CentOS-$releasever - Plus', pathTemplate: '$releasever/centosplus/$basearch/', enabled: false, gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-{codename}' },
+  ]}
+  filePath="/etc/yum.repos.d/CentOS-Base.repo"
+  options={{ https: false, source: false, proposed: false, security: false, sudo: true }}
+  quickConfigType="yum"
+/>
