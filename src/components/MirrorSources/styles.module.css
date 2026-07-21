@@ -306,7 +306,7 @@
   margin: 0;
   overflow-x: auto;
   font-family: var(--ifm-font-family-monospace);
-  font-size: 0.8125rem;
+  font-size: var(--ifm-code-font-size);
   font-weight: 500;
   line-height: 1.7;
   white-space: pre;
