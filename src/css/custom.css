@@ -314,6 +314,15 @@ body {
   color: #032f62;
 }
 
+.token.key,
+.token.directive {
+  color: #005cc5;
+}
+
+.token.docstring {
+  color: #032f62;
+}
+
 .token.punctuation,
 .token.symbol {
   color: #586069;
@@ -387,6 +396,19 @@ body {
 
 [data-theme='dark'] .token.property {
   color: rgb(241, 250, 140) !important;
+}
+
+[data-theme='dark'] .token.key,
+[data-theme='dark'] .token.directive {
+  color: rgb(241, 250, 140) !important;
+}
+
+[data-theme='dark'] .token.docstring {
+  color: rgb(255, 121, 198) !important;
+}
+
+[data-theme='dark'] .token.attr-value {
+  color: rgb(255, 121, 198) !important;
 }
 
 [data-theme='dark'] .token.deleted {

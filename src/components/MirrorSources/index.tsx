@@ -9,11 +9,13 @@
 
 import {useState, useMemo, useCallback} from 'react';
 import type {ReactNode} from 'react';
+import {Highlight, themes} from 'prism-react-renderer';
+import {useColorMode} from '@docusaurus/theme-common';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import IconCopy from '@theme/Icon/Copy';
 import IconSuccess from '@theme/Icon/Success';
-import type {MirrorSourcesProps, GenState} from './types';
+import type {MirrorSourcesProps, GenState, MirrorType} from './types';
 import {
   generateAptTraditional,
   generateAptDeb822,
@@ -22,6 +24,13 @@ import {
   generateQuickConfig,
 } from './generators';
 import styles from './styles.module.css';
+
+const LANG_MAP: Record<MirrorType, string> = {
+  'apt-traditional': 'properties',
+  'apt-deb822': 'yaml',
+  'yum': 'ini',
+  'pacman': 'bash',
+};
 
 interface ToggleConfig {
   key: string;
@@ -189,6 +198,10 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
 
   const visibleToggles = toggles.filter((t) => t.show);
 
+  const {isDarkTheme} = useColorMode();
+  const prismTheme = isDarkTheme ? themes.dracula : themes.github;
+  const configLanguage = LANG_MAP[type] ?? 'bash';
+
   // ── Render ─────────────────────────────────────────────────────────
 
   const renderCopyButton = (target: 'config' | 'quick', text: string) => (
@@ -214,6 +227,7 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
     filePath: string,
     content: string,
     target: 'config' | 'quick',
+    language: string,
   ) => (
     <div
       className={styles.codeBlock}
@@ -223,9 +237,23 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
         <span className={styles.codeFilePath}>{filePath}</span>
         {renderCopyButton(target, content)}
       </div>
-      <pre className={styles.codeContent}>
-        <code>{content}</code>
-      </pre>
+      <Highlight theme={prismTheme} code={content} language={language}>
+        {({className, style, tokens, getLineProps, getTokenProps}) => (
+          <pre className={`${styles.codeContent} ${className}`} style={style}>
+            {tokens.map((line, i) => {
+              const lineProps = getLineProps({line});
+              return (
+                <div key={i} {...lineProps}>
+                  {line.map((token, key) => {
+                    const tokenProps = getTokenProps({token});
+                    return <span key={key} {...tokenProps} />;
+                  })}
+                </div>
+              );
+            })}
+          </pre>
+        )}
+      </Highlight>
     </div>
   );
 
@@ -281,14 +309,14 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
       </div>
 
       {quickConfigType === 'none' ? (
-        renderCodeBlock(displayFilePath, configText, 'config')
+        renderCodeBlock(displayFilePath, configText, 'config', configLanguage)
       ) : (
         <Tabs className={styles.tabs}>
           <TabItem value="manual" label="手动配置">
-            {renderCodeBlock(displayFilePath, configText, 'config')}
+            {renderCodeBlock(displayFilePath, configText, 'config', configLanguage)}
           </TabItem>
           <TabItem value="quick" label="快速配置">
-            {renderCodeBlock('快速配置命令', quickConfigText, 'quick')}
+            {renderCodeBlock('快速配置命令', quickConfigText, 'quick', 'bash')}
           </TabItem>
         </Tabs>
       )}
