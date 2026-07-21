@@ -379,6 +379,7 @@ body {
 [data-theme='dark'] .token.keyword,
 [data-theme='dark'] .token.variable {
   color: rgb(189, 147, 249) !important;
+  font-style: normal !important;
 }
 
 [data-theme='dark'] .token.function {
