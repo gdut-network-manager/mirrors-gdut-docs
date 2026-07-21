@@ -3,6 +3,8 @@ sidebar_position: 1
 ---
 
 import MirrorSources from '@site/src/components/MirrorSources';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # CentOS Vault 镜像使用帮助
 
@@ -37,6 +39,9 @@ yum makecache
 
 根据你的 CentOS 版本选择对应的配置：
 
+<Tabs groupId="centos-version">
+  <TabItem value="centos6-7" label="CentOS 6/7">
+
 <MirrorSources
   type="yum"
   host="mirrors.gdut.edu.cn"
@@ -55,3 +60,34 @@ yum makecache
   options={{ https: false, source: false, proposed: false, security: false, sudo: true }}
   quickConfigType="yum"
 />
+
+  </TabItem>
+  <TabItem value="centos8" label="CentOS 8">
+
+:::note[版本说明]
+
+CentOS 8 已于 2021 年 12 月 31 日结束维护，最终小版本为 **8.5.2111**。下方配置中的 `$releasever` 需替换为该完整版本号。
+
+:::
+
+<MirrorSources
+  type="yum"
+  host="mirrors.gdut.edu.cn"
+  path="/centos-vault"
+  versions={[
+    { label: 'CentOS 8 (8.5.2111)', codename: '8.5.2111' },
+  ]}
+  repos={[
+    { id: 'BaseOS', name: 'CentOS-$releasever - Base', pathTemplate: '$releasever/BaseOS/$basearch/os/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+    { id: 'AppStream', name: 'CentOS-$releasever - AppStream', pathTemplate: '$releasever/AppStream/$basearch/os/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+    { id: 'PowerTools', name: 'CentOS-$releasever - PowerTools', pathTemplate: '$releasever/PowerTools/$basearch/os/', enabled: false, gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+    { id: 'extras', name: 'CentOS-$releasever - Extras', pathTemplate: '$releasever/extras/$basearch/os/', gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+    { id: 'centosplus', name: 'CentOS-$releasever - Plus', pathTemplate: '$releasever/centosplus/$basearch/os/', enabled: false, gpgKey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial' },
+  ]}
+  filePath="/etc/yum.repos.d/CentOS-Base.repo"
+  options={{ https: false, source: false, proposed: false, security: false, sudo: true }}
+  quickConfigType="yum"
+/>
+
+  </TabItem>
+</Tabs>
