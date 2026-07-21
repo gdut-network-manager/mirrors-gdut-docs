@@ -17,7 +17,7 @@ ELPA（Emacs Lisp Package Archive）是 Emacs 的包仓库，收录了众多 Ema
 
 根据你的需求，设置 `package-archives`，比如用 GNU ELPA 和 MELPA：
 
-```elisp
+```lisp
 (setq package-archives '(("gnu"   . "http://mirrors.gdut.edu.cn/elpa/gnu/")
 ("melpa" . "http://mirrors.gdut.edu.cn/elpa/melpa/")))
 ```
@@ -28,7 +28,7 @@ ELPA（Emacs Lisp Package Archive）是 Emacs 的包仓库，收录了众多 Ema
 
 添加下面的代码到 `.spacemacs` 的 `dotspacemacs/user-init()`
 
-```elisp
+```lisp
 (setq configuration-layer--elpa-archives
 '(("melpa-cn" . "http://mirrors.gdut.edu.cn/elpa/melpa/")
 ("org-cn"   . "http://mirrors.gdut.edu.cn/elpa/org/")
@@ -39,7 +39,7 @@ ELPA（Emacs Lisp Package Archive）是 Emacs 的包仓库，收录了众多 Ema
 
 使用 `configuration-layer-elpa-archives` 代替原来的 `configuration-layer--elpa-archives` （ `--` 换成 `-` ）
 
-```elisp
+```lisp
 (setq configuration-layer-elpa-archives
 '(("melpa-cn" . "http://mirrors.gdut.edu.cn/elpa/melpa/")
 ("org-cn"   . "http://mirrors.gdut.edu.cn/elpa/org/")
@@ -50,7 +50,7 @@ ELPA（Emacs Lisp Package Archive）是 Emacs 的包仓库，收录了众多 Ema
 
 Cask 是一个 Emacs Lisp 的项目管理工具。这里还是以 GNU ELPA 和 MELPA 为例，在添加下面的代码到 Cask
 
-```elisp
+```lisp
 (source "gnu"   "http://mirrors.gdut.edu.cn/elpa/gnu/")
 (source "melpa" "http://mirrors.gdut.edu.cn/elpa/melpa/")
 ```

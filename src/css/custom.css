@@ -267,6 +267,75 @@ body {
   border: var(--glass-border);
 }
 
+/* ── Light Mode: Enhanced Syntax Highlighting ────────────────────── */
+
+.prism-code {
+  color: #24292e;
+  background-color: #f6f8fa;
+}
+
+.token.keyword,
+.token.constant,
+.token.builtin,
+.token.variable {
+  color: #d73a49;
+}
+
+.token.function {
+  color: #6f42c1;
+}
+
+.token.string,
+.token.char {
+  color: #032f62;
+}
+
+.token.comment {
+  color: #6a737d;
+  font-style: italic;
+}
+
+.token.number,
+.token.boolean {
+  color: #005cc5;
+}
+
+.token.tag,
+.token.selector {
+  color: #22863a;
+}
+
+.token.attr-name {
+  color: #6f42c1;
+}
+
+.token.attr-value,
+.token.property {
+  color: #032f62;
+}
+
+.token.punctuation,
+.token.symbol {
+  color: #586069;
+}
+
+.token.operator,
+.token.entity {
+  color: #d73a49;
+}
+
+.token.url {
+  color: #005cc5;
+}
+
+.token.class-name {
+  color: #6f42c1;
+}
+
+.token.namespace {
+  color: #005cc5;
+}
+
 /* ── Dark Mode: Dracula Syntax Highlighting ───────────────────────── */
 
 [data-theme='dark'] .prism-code {

@@ -43,7 +43,7 @@ export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.gdut.edu.cn/homebrew-bottles"
     ```
   </TabItem>
   <TabItem value="zsh" label="Zsh">
-    ```zsh
+    ```bash
     echo 'export HOMEBREW_API_DOMAIN="https://mirrors.gdut.edu.cn/homebrew-bottles/api"' >> ~/.zprofile
     echo 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.gdut.edu.cn/homebrew-bottles"' >> ~/.zprofile
     export HOMEBREW_API_DOMAIN="https://mirrors.gdut.edu.cn/homebrew-bottles/api"
