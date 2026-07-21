@@ -75,7 +75,7 @@
 .controlItem {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.75rem;
   min-height: 40px;
 }
@@ -256,11 +256,8 @@
   color: #f8f8f2;
 }
 
-/* ── Quick Config Button ────────────────────────────────────────────── */
-
-.quickConfigButton {
-  align-self: flex-start;
-  font-weight: 600;
+.tabs {
+  margin-top: 0;
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────── */

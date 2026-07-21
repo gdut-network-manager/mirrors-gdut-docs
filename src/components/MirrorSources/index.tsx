@@ -9,7 +9,8 @@
 
 import {useState, useMemo, useCallback} from 'react';
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 import type {MirrorSourcesProps, GenState} from './types';
 import {
   generateAptTraditional,
@@ -66,7 +67,6 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
   const [proposed, setProposed] = useState(false);
   const [security, setSecurity] = useState(false);
   const [sudo, setSudo] = useState(true);
-  const [showQuickConfig, setShowQuickConfig] = useState(false);
   const [copied, setCopied] = useState<'config' | 'quick' | null>(null);
 
   // ── Derived state ──────────────────────────────────────────────────
@@ -235,40 +235,44 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
         </div>
       </div>
 
-      {/* Configuration Code Block */}
-      <div className={styles.codeBlock}>
-        <div className={styles.codeHeader}>
-          <span className={styles.codeFilePath}>{displayFilePath}</span>
-          <button
-            type="button"
-            className={styles.copyButton}
-            onClick={() => handleCopy(configText, 'config')}
-            aria-label="复制配置内容"
-          >
-            {copied === 'config' ? '已复制' : '复制'}
-          </button>
+      {quickConfigType === 'none' ? (
+        <div className={styles.codeBlock}>
+          <div className={styles.codeHeader}>
+            <span className={styles.codeFilePath}>{displayFilePath}</span>
+            <button
+              type="button"
+              className={styles.copyButton}
+              onClick={() => handleCopy(configText, 'config')}
+              aria-label="复制配置内容"
+            >
+              {copied === 'config' ? '已复制' : '复制'}
+            </button>
+          </div>
+          <pre className={styles.codeContent}>
+            <code>{configText}</code>
+          </pre>
         </div>
-        <pre className={styles.codeContent}>
-          <code>{configText}</code>
-        </pre>
-      </div>
-
-      {/* Quick Configuration */}
-      {quickConfigType !== 'none' && (
-        <>
-          <button
-            type="button"
-            className={clsx(
-              'button',
-              'button--primary',
-              'button--outline',
-              styles.quickConfigButton,
-            )}
-            onClick={() => setShowQuickConfig(!showQuickConfig)}
-          >
-            {showQuickConfig ? '隐藏快速配置' : '快速配置'}
-          </button>
-          {showQuickConfig && (
+      ) : (
+        <Tabs className={styles.tabs}>
+          <TabItem value="manual" label="手动配置">
+            <div className={styles.codeBlock}>
+              <div className={styles.codeHeader}>
+                <span className={styles.codeFilePath}>{displayFilePath}</span>
+                <button
+                  type="button"
+                  className={styles.copyButton}
+                  onClick={() => handleCopy(configText, 'config')}
+                  aria-label="复制配置内容"
+                >
+                  {copied === 'config' ? '已复制' : '复制'}
+                </button>
+              </div>
+              <pre className={styles.codeContent}>
+                <code>{configText}</code>
+              </pre>
+            </div>
+          </TabItem>
+          <TabItem value="quick" label="快速配置">
             <div className={styles.codeBlock}>
               <div className={styles.codeHeader}>
                 <span className={styles.codeFilePath}>快速配置命令</span>
@@ -285,8 +289,8 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
                 <code>{quickConfigText}</code>
               </pre>
             </div>
-          )}
-        </>
+          </TabItem>
+        </Tabs>
       )}
     </div>
   );

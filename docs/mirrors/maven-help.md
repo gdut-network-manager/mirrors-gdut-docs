@@ -39,7 +39,7 @@ Build, Execution, Deployment -> Build Tools -> Maven
 
 勾选 User settings file 后面的 Override，并指向前面的 `settings.xml` 文件
 
-![IDEA Maven Settings](pathname://img/maven.png)
+![IDEA Maven Settings](pathname:///help/img/maven.png)
 
 ### 在 Maven 中使用
 
