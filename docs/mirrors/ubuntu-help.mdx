@@ -28,6 +28,23 @@ Ubuntu 是基于 Debian 的开源 Linux 发行版，由 Canonical 公司主导�
 cat /etc/os-release
 ```
 
+输出示例：
+
+```bash
+PRETTY_NAME="Ubuntu 22.04.2 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.2 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+```
+
 `VERSION_ID` 后面的版本号即为当前系统版本，`VERSION_CODENAME` 后面的是代号。代号在软件源配置文件中会被使用。**请在下面的配置中选择符合你的机器的版本号，在替换配置前确认代号一致，否则之后的更新操作可能导致系统出现问题。**
 
 ### 传统格式（`/etc/apt/sources.list`）
@@ -39,6 +56,7 @@ cat /etc/os-release
   host="mirrors.gdut.edu.cn"
   path="/ubuntu"
   versions={[
+    { label: '26.04 LTS (resolute)', codename: 'resolute' },
     { label: '24.04 LTS (noble)', codename: 'noble' },
     { label: '22.04 LTS (jammy)', codename: 'jammy' },
     { label: '20.04 LTS (focal)', codename: 'focal' },
@@ -60,6 +78,7 @@ cat /etc/os-release
   host="mirrors.gdut.edu.cn"
   path="/ubuntu"
   versions={[
+    { label: '26.04 LTS (resolute)', codename: 'resolute' },
     { label: '24.04 LTS (noble)', codename: 'noble' },
     { label: '22.04 LTS (jammy)', codename: 'jammy' },
   ]}

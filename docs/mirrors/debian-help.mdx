@@ -18,6 +18,28 @@ Debian 是一个完全由自由软件组成的类 Unix 操作系统，由 Debian
 
 ## 使用说明
 
+可以通过以下命令查看当前系统版本：
+
+```bash
+cat /etc/os-release
+```
+
+输出示例：
+
+```bash
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+NAME="Debian GNU/Linux"
+VERSION_ID="12"
+VERSION="12 (bookworm)"
+VERSION_CODENAME=bookworm
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+```
+
+`VERSION_ID` 后面的数字即为当前系统版本号，`VERSION_CODENAME` 后面的是代号。**请在下面的配置中选择符合你的机器的版本，在替换配置前确认代号一致，否则之后的更新操作可能导致系统出现问题。**
+
 根据对应的 Debian 版本，编辑 `/etc/apt/sources.list` 文件，修改为如下内容。（操作前请做好相应备份）
 
 <MirrorSources
