@@ -10,10 +10,18 @@ RubyGems 是 Ruby 的包管理器，提供了 Ruby 程序和库的分发与安�
 
 ## 镜像信息
 
-- **镜像地址**：`https://mirrors.gdut.edu.cn/rubygems/`
+本镜像提供两种访问方式，任选其一即可：
+
+| 方式 | 地址 |
+| --- | --- |
+| **Nginx 缓存加速**（推荐） | `https://mirrors.gdut.edu.cn/rubygems/` |
+| **Nexus 缓存代理** | `https://mirrors.gdut.edu.cn/nexus/repository/rubygems/` |
+
 - **更新策略**：缓存代理。所有 gem 包在被请求后即会缓存到服务器，缓存 30 天。
 
 ## 使用说明
+
+以下示例均以 **Nginx 缓存加速** 地址为例。如需使用 Nexus 缓存代理，将地址替换为 `https://mirrors.gdut.edu.cn/nexus/repository/rubygems/` 即可。
 
 ### gem
 
@@ -53,6 +61,26 @@ bundle config set --global mirror.https://rubygems.org https://mirrors.gdut.edu.
 
 :::
 
+### Gemfile
+
+在项目根目录的 `Gemfile` 中，将 `source` 直接替换为镜像地址即可：
+
+```ruby title="Gemfile"
+# 将默认源
+# source 'https://rubygems.org'
+# 替换为镜像源
+source 'https://mirrors.gdut.edu.cn/rubygems/'
+
+gem 'rails'
+gem 'puma'
+```
+
+:::tip[提示]
+
+此方式仅对当前项目生效。如需全局生效，请配合 [gem](#gem) 或 [Bundler](#bundler) 方式使用。
+
+:::
+
 ## 恢复默认源
 
 如果需要恢复使用官方源，执行以下命令：
@@ -64,3 +92,5 @@ gem sources --remove https://mirrors.gdut.edu.cn/rubygems/ --add https://rubygem
 # Bundler
 bundle config unset mirror.https://rubygems.org
 ```
+
+如果使用了 Gemfile 方式，将 `Gemfile` 中的 `source` 改回 `https://rubygems.org/` 即可。
