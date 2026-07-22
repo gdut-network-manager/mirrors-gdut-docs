@@ -313,6 +313,33 @@
   tab-size: 4;
 }
 
+.codeContentWrap {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+}
+
+/* ── Header Buttons Container ───────────────────────────────────────── */
+
+.headerButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+/* ── Wrap Button ───────────────────────────────────────────────────── */
+
+.wrapButtonIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: currentColor;
+}
+
+.wrapButtonActive .wrapButtonIcon {
+  color: var(--ifm-color-primary);
+}
+
 .tabs {
   margin-top: 0;
 }

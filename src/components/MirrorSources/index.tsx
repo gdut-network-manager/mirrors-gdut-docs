@@ -15,6 +15,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import IconCopy from '@theme/Icon/Copy';
 import IconSuccess from '@theme/Icon/Success';
+import IconWordWrap from '@theme/Icon/WordWrap';
 import type {MirrorSourcesProps, GenState, MirrorType} from './types';
 import {
   generateAptTraditional,
@@ -79,6 +80,7 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
   const [security, setSecurity] = useState(false);
   const [sudo, setSudo] = useState(true);
   const [copied, setCopied] = useState<'config' | 'quick' | null>(null);
+  const [wrap, setWrap] = useState<Record<string, boolean>>({});
 
   // ── Derived state ──────────────────────────────────────────────────
 
@@ -149,6 +151,10 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
     const rect = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
     e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  }, []);
+
+  const toggleWrap = useCallback((target: string) => {
+    setWrap((prev) => ({...prev, [target]: !prev[target]}));
   }, []);
 
   // ── Toggle configs ─────────────────────────────────────────────────
@@ -223,39 +229,68 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
     </button>
   );
 
+  const renderWrapButton = (target: 'config' | 'quick') => {
+    const isWrapped = !!wrap[target];
+    return (
+      <button
+        type="button"
+        className={
+          isWrapped
+            ? `${styles.copyButton} ${styles.wrapButtonActive}`
+            : styles.copyButton
+        }
+        onClick={() => toggleWrap(target)}
+        aria-label={isWrapped ? '取消自动换行' : '自动换行'}
+        title={isWrapped ? '取消自动换行' : '自动换行'}
+        aria-pressed={isWrapped}
+      >
+        <IconWordWrap className={styles.wrapButtonIcon} aria-hidden="true" />
+      </button>
+    );
+  };
+
   const renderCodeBlock = (
     filePath: string,
     content: string,
     target: 'config' | 'quick',
     language: string,
-  ) => (
-    <div
-      className={styles.codeBlock}
-      onMouseMove={handleMouseMove}
-    >
-      <div className={styles.codeHeader}>
-        <span className={styles.codeFilePath}>{filePath}</span>
-        {renderCopyButton(target, content)}
+  ) => {
+    const isWrapped = !!wrap[target];
+    return (
+      <div
+        className={styles.codeBlock}
+        onMouseMove={handleMouseMove}
+      >
+        <div className={styles.codeHeader}>
+          <span className={styles.codeFilePath}>{filePath}</span>
+          <div className={styles.headerButtons}>
+            {renderWrapButton(target)}
+            {renderCopyButton(target, content)}
+          </div>
+        </div>
+        <Highlight theme={prismTheme} code={content} language={language}>
+          {({className, style, tokens, getLineProps, getTokenProps}) => (
+            <pre
+              className={`${styles.codeContent} ${className} ${isWrapped ? styles.codeContentWrap : ''}`}
+              style={style}
+            >
+              {tokens.map((line, i) => {
+                const lineProps = getLineProps({line});
+                return (
+                  <div key={i} {...lineProps}>
+                    {line.map((token, key) => {
+                      const tokenProps = getTokenProps({token});
+                      return <span key={key} {...tokenProps} />;
+                    })}
+                  </div>
+                );
+              })}
+            </pre>
+          )}
+        </Highlight>
       </div>
-      <Highlight theme={prismTheme} code={content} language={language}>
-        {({className, style, tokens, getLineProps, getTokenProps}) => (
-          <pre className={`${styles.codeContent} ${className}`} style={style}>
-            {tokens.map((line, i) => {
-              const lineProps = getLineProps({line});
-              return (
-                <div key={i} {...lineProps}>
-                  {line.map((token, key) => {
-                    const tokenProps = getTokenProps({token});
-                    return <span key={key} {...tokenProps} />;
-                  })}
-                </div>
-              );
-            })}
-          </pre>
-        )}
-      </Highlight>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className={styles.container}>
