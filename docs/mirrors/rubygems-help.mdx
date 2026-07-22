@@ -2,8 +2,7 @@
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import {MirrorSelector, MirrorContent} from '@site/src/components/MirrorSelector';
 
 # RubyGems 镜像使用帮助
 
@@ -13,7 +12,7 @@ RubyGems 是 Ruby 的包管理器，提供了 Ruby 程序和库的分发与安�
 
 ## 镜像信息
 
-本镜像提供两种访问方式，下方配置可按需切换：
+本镜像提供两种访问方式，下方配置可通过下拉框按需切换：
 
 | 方式 | 地址 |
 | --- | --- |
@@ -24,14 +23,15 @@ RubyGems 是 Ruby 的包管理器，提供了 Ruby 程序和库的分发与安�
 
 ## 使用说明
 
-以下所有配置示例均提供 Nginx 和 Nexus 两种地址，选择一种即可。切换上方的选项卡后，下方所有代码块会自动联动。
+<MirrorSelector>
+
+以下所有配置示例均提供 Nginx 和 Nexus 两种地址，选择一种即可。切换上方的下拉框后，下方所有代码块会自动联动。
 
 ### gem
 
 使用以下命令替换 gem 默认源：
 
-<Tabs groupId="mirror-source">
-  <TabItem value="nginx" label="Nginx 缓存加速">
+<MirrorContent type="nginx">
 
 ```bash
 # 添加镜像源并移除默认源
@@ -41,8 +41,9 @@ gem sources -l
 # 应该只有镜像源一个
 ```
 
-  </TabItem>
-  <TabItem value="nexus" label="Nexus 缓存代理">
+</MirrorContent>
+
+<MirrorContent type="nexus">
 
 ```bash
 # 添加镜像源并移除默认源
@@ -52,13 +53,11 @@ gem sources -l
 # 应该只有镜像源一个
 ```
 
-  </TabItem>
-</Tabs>
+</MirrorContent>
 
 或者，编辑 `~/.gemrc`，将镜像地址加到 `sources` 字段：
 
-<Tabs groupId="mirror-source">
-  <TabItem value="nginx" label="Nginx 缓存加速">
+<MirrorContent type="nginx">
 
 ```yaml title="~/.gemrc"
 ---
@@ -70,8 +69,9 @@ gem sources -l
 :bulk_threshold: 1000
 ```
 
-  </TabItem>
-  <TabItem value="nexus" label="Nexus 缓存代理">
+</MirrorContent>
+
+<MirrorContent type="nexus">
 
 ```yaml title="~/.gemrc"
 ---
@@ -83,29 +83,27 @@ gem sources -l
 :bulk_threshold: 1000
 ```
 
-  </TabItem>
-</Tabs>
+</MirrorContent>
 
 ### Bundler
 
 使用以下命令将 Bundler 的默认源替换为镜像源：
 
-<Tabs groupId="mirror-source">
-  <TabItem value="nginx" label="Nginx 缓存加速">
+<MirrorContent type="nginx">
 
 ```bash
 bundle config set --global mirror.https://rubygems.org https://mirrors.gdut.edu.cn/rubygems
 ```
 
-  </TabItem>
-  <TabItem value="nexus" label="Nexus 缓存代理">
+</MirrorContent>
+
+<MirrorContent type="nexus">
 
 ```bash
 bundle config set --global mirror.https://rubygems.org https://mirrors.gdut.edu.cn/nexus/repository/rubygems
 ```
 
-  </TabItem>
-</Tabs>
+</MirrorContent>
 
 :::tip[提示]
 
@@ -117,8 +115,7 @@ bundle config set --global mirror.https://rubygems.org https://mirrors.gdut.edu.
 
 在项目根目录的 `Gemfile` 中，将 `source` 直接替换为镜像地址即可：
 
-<Tabs groupId="mirror-source">
-  <TabItem value="nginx" label="Nginx 缓存加速">
+<MirrorContent type="nginx">
 
 ```ruby title="Gemfile"
 # 将默认源
@@ -130,8 +127,9 @@ gem 'rails'
 gem 'puma'
 ```
 
-  </TabItem>
-  <TabItem value="nexus" label="Nexus 缓存代理">
+</MirrorContent>
+
+<MirrorContent type="nexus">
 
 ```ruby title="Gemfile"
 # 将默认源
@@ -143,14 +141,15 @@ gem 'rails'
 gem 'puma'
 ```
 
-  </TabItem>
-</Tabs>
+</MirrorContent>
 
 :::tip[提示]
 
 此方式仅对当前项目生效。如需全局生效，请配合 [gem](#gem) 或 [Bundler](#bundler) 方式使用。
 
 :::
+
+</MirrorSelector>
 
 ## 恢复默认源
 
