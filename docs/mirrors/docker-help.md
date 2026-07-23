@@ -116,14 +116,14 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 
 ```ini
 # GDUT Mirrors Registry
-222.200.97.228 docker.registry.gdut.edu.cn
-222.200.97.228 ghcr.registry.gdut.edu.cn
-222.200.97.228 quay.registry.gdut.edu.cn
-222.200.97.228 k8s.registry.gdut.edu.cn
-222.200.97.228 mcr.registry.gdut.edu.cn
-222.200.97.228 gcr.registry.gdut.edu.cn
-222.200.97.228 nvcr.registry.gdut.edu.cn
-222.200.97.228 elastic.registry.gdut.edu.cn
+202.116.132.68 docker.registry.gdut.edu.cn
+202.116.132.68 ghcr.registry.gdut.edu.cn
+202.116.132.68 quay.registry.gdut.edu.cn
+202.116.132.68 k8s.registry.gdut.edu.cn
+202.116.132.68 mcr.registry.gdut.edu.cn
+202.116.132.68 gcr.registry.gdut.edu.cn
+202.116.132.68 nvcr.registry.gdut.edu.cn
+202.116.132.68 elastic.registry.gdut.edu.cn
 # GDUT Mirrors Registry END
 ```
 
