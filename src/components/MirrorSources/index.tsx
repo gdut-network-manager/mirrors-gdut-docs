@@ -30,7 +30,7 @@ const LANG_MAP: Record<MirrorType, string> = {
   'apt-traditional': 'properties',
   'apt-deb822': 'yaml',
   'yum': 'ini',
-  'pacman': 'bash',
+  'pacman': 'ini',
 };
 
 interface ToggleConfig {
