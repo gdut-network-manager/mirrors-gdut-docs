@@ -110,14 +110,10 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 
 :::tip[两种模式说明]
 - **前缀添加模式**（见上方）：手动在镜像地址前添加 `registry.gdut.edu.cn/`，使用主域名，无需额外配置，适用于所有平台。
-- **域名置换模式**（本节）：配置运行时自动重定向，使用子域名（如 `docker.registry.gdut.edu.cn`），需配置 Hosts 与 CA 证书。除 Docker 外的其他平台还支持在 mirror 配置中使用前缀添加路径，无需子域名，详见各平台说明。
+- **域名置换模式**（本节）：配置运行时自动重定向，使用子域名（如 `docker.registry.gdut.edu.cn`），需配置 Hosts 与 CA 证书。除 Docker 外的其他平台还支持在 mirror 配置中使用前缀添加路径，无需子域名，详见[各平台配置](#各平台配置)。
 :::
 
-#### 前置配置（子域名置换方式通用）
-
-使用域名置换模式（子域名方式）前，需完成以下配置。**前缀添加模式使用主域名，无需此步骤。**
-
-##### 配置 Hosts 文件
+#### 配置 Hosts 文件
 
 在本机所在的 Hosts 文件中添加以下记录，Hosts 文件的路径会因系统而异，请自行百度：
 
@@ -134,13 +130,28 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 # GDUT Mirrors Registry END
 ```
 
-##### 信任镜像站的自签署 CA 证书
+#### 信任镜像站的自签署 CA 证书
 
 [点此](https://mirrors.gdut.edu.cn/certs/mirrors-ca.crt)下载镜像站的CA证书，然后安装到本机并信任该证书
 
-#### 平台配置
+#### 代理地址对照表
 
-以下按容器运行时平台分别介绍配置方法，可通过选项卡切换。
+| **容器镜像库** | **原地址** | **代理地址** |
+|----|----|----|
+| **Docker Hub** | `nginx:latest` | `docker.registry.gdut.edu.cn/library/nginx:latest` |
+| **Docker Hub** | `rancher/rancher:latest` | `docker.registry.gdut.edu.cn/rancher/rancher:latest` |
+| **Docker Hub** | `docker.io/foo/bar:latest` | `docker.registry.gdut.edu.cn/foo/bar:latest` |
+| **GitHub Package Registry** | `ghcr.io/foo/bar:latest` | `ghcr.registry.gdut.edu.cn/foo/bar:latest` |
+| **Red Hat Quay** | `quay.io/foo/bar:latest` | `quay.registry.gdut.edu.cn/foo/bar:latest` |
+| **Kubernetes Container Registry** | `registry.k8s.io/foo/bar:latest` | `k8s.registry.gdut.edu.cn/foo/bar:latest` |
+| **Microsoft Container Registry** | `mcr.microsoft.com/foo/bar:latest` | `mcr.registry.gdut.edu.cn/foo/bar:latest` |
+| **Google Container Registry** | `gcr.io/foo/bar:latest` | `gcr.registry.gdut.edu.cn/foo/bar:latest` |
+| **Elastic Docker registry** | `docker.elastic.co/foo/bar:latest` | `elastic.registry.gdut.edu.cn/foo/bar:latest` |
+| **NVIDIA Container Registry** | `nvcr.io/foo/bar:latest` | `nvcr.registry.gdut.edu.cn/foo/bar:latest` |
+
+### 各平台配置
+
+以下按容器运行时平台分别介绍配置方法，可通过选项卡切换。除 Docker 仅支持域名置换模式外，其余平台均支持前缀添加模式与域名置换模式两种配置方式。
 
 <Tabs groupId="container-platforms">
   <TabItem value="docker" label="Docker">
@@ -185,21 +196,6 @@ Docker 通过修改 Daemon 配置文件实现镜像加速。Docker 仅支持域�
     ```
   </TabItem>
 </Tabs>
-
-**代理地址对照表**
-
-| **容器镜像库** | **原地址** | **代理地址** |
-|----|----|----|
-| **Docker Hub** | `nginx:latest` | `docker.registry.gdut.edu.cn/library/nginx:latest` |
-| **Docker Hub** | `rancher/rancher:latest` | `docker.registry.gdut.edu.cn/rancher/rancher:latest` |
-| **Docker Hub** | `docker.io/foo/bar:latest` | `docker.registry.gdut.edu.cn/foo/bar:latest` |
-| **GitHub Package Registry** | `ghcr.io/foo/bar:latest` | `ghcr.registry.gdut.edu.cn/foo/bar:latest` |
-| **Red Hat Quay** | `quay.io/foo/bar:latest` | `quay.registry.gdut.edu.cn/foo/bar:latest` |
-| **Kubernetes Container Registry** | `registry.k8s.io/foo/bar:latest` | `k8s.registry.gdut.edu.cn/foo/bar:latest` |
-| **Microsoft Container Registry** | `mcr.microsoft.com/foo/bar:latest` | `mcr.registry.gdut.edu.cn/foo/bar:latest` |
-| **Google Container Registry** | `gcr.io/foo/bar:latest` | `gcr.registry.gdut.edu.cn/foo/bar:latest` |
-| **Elastic Docker registry** | `docker.elastic.co/foo/bar:latest` | `elastic.registry.gdut.edu.cn/foo/bar:latest` |
-| **NVIDIA Container Registry** | `nvcr.io/foo/bar:latest` | `nvcr.registry.gdut.edu.cn/foo/bar:latest` |
 
   </TabItem>
   <TabItem value="containerd" label="Containerd">
@@ -246,7 +242,7 @@ server = "https://gcr.io"
 
 **域名置换模式**
 
-使用子域名（需完成[前置配置](#前置配置子域名置换方式通用)），将 host 指向对应的子域名：
+使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)），将 host 指向对应的子域名：
 
 ```toml
 # /etc/containerd/certs.d/docker.io/hosts.toml
@@ -303,7 +299,7 @@ location = "gcr.io"
 
 **域名置换模式**
 
-使用子域名（需完成[前置配置](#前置配置子域名置换方式通用)）：
+使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)）：
 
 ```toml
 # /etc/containers/registries.conf
@@ -370,7 +366,7 @@ location = "quay.io"
 
 **域名置换模式**
 
-使用子域名（需完成[前置配置](#前置配置子域名置换方式通用)）：
+使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)）：
 
 ```toml
 # /etc/containers/registries.conf
@@ -432,7 +428,7 @@ mirrors:
 
 **域名置换模式**
 
-使用子域名（需完成[前置配置](#前置配置子域名置换方式通用)），直接指向对应子域名：
+使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)），直接指向对应子域名：
 
 ```yaml
 # /etc/rancher/rke2/registries.yaml
@@ -509,7 +505,7 @@ spec:
 
 **域名置换模式**
 
-使用子域名（需完成[前置配置](#前置配置子域名置换方式通用)）：
+使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)）：
 
 ```yaml
 # gdut-mirror-idms.yaml
