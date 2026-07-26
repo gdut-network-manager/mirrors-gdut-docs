@@ -198,8 +198,8 @@ body {
   position: sticky;
   top: 0;
   background: var(--glass-bg-navbar);
-  backdrop-filter: var(--glass-blur-navbar);
   -webkit-backdrop-filter: var(--glass-blur-navbar);
+  backdrop-filter: var(--glass-blur-navbar);
   border: none;
   border-bottom: 1px solid var(--ifm-color-emphasis-300);
   border-radius: 0;
@@ -220,8 +220,8 @@ body {
   top: calc(var(--ifm-navbar-height) + var(--island-margin));
   height: calc(100vh - var(--ifm-navbar-height) - var(--island-margin) * 2);
   background: var(--glass-bg-sidebar);
-  backdrop-filter: var(--glass-blur-sidebar);
   -webkit-backdrop-filter: var(--glass-blur-sidebar);
+  backdrop-filter: var(--glass-blur-sidebar);
   border: var(--glass-border);
   border-radius: var(--island-radius-lg);
   box-shadow: var(--island-shadow);
@@ -265,8 +265,8 @@ body {
 .card {
   position: relative;
   background: var(--glass-bg-card);
-  backdrop-filter: var(--glass-blur-card);
   -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: var(--island-radius-md);
   box-shadow: var(--island-shadow);
@@ -283,8 +283,8 @@ body {
 
 .theme-code-block {
   position: relative;
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border-radius: var(--island-radius-sm);
   border: var(--glass-border);
 }
@@ -554,8 +554,8 @@ body {
   .card,
   .theme-code-block {
     background: var(--ifm-background-color);
-    backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 
@@ -572,8 +572,8 @@ body {
 .collapseSidebarButton_PEFL,
 [class*="collapseSidebarButton_"] {
   background: transparent;
-  backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   border: none;
   border-top: var(--glass-border);
   border-radius: 0 0 var(--island-radius-lg) var(--island-radius-lg);
@@ -588,8 +588,8 @@ body {
 /* Expand sidebar button (when sidebar is hidden) */
 [class*="expandButton_"] {
   background: var(--glass-bg-sidebar);
-  backdrop-filter: var(--glass-blur-sidebar);
   -webkit-backdrop-filter: var(--glass-blur-sidebar);
+  backdrop-filter: var(--glass-blur-sidebar);
   border: var(--glass-border);
   border-radius: var(--island-radius-lg);
   box-shadow: var(--island-shadow);
@@ -609,8 +609,8 @@ body {
   position: relative;
   overflow: hidden;
   background: var(--glass-bg-card);
-  backdrop-filter: var(--glass-blur-card);
   -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
   border: var(--glass-border);
   border-radius: var(--island-radius-md);
   box-shadow: var(--island-shadow);

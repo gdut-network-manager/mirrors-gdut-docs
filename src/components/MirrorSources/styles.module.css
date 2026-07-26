@@ -19,8 +19,8 @@
   position: relative;
   overflow: hidden;
   background: var(--glass-bg-card);
-  backdrop-filter: var(--glass-blur-card);
   -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: var(--island-radius-md);
   box-shadow: var(--island-shadow);
