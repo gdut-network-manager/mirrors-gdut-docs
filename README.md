@@ -4,17 +4,13 @@
 
 ## 截图预览
 
-| 首页 | 文档页 |
-|:---:|:---:|
-| ![首页](screenshots/home.png) | ![文档页](screenshots/docs.png) |
+| 首页 | 文档页 | MirrorSources 交互组件 |
+|:---:|:---:|:---:|
+| ![首页](screenshots/home.png) | ![文档页](screenshots/docs.png) | ![MirrorSources](screenshots/mirror-sources.png) |
 
-| MirrorSources 交互组件 | 代码块与语法高亮 |
-|:---:|:---:|
-| ![MirrorSources](screenshots/mirror-sources.png) | ![代码块](screenshots/code-blocks.png) |
-
-| MirrorSelector 下拉切换 | 本地搜索 |
-|:---:|:---:|
-| ![MirrorSelector](screenshots/mirror-selector.png) | ![搜索](screenshots/search.png) |
+| 代码块与语法高亮 | MirrorSelector 下拉切换 | 本地搜索 |
+|:---:|:---:|:---:|
+| ![代码块](screenshots/code-blocks.png) | ![MirrorSelector](screenshots/mirror-selector.png) | ![搜索](screenshots/search.png) |
 
 ## 功能特性
 
