@@ -27,6 +27,11 @@ import TabItem from '@theme/TabItem';
 
 ## 使用说明
 
+:::tip[两种模式说明]
+- **前缀添加模式**：手动在镜像地址前添加 `registry.gdut.edu.cn/`，使用主域名，无需额外配置，适用于所有平台。
+- **域名置换模式**：配置容器运行时自动重定向，使用子域名（如 `docker.registry.gdut.edu.cn`），需配置 Hosts 与 CA 证书。除 Docker 外的其他平台还支持在 mirror 配置中使用前缀添加路径，无需子域名，详见[各平台配置](#各平台配置)。
+:::
+
 ### 前缀添加模式
 
 #### Docker Hub (docker.io)
@@ -224,7 +229,7 @@ version = 3
 # /etc/containerd/certs.d/docker.io/hosts.toml
 server = "https://registry-1.docker.io"
 
-[host."https://registry.gdut.edu.cn/v2/docker.io"]
+[host."https://registry.gdut.edu.cn/v2/docker"]
   capabilities = ["pull", "resolve"]
   override_path = true
 ```
@@ -285,7 +290,7 @@ prefix = "docker.io"
 location = "docker.io"
 
   [[registry.mirror]]
-  location = "registry.gdut.edu.cn/docker.io"
+  location = "registry.gdut.edu.cn/docker"
 
 [[registry]]
 prefix = "gcr.io"
@@ -347,7 +352,7 @@ prefix = "docker.io"
 location = "docker.io"
 
   [[registry.mirror]]
-  location = "registry.gdut.edu.cn/docker.io"
+  location = "registry.gdut.edu.cn/docker"
 
 [[registry]]
 prefix = "gcr.io"
@@ -408,7 +413,7 @@ mirrors:
     endpoint:
       - "https://registry.gdut.edu.cn"
     rewrite:
-      "^(.*)": "docker.io/$1"
+      "^(.*)": "docker/$1"
   gcr.io:
     endpoint:
       - "https://registry.gdut.edu.cn"
@@ -477,7 +482,7 @@ spec:
   imageDigestMirrors:
   - source: docker.io
     mirrors:
-    - registry.gdut.edu.cn/docker.io
+    - registry.gdut.edu.cn/docker
     mirrorSourcePolicy: AllowContactingSource
   - source: gcr.io
     mirrors:
@@ -499,7 +504,7 @@ spec:
   imageTagMirrors:
   - source: docker.io
     mirrors:
-    - registry.gdut.edu.cn/docker.io
+    - registry.gdut.edu.cn/docker
     mirrorSourcePolicy: AllowContactingSource
 ```
 
