@@ -113,11 +113,6 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 
 这种模式通过配置容器运行时，使其自动将镜像拉取请求转发到镜像站，无需手动修改镜像地址。由于学校未提供 `registry.gdut.edu.cn` 的子域名的解析及公共 TLS 证书，采用子域名置换方式时需要进行一些额外配置。
 
-:::tip[两种模式说明]
-- **前缀添加模式**（见上方）：手动在镜像地址前添加 `registry.gdut.edu.cn/`，使用主域名，无需额外配置，适用于所有平台。
-- **域名置换模式**（本节）：配置运行时自动重定向，使用子域名（如 `docker.registry.gdut.edu.cn`），需配置 Hosts 与 CA 证书。除 Docker 外的其他平台还支持在 mirror 配置中使用前缀添加路径，无需子域名，详见[各平台配置](#各平台配置)。
-:::
-
 #### 配置 Hosts 文件
 
 在本机所在的 Hosts 文件中添加以下记录，Hosts 文件的路径会因系统而异，请自行百度：
