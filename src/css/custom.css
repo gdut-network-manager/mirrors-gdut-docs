@@ -702,3 +702,19 @@ body {
     transform: none;
   }
 }
+
+/* ── Tab Platform Icons ───────────────────────────────────────────── */
+
+.tab-platform-icon-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tab-platform-icon {
+  filter: brightness(0);
+}
+
+[data-theme='dark'] .tab-platform-icon {
+  filter: brightness(0) invert(1);
+}

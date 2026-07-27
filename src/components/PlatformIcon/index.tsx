@@ -42,15 +42,15 @@ export default function PlatformIcon({
   size = 14,
 }: PlatformIconProps): ReactNode {
   return (
-    <>
+    <span className="tab-platform-icon-label">
       <img
         src={ICON_PATHS[name]}
         alt=""
         width={size}
         height={size}
-        style={{verticalAlign: 'middle', marginRight: 6}}
+        className="tab-platform-icon"
       />
       {label}
-    </>
+    </span>
   );
 }
