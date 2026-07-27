@@ -3,6 +3,7 @@ sidebar_position: 1
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import PlatformIcon from '@site/src/components/PlatformIcon';
 
 # Docker 镜像使用帮助
 
@@ -154,7 +155,7 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 以下按容器运行时平台分别介绍配置方法，可通过选项卡切换。除 Docker 仅支持域名置换模式外，其余平台均支持前缀添加模式与域名置换模式两种配置方式。
 
 <Tabs groupId="container-platforms">
-  <TabItem value="docker" label="Docker">
+  <TabItem value="docker" label={<PlatformIcon name="docker" label="Docker" />}>
 
 Docker 通过修改 Daemon 配置文件实现镜像加速。Docker 仅支持域名置换模式（子域名方式），不支持前缀添加模式的自动配置。
 
@@ -185,12 +186,12 @@ Docker 通过修改 Daemon 配置文件实现镜像加速。Docker 仅支持域�
 使用方法：直接执行以下命令即可（需要有管理员权限）
 
 <Tabs groupId="operating-systems">
-  <TabItem value="win" label="Windows">
+  <TabItem value="win" label={<PlatformIcon name="windows" label="Windows" />}>
     ```powershell
     curl.exe -sSL --insecure https://mirrors.gdut.edu.cn/scripts/configure-docker-registry.ps1 | powershell -NoProfile -ExecutionPolicy Bypass -
     ```
   </TabItem>
-  <TabItem value="linux" label="Linux">
+  <TabItem value="linux" label={<PlatformIcon name="linux" label="Linux" />}>
     ```bash
     curl -fsSL --insecure https://mirrors.gdut.edu.cn/scripts/configure-docker-registry.sh | sudo -E bash
     ```
@@ -198,7 +199,7 @@ Docker 通过修改 Daemon 配置文件实现镜像加速。Docker 仅支持域�
 </Tabs>
 
   </TabItem>
-  <TabItem value="containerd" label="Containerd">
+  <TabItem value="containerd" label={<PlatformIcon name="containerd" label="Containerd" />}>
 
 Containerd 2.x 推荐使用 `config_path` + `hosts.toml` 方式配置镜像加速（旧的 `[plugins."io.containerd.grpc.v1.cri".registry.mirrors]` 已废弃）。
 
@@ -269,7 +270,7 @@ sudo systemctl restart containerd
 ```
 
   </TabItem>
-  <TabItem value="crio" label="CRI-O">
+  <TabItem value="crio" label={<PlatformIcon name="crio" label="CRI-O" />}>
 
 CRI-O 从 `/etc/containers/registries.conf` 读取 registry 配置（与 Podman 共享）。`crio.conf` 中的 `registries` 字段已废弃。
 
@@ -328,7 +329,7 @@ sudo systemctl restart crio
 > 也可通过 SIGHUP 热加载（需在 `crio.conf` 中设置 `auto_reload_registries = true`）：`sudo kill -SIGHUP $(pidof crio)`
 
   </TabItem>
-  <TabItem value="podman" label="Podman">
+  <TabItem value="podman" label={<PlatformIcon name="podman" label="Podman" />}>
 
 Podman 与 CRI-O 共用 `/etc/containers/registries.conf`，配置语法完全相同。Podman 是无守护进程的（daemonless），修改配置后无需重启，下次执行 `podman pull` 时自动生效。
 
@@ -393,7 +394,7 @@ location = "gcr.io"
 Podman 是无守护进程的，配置文件在下次执行 `podman pull` 时自动生效。
 
   </TabItem>
-  <TabItem value="rke2" label="RKE2">
+  <TabItem value="rke2" label={<PlatformIcon name="rke2" label="RKE2" />}>
 
 RKE2 内嵌 containerd，启动时读取 `/etc/rancher/rke2/registries.yaml` 并生成 containerd 配置。支持通过 `rewrite` 字段实现路径前缀添加。
 
@@ -459,7 +460,7 @@ sudo systemctl restart rke2-agent
 > 如果在节点首次启动前配置好 `registries.yaml`，则无需重启。
 
   </TabItem>
-  <TabItem value="openshift" label="OpenShift">
+  <TabItem value="openshift" label={<PlatformIcon name="openshift" label="OpenShift" />}>
 
 OpenShift 4.x 通过 Kubernetes CRD 对象配置 registry mirror，应用后由 Machine Config Operator 自动将配置写入节点的 `/etc/containers/registries.conf`。推荐使用 `ImageDigestMirrorSet`（digest 拉取）和 `ImageTagMirrorSet`（tag 拉取），旧的 `ImageContentSourcePolicy` 已废弃。
 

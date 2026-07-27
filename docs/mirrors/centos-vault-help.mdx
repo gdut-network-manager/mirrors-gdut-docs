@@ -5,6 +5,7 @@ sidebar_position: 1
 import MirrorSources from '@site/src/components/MirrorSources';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import PlatformIcon from '@site/src/components/PlatformIcon';
 
 # CentOS Vault 镜像使用帮助
 
@@ -40,7 +41,7 @@ yum makecache
 根据你的 CentOS 版本选择对应的配置：
 
 <Tabs groupId="centos-version">
-  <TabItem value="centos6-7" label="CentOS 6/7">
+  <TabItem value="centos6-7" label={<PlatformIcon name="centos" label="CentOS 6/7" />}>
 
 <MirrorSources
   type="yum"
@@ -62,7 +63,7 @@ yum makecache
 />
 
   </TabItem>
-  <TabItem value="centos8" label="CentOS 8">
+  <TabItem value="centos8" label={<PlatformIcon name="centos" label="CentOS 8" />}>
 
 :::note[版本说明]
 

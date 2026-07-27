@@ -3,6 +3,7 @@ sidebar_position: 1
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import PlatformIcon from '@site/src/components/PlatformIcon';
 
 # Kubernetes 镜像使用帮助
 
@@ -21,7 +22,7 @@ Kubernetes 是用于自动部署，扩展和管理容器化应用程序的开源
 硬件架构：`x86_64`, `armhfp`, `aarch64`
 
 <Tabs groupId="operating-systems">
-  <TabItem value="debian/ubuntu" label="Debian / Ubuntu">
+  <TabItem value="debian/ubuntu" label={<PlatformIcon name="debian" label="Debian / Ubuntu" />}>
     首先导入 gpg key：
 
     ```bash
@@ -42,7 +43,7 @@ Kubernetes 是用于自动部署，扩展和管理容器化应用程序的开源
     sudo apt update --allow-insecure-repositories
     ```
   </TabItem>
-  <TabItem value="rhel/centos" label="RHEL / CentOS">
+  <TabItem value="rhel/centos" label={<PlatformIcon name="centos" label="RHEL / CentOS" />}>
     新建 `/etc/yum.repos.d/kubernetes.repo`，内容为：
 
     ```ini title="/etc/yum.repos.d/kubernetes.repo"

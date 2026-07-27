@@ -3,6 +3,7 @@ sidebar_position: 1
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import PlatformIcon from '@site/src/components/PlatformIcon';
 
 # Docker CE 镜像使用帮助
 
@@ -39,7 +40,7 @@ wget -O- https://get.docker.com/ | sudo -E sh
 ### 手动安装
 
 <Tabs groupId="operating-systems">
-  <TabItem value="debian" label="Debian">
+  <TabItem value="debian" label={<PlatformIcon name="debian" label="Debian" />}>
     删除旧有的Docker：
 
     ```bash
@@ -74,7 +75,7 @@ wget -O- https://get.docker.com/ | sudo -E sh
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     ```
   </TabItem>
-  <TabItem value="ubuntu" label="Ubuntu">
+  <TabItem value="ubuntu" label={<PlatformIcon name="ubuntu" label="Ubuntu" />}>
     删除旧有的Docker：
 
     ```bash
@@ -109,7 +110,7 @@ wget -O- https://get.docker.com/ | sudo -E sh
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     ```
   </TabItem>
-  <TabItem value="centos" label="CentOS">
+  <TabItem value="centos" label={<PlatformIcon name="centos" label="CentOS" />}>
     删除旧有的Docker:
 
     ```bash

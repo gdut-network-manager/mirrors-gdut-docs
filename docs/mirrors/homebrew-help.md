@@ -3,6 +3,7 @@ sidebar_position: 1
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import PlatformIcon from '@site/src/components/PlatformIcon';
 
 # Homebrew 镜像使用帮助
 
@@ -43,8 +44,8 @@ Homebrew 是 macOS 和 Linux 的包管理器，提供软件的安装、卸载和
 首先，需要确保系统中安装了 bash、git 和 curl，对于 macOS 用户需额外要求安装 Command Line Tools (CLT) for Xcode。
 
 <Tabs groupId="operating-systems">
-  <TabItem value="mac" label="macOS">对于 macOS 用户，系统自带 bash、git 和 curl，在命令行输入 `xcode-select --install` 安装 CLT for Xcode 即可。</TabItem>
-  <TabItem value="linux" label="Linux">对于 Linux 用户，系统自带 bash，仅需额外安装 git 和 curl。</TabItem>
+  <TabItem value="mac" label={<PlatformIcon name="macos" label="macOS" />}>对于 macOS 用户，系统自带 bash、git 和 curl，在命令行输入 `xcode-select --install` 安装 CLT for Xcode 即可。</TabItem>
+  <TabItem value="linux" label={<PlatformIcon name="linux" label="Linux" />}>对于 Linux 用户，系统自带 bash，仅需额外安装 git 和 curl。</TabItem>
 </Tabs>
 
 接着，在终端输入以下几行命令设置环境变量：
@@ -77,7 +78,7 @@ rm -rf brew-install
 **安装成功后需将 brew 程序的相关路径加入到环境变量中：**
 
 <Tabs groupId="operating-systems">
-  <TabItem value="mac" label="macOS">
+  <TabItem value="mac" label={<PlatformIcon name="macos" label="macOS" />}>
     以下针对基于 Apple Silicon CPU 设备上的 macOS 系统（命令行运行 `uname -m` 应输出 `arm64`）上的 Homebrew：
 
     ```bash
@@ -87,7 +88,7 @@ rm -rf brew-install
 
     对基于 Intel CPU 设备上的 macOS 系统（命令行运行 `uname -m` 应输出 `x86_64`）的用户可跳过本步。
   </TabItem>
-  <TabItem value="linux" label="Linux">
+  <TabItem value="linux" label={<PlatformIcon name="linux" label="Linux" />}>
     以下针对 Linux 系统上的 Linuxbrew：
 
     ```bash
@@ -115,7 +116,7 @@ brew update
 前往 [Homebrew Bottles 镜像使用帮助](homebrew-bottles-help) 中「临时替换」一节设置好 `HOMEBREW_API_DOMAIN`
 
 <Tabs groupId="operating-systems">
-  <TabItem value="mac" label="macOS">
+  <TabItem value="mac" label={<PlatformIcon name="macos" label="macOS" />}>
     ```bash
     # 手动设置
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gdut.edu.cn/git/homebrew/homebrew-core.git"
@@ -138,7 +139,7 @@ brew update
     brew update
     ```
   </TabItem>
-  <TabItem value="linux" label="Linux">
+  <TabItem value="linux" label={<PlatformIcon name="linux" label="Linux" />}>
     ```bash
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gdut.edu.cn/git/homebrew/homebrew-core.git"
 
@@ -175,7 +176,7 @@ test -r ~/.zprofile && echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gd
 ### 复原仓库上游
 
 <Tabs groupId="operating-systems">
-  <TabItem value="mac" label="macOS">
+  <TabItem value="mac" label={<PlatformIcon name="macos" label="macOS" />}>
     ```bash
     # brew 程序本身，Homebrew / Linuxbrew 相同
     unset HOMEBREW_API_DOMAIN
@@ -195,7 +196,7 @@ test -r ~/.zprofile && echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.gd
     brew update
     ```
   </TabItem>
-  <TabItem value="linux" label="Linux">
+  <TabItem value="linux" label={<PlatformIcon name="linux" label="Linux" />}>
     ```bash
     # brew 程序本身，Homebrew / Linuxbrew 相同
     unset HOMEBREW_API_DOMAIN
