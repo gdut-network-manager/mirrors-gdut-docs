@@ -22,6 +22,7 @@ import {
   generateAptDeb822,
   generateYum,
   generatePacman,
+  generateMaven,
   generateQuickConfig,
 } from './generators';
 import styles from './styles.module.css';
@@ -31,6 +32,7 @@ const LANG_MAP: Record<MirrorType, string> = {
   'apt-deb822': 'yaml',
   'yum': 'ini',
   'pacman': 'ini',
+  'maven': 'markup',
 };
 
 interface ToggleConfig {
@@ -68,7 +70,7 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
   const showSudo = options?.sudo ?? false;
 
   const quickConfigType = props.quickConfigType ?? (
-    isApt ? 'apt' : type === 'yum' ? 'yum' : 'pacman'
+    isApt ? 'apt' : type === 'yum' ? 'yum' : type === 'maven' ? 'maven' : 'pacman'
   );
 
   // ── State ──────────────────────────────────────────────────────────
@@ -99,6 +101,8 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
         return generateYum(props, state);
       case 'pacman':
         return generatePacman(props, state);
+      case 'maven':
+        return generateMaven(props, state);
       default:
         return '';
     }
@@ -118,7 +122,9 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
         ? '/etc/apt/sources.list.d/mirror.sources'
         : type === 'yum'
           ? '/etc/yum.repos.d/mirror.repo'
-          : '/etc/pacman.d/mirrorlist'
+          : type === 'maven'
+            ? '~/.m2/settings.xml'
+            : '/etc/pacman.d/mirrorlist'
   );
 
   // ── Copy handler ───────────────────────────────────────────────────

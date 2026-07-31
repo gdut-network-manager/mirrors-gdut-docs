@@ -67,6 +67,8 @@ function getDefaultFilePath(type: MirrorType): string {
       return '/etc/yum.repos.d/mirror.repo';
     case 'pacman':
       return '/etc/pacman.d/mirrorlist';
+    case 'maven':
+      return '~/.m2/settings.xml';
   }
 }
 
@@ -259,6 +261,38 @@ export function generatePacman(
   return `Server = ${protocol}://${host}${basePath}/$repo/os/$arch`;
 }
 
+// ── Maven (settings.xml) ──────────────────────────────────────────────
+
+/**
+ * Generate Maven settings.xml <mirror> snippet.
+ *
+ * Produces:
+ *   <mirror>
+ *       <id>gdutnic</id>
+ *       <name>gdutnic maven</name>
+ *       <url>https://mirrors.gdut.edu.cn/nexus/repository/maven/</url>
+ *       <mirrorOf>*</mirrorOf>
+ *   </mirror>
+ */
+export function generateMaven(
+  props: MirrorSourcesProps,
+  state: GenState,
+): string {
+  const {host, path} = props;
+  const protocol = state.https ? 'https' : 'http';
+  const basePath = normalizePath(path);
+  const url = `${protocol}://${host}${basePath}/`;
+
+  return [
+    '<mirror>',
+    '    <id>gdutnic</id>',
+    '    <name>gdutnic maven</name>',
+    `    <url>${url}</url>`,
+    '    <mirrorOf>*</mirrorOf>',
+    '</mirror>',
+  ].join('\n');
+}
+
 // ── Quick Configuration Command ───────────────────────────────────────
 
 /**
@@ -287,7 +321,9 @@ export function generateQuickConfig(
       ? 'apt'
       : props.type === 'yum'
         ? 'yum'
-        : 'pacman'
+        : props.type === 'maven'
+          ? 'maven'
+          : 'pacman'
   );
 
   if (quickType === 'none') {
@@ -308,6 +344,24 @@ export function generateQuickConfig(
       `${sudo}pacman -Syy`,
     ];
     return commands.join('\n');
+  }
+
+  if (quickType === 'maven') {
+    // For maven, write a complete settings.xml with the mirror snippet
+    const settingsXml = [
+      '<settings>',
+      '    <mirrors>',
+      '        ' + configText,
+      '    </mirrors>',
+      '</settings>',
+    ].join('\n');
+    return [
+      `[ -f ${filePath} ] && cp ${filePath} ${filePath}.bak`,
+      `mkdir -p ~/.m2`,
+      `cat > ${filePath} << 'EOF'`,
+      settingsXml,
+      'EOF',
+    ].join('\n');
   }
 
   // For apt and yum, use tee to write the config

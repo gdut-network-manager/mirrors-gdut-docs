@@ -3,7 +3,7 @@
  * Provides interactive configuration generation for mirror help docs.
  */
 
-export type MirrorType = 'apt-traditional' | 'apt-deb822' | 'yum' | 'pacman';
+export type MirrorType = 'apt-traditional' | 'apt-deb822' | 'yum' | 'pacman' | 'maven';
 
 export interface Version {
   /** Human-readable label, e.g. "24.04 LTS (noble)" */
@@ -63,7 +63,7 @@ export interface MirrorSourcesProps {
   /** Pacman branch (Manjaro: "stable", "testing", "unstable") */
   branch?: string;
   /** Quick config command type (default: based on type) */
-  quickConfigType?: 'apt' | 'yum' | 'pacman' | 'none';
+  quickConfigType?: 'apt' | 'yum' | 'pacman' | 'maven' | 'none';
 }
 
 /**

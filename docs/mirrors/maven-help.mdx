@@ -2,6 +2,8 @@
 sidebar_position: 1
 ---
 
+import MirrorSources from '@site/src/components/MirrorSources';
+
 # Maven 镜像使用帮助
 
 ## 简介
@@ -26,7 +28,7 @@ Maven 是 Java 项目管理和构建工具，用于管理项目的依赖、构�
        <mirror>
             <id>gdutnic</id>
             <name>gdutnic maven</name>
-            <url>http://mirrors.gdut.edu.cn/nexus/repository/maven-public/</url>
+            <url>https://mirrors.gdut.edu.cn/nexus/repository/maven/</url>
             <mirrorOf>*</mirrorOf>
        </mirror>
     </mirrors>
@@ -55,14 +57,13 @@ vim ./apache-maven-3.5.2/conf/settings.xml
 
 添加一个的Mirror子节点：
 
-```xml title="settings.xml"
-<mirror>
-    <id>nexus-gdut</id>
-    <mirrorOf>*</mirrorOf>
-    <name>Nexus gdut</name>
-    <url>http://mirrors.gdut.edu.cn/nexus/repository/maven-public/</url>
-</mirror>
-```
+<MirrorSources
+  type="maven"
+  host="mirrors.gdut.edu.cn"
+  path="/nexus/repository/maven"
+  versions={[{ label: 'Maven', codename: 'maven' }]}
+  options={{ https: true }}
+/>
 
 ### 在 Maven 项目 POM 中使用
 
@@ -75,7 +76,7 @@ vim ./apache-maven-3.5.2/conf/settings.xml
     <repository>
         <id>nexus-gdut</id>
         <name>Nexus gdut</name>
-        <url>http://mirrors.gdut.edu.cn/nexus/repository/maven-public/</url>
+        <url>https://mirrors.gdut.edu.cn/nexus/repository/maven/</url>
         <layout>default</layout>
         <snapshots>
             <enabled>false</enabled>
@@ -89,7 +90,7 @@ vim ./apache-maven-3.5.2/conf/settings.xml
     <pluginRepository>
         <id>nexus-gdut</id>
         <name>Nexus gdut</name>
-        <url>http://mirrors.gdut.edu.cn/nexus/repository/maven-public/</url>
+        <url>https://mirrors.gdut.edu.cn/nexus/repository/maven/</url>
         <snapshots>
             <enabled>false</enabled>
         </snapshots>
@@ -99,5 +100,9 @@ vim ./apache-maven-3.5.2/conf/settings.xml
     </pluginRepository>
 </pluginRepositories>
 ```
+
+:::tip[协议切换提示]
+上方配置选项中的 HTTPS 开关联动的仅是 settings.xml 的 `<mirror>` 片段。如需在 POM 中也使用 HTTP，请将上方开关切换为关闭后，将下方 POM 中的 `<url>` 协议改为 `http://`。
+:::
 
 执行maven update更新一下即可。
