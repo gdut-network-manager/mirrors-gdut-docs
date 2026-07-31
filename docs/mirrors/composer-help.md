@@ -18,10 +18,10 @@ Composer 是 PHP 的依赖管理工具，用于管理 PHP 项目的依赖库。�
 
 ### 命令行配置
 
-使用以下命令将 Composer 的默认源替换为镜像源：
+使用以下命令将镜像源添加为 Composer 的仓库源：
 
 ```bash
-composer config -g repo.packagist composer https://mirrors.gdut.edu.cn/nexus/repository/composer/
+composer config -g repositories.gdut-mirrors composer https://mirrors.gdut.edu.cn/nexus/repository/composer/
 ```
 
 ### 配置文件配置
@@ -30,12 +30,13 @@ composer config -g repo.packagist composer https://mirrors.gdut.edu.cn/nexus/rep
 
 ```json title="~/.composer/config.json"
 {
-    "repositories": {
-        "packagist": {
+    "repositories": [
+        {
+            "name": "gdut-mirrors",
             "type": "composer",
             "url": "https://mirrors.gdut.edu.cn/nexus/repository/composer/"
         }
-    }
+    ]
 }
 ```
 
@@ -44,7 +45,7 @@ composer config -g repo.packagist composer https://mirrors.gdut.edu.cn/nexus/rep
 如果需要恢复使用官方源，执行以下命令：
 
 ```bash
-composer config -g --unset repos.packagist
+composer config -g --unset repos.gdut-mirrors
 ```
 
-如果使用了配置文件方式，将 `~/.composer/config.json` 中的 `repositories.packagist` 条目删除即可。
+如果使用了配置文件方式，将 `~/.composer/config.json` 中 `repositories` 数组里 `name` 为 `gdut-mirrors` 的条目删除即可。
