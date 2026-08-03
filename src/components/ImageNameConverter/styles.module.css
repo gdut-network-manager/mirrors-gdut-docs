@@ -95,9 +95,21 @@
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: var(--island-radius-pill);
   padding: 3px;
-  gap: 2px;
+  gap: 0;
   position: relative;
   z-index: 2;
+}
+
+.segmentSlider {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  background: var(--ifm-color-primary);
+  border-radius: var(--island-radius-pill);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    width 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
 }
 
 .segmentButton {
@@ -111,9 +123,11 @@
   padding: 0.375rem 0.75rem;
   border-radius: var(--island-radius-pill);
   cursor: pointer;
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   outline: none;
+  position: relative;
+  z-index: 2;
 }
 
 .segmentButton:hover {
@@ -121,9 +135,7 @@
 }
 
 .segmentButtonActive {
-  background: var(--ifm-color-primary);
   color: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 .segmentButtonActive:hover {

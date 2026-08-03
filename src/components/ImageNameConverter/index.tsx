@@ -1,4 +1,4 @@
-import {useState, useMemo, useCallback, useEffect, useRef} from 'react';
+import {useState, useMemo, useCallback, useEffect, useRef, useLayoutEffect} from 'react';
 import type {ReactNode} from 'react';
 import {Highlight, themes} from 'prism-react-renderer';
 import {useColorMode} from '@docusaurus/theme-common';
@@ -74,6 +74,66 @@ function generateCommands(
     {label: '1. 拉取镜像', code: pullCmd, note: isCtr ? namespaceHint : undefined},
     {label: '2. 恢复原始标签', code: tagCmd},
   ];
+}
+
+interface SegmentedControlProps<T extends string> {
+  items: {key: T; label: string}[];
+  value: T;
+  onChange: (value: T) => void;
+  ariaLabel: string;
+}
+
+function SegmentedControl<T extends string>({
+  items,
+  value,
+  onChange,
+  ariaLabel,
+}: SegmentedControlProps<T>): ReactNode {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [sliderStyle, setSliderStyle] = useState<{
+    transform: string;
+    width: string;
+  }>({transform: 'translateX(0)', width: '0px'});
+
+  useLayoutEffect(() => {
+    const activeIndex = items.findIndex((item) => item.key === value);
+    const container = containerRef.current;
+    const button = buttonRefs.current[activeIndex];
+    if (container && button) {
+      const containerRect = container.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const offsetX = buttonRect.left - containerRect.left;
+      setSliderStyle({
+        transform: `translateX(${offsetX}px)`,
+        width: `${buttonRect.width}px`,
+      });
+    }
+  }, [value, items]);
+
+  return (
+    <div className={styles.segmentedControl} ref={containerRef} role="radiogroup" aria-label={ariaLabel}>
+      <div className={styles.segmentSlider} style={sliderStyle} aria-hidden="true" />
+      {items.map((item, i) => (
+        <button
+          key={item.key}
+          ref={(el) => { buttonRefs.current[i] = el; }}
+          type="button"
+          className={
+            value === item.key
+              ? `${styles.segmentButton} ${styles.segmentButtonActive}`
+              : styles.segmentButton
+          }
+          onClick={() => onChange(item.key)}
+          aria-pressed={value === item.key}
+          role="radio"
+          aria-checked={value === item.key}
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 export default function ImageNameConverter(): ReactNode {
@@ -242,44 +302,22 @@ export default function ImageNameConverter(): ReactNode {
         <div className={styles.controlRow}>
           <div className={styles.controlGroup}>
             <span className={styles.controlLabel}>容器运行时</span>
-            <div className={styles.segmentedControl}>
-              {RUNTIMES.map((rt) => (
-                <button
-                  key={rt.key}
-                  type="button"
-                  className={
-                    runtime === rt.key
-                      ? `${styles.segmentButton} ${styles.segmentButtonActive}`
-                      : styles.segmentButton
-                  }
-                  onClick={() => setRuntime(rt.key)}
-                  aria-pressed={runtime === rt.key}
-                >
-                  {rt.label}
-                </button>
-              ))}
-            </div>
+            <SegmentedControl
+              items={RUNTIMES}
+              value={runtime}
+              onChange={setRuntime}
+              ariaLabel="容器运行时"
+            />
           </div>
 
           <div className={styles.controlGroup}>
             <span className={styles.controlLabel}>拉取模式</span>
-            <div className={styles.segmentedControl}>
-              {PULL_MODES.map((mode) => (
-                <button
-                  key={mode.key}
-                  type="button"
-                  className={
-                    pullMode === mode.key
-                      ? `${styles.segmentButton} ${styles.segmentButtonActive}`
-                      : styles.segmentButton
-                  }
-                  onClick={() => setPullMode(mode.key)}
-                  aria-pressed={pullMode === mode.key}
-                >
-                  {mode.label}
-                </button>
-              ))}
-            </div>
+            <SegmentedControl
+              items={PULL_MODES}
+              value={pullMode}
+              onChange={setPullMode}
+              ariaLabel="拉取模式"
+            />
           </div>
         </div>
 
