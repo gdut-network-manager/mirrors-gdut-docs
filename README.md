@@ -219,4 +219,6 @@ gem sources --add https://mirrors.gdut.edu.cn/nexus/repository/rubygems/ --remov
 
 ## 许可证
 
-版权所有 © 广东工业大学网管队
+本项目基于 [MIT](LICENSE) 协议开源。
+
+版权所有 © 2026 广东工业大学网管队

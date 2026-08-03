@@ -190,7 +190,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `版权所有 © ${new Date().getFullYear()}广东工业大学网管队. Built with Docusaurus.`,
+      copyright: `版权所有 © ${new Date().getFullYear()} 广东工业大学网管队. 基于 MIT 协议开源. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
