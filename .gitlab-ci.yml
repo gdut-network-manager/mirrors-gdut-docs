@@ -34,6 +34,29 @@ build:
   tags:
     - dev
 
+# 同步到 GitHub
+github-mirror:
+  stage: build
+  image: alpine/git:latest
+  tags:
+    - dev
+  before_script:
+    - git config --global --add safe.directory "${CI_PROJECT_DIR}"
+  script:
+    - |
+      if [ -z "$GITHUB_REPO" ] || [ -z "$GITHUB_TOKEN" ]; then
+        echo "GITHUB_REPO or GITHUB_TOKEN is not set, skipping..."
+        exit 0
+      fi
+    - git remote add github "https://x-access-token:${GITHUB_TOKEN}@${GITHUB_REPO#https://}"
+    - git push github HEAD:${CI_COMMIT_REF_NAME} --force
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - main
+    - develop
+
 # 部署到远程服务器
 deploy:
   stage: deploy
