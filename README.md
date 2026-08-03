@@ -29,12 +29,21 @@
     <td><img src="screenshots/mirror-selector.png"></td>
     <td><img src="screenshots/search.png"></td>
   </tr>
+  <tr>
+    <td width="50%" align="center"><b>ImageNameConverter 镜像名称转换工具</b></td>
+    <td width="50%" align="center"></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/image-name-converter.png"></td>
+    <td></td>
+  </tr>
 </table>
 
 ## 功能特性
 
 - **Island 设计风格 + Liquid Glass 特效**：整体视觉贴近[镜像站主页](https://mirrors.gdut.edu.cn)，采用毛玻璃卡片、渐变光效与圆角设计
-- **MirrorSources 交互组件**：支持版本选择、HTTPS/源代码/安全源等开关切换，实时生成配置文件与快速配置命令，覆盖 APT（传统格式 / DEB822）、YUM、Pacman 四种镜像类型
+- **MirrorSources 交互组件**：支持版本选择、HTTPS/源代码/安全源等开关切换，实时生成配置文件与快速配置命令，覆盖 APT（传统格式 / DEB822）、YUM、Pacman、Maven 五种镜像类型
+- **ImageNameConverter 镜像名称转换工具**：输入 Docker 镜像名自动解析所属 Registry，生成本站加速拉取命令与恢复标签命令，支持 Docker/Podman/ctr 三种运行时与前缀添加/域名置换两种模式
 - **MirrorSelector 下拉组件**：同一页面内多段代码块联动切换镜像源地址（如 Nginx 缓存加速 / Nexus 缓存代理）
 - **语法高亮**：基于 Prism，亮色模式使用 GitHub 主题，暗色模式使用 Dracula 主题；额外注册了 bash、ini、toml、properties、lisp、powershell、perl 语言；并扩展了 PowerShell 语法以识别 CLI 命令和参数
 - **统一字体**：代码块统一使用 FiraCode NerdFont，字重 500
@@ -72,6 +81,10 @@ mirrors-docs/
 │   │   │   ├── index.tsx          # 主组件（版本选择、开关、代码高亮）
 │   │   │   ├── generators.ts      # 配置文件内容生成器
 │   │   │   ├── types.ts           # 类型定义
+│   │   │   └── styles.module.css  # 组件样式
+│   │   ├── ImageNameConverter/    # Docker 镜像名称转换工具组件
+│   │   │   ├── index.tsx          # 主组件（输入框、分段滑块、命令生成）
+│   │   │   ├── registries.ts      # Registry 配置数据与解析函数
 │   │   │   └── styles.module.css  # 组件样式
 │   │   └── MirrorSelector/        # 下拉镜像源切换组件
 │   │       ├── index.tsx          # MirrorSelector + MirrorContent

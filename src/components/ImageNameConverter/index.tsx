@@ -191,14 +191,13 @@ export default function ImageNameConverter(): ReactNode {
           </pre>
         )}
       </Highlight>
-      {cmd.note && <div className={styles.note}>{cmd.note}</div>}
     </div>
   );
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h4 className={styles.title}>镜像名称转换</h4>
+        <h4 className={styles.title}>镜像名称转换工具</h4>
 
         <div className={styles.inputWrapper}>
           <input
@@ -284,6 +283,9 @@ export default function ImageNameConverter(): ReactNode {
         {parsed && parsed !== 'incomplete' && (
           <div className={styles.commandsSection}>
             {commands?.map((cmd, i) => renderCodeBlock(cmd, i))}
+            {runtime === 'ctr' && (
+              <div className={styles.note}>ctr 用户可能需要指定 namespace，如 `ctr -n k8s.io image pull ...`</div>
+            )}
             <div className={styles.copyAllBar}>
               <button
                 type="button"
