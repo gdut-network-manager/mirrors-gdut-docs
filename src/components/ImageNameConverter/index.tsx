@@ -101,12 +101,10 @@ function SegmentedControl<T extends string>({
     const container = containerRef.current;
     const button = buttonRefs.current[activeIndex];
     if (container && button) {
-      const containerRect = container.getBoundingClientRect();
-      const buttonRect = button.getBoundingClientRect();
-      const offsetX = buttonRect.left - containerRect.left;
+      const paddingLeft = parseFloat(getComputedStyle(container).paddingLeft) || 0;
       setSliderStyle({
-        transform: `translateX(${offsetX}px)`,
-        width: `${buttonRect.width}px`,
+        transform: `translateX(${button.offsetLeft - paddingLeft}px)`,
+        width: `${button.offsetWidth}px`,
       });
     }
   }, [value, items]);
