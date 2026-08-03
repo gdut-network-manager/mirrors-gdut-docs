@@ -4,6 +4,7 @@ import {Highlight, themes} from 'prism-react-renderer';
 import {useColorMode} from '@docusaurus/theme-common';
 import IconCopy from '@theme/Icon/Copy';
 import IconSuccess from '@theme/Icon/Success';
+import IconWordWrap from '@theme/Icon/WordWrap';
 import {parseImageName, isCompleteImage} from './registries';
 import type {RegistryConfig} from './registries';
 import styles from './styles.module.css';
@@ -82,6 +83,7 @@ export default function ImageNameConverter(): ReactNode {
   const [pullMode, setPullMode] = useState<PullMode>('prefix');
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [copiedAll, setCopiedAll] = useState(false);
+  const [wrap, setWrap] = useState<Record<number, boolean>>({});
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -147,6 +149,30 @@ export default function ImageNameConverter(): ReactNode {
     [],
   );
 
+  const toggleWrap = useCallback((index: number) => {
+    setWrap((prev) => ({...prev, [index]: !prev[index]}));
+  }, []);
+
+  const renderWrapButton = (index: number) => {
+    const isWrapped = !!wrap[index];
+    return (
+      <button
+        type="button"
+        className={
+          isWrapped
+            ? `${styles.copyButton} ${styles.wrapButtonActive}`
+            : styles.copyButton
+        }
+        onClick={() => toggleWrap(index)}
+        aria-label={isWrapped ? '取消自动换行' : '自动换行'}
+        title={isWrapped ? '取消自动换行' : '自动换行'}
+        aria-pressed={isWrapped}
+      >
+        <IconWordWrap className={styles.wrapButtonIcon} aria-hidden="true" />
+      </button>
+    );
+  };
+
   const renderCopyButton = (text: string, index: number) => (
     <button
       type="button"
@@ -166,17 +192,20 @@ export default function ImageNameConverter(): ReactNode {
     </button>
   );
 
-  const renderCodeBlock = (cmd: GeneratedCommand, index: number) => (
+  const renderCodeBlock = (cmd: GeneratedCommand, index: number) => {
+    const isWrapped = !!wrap[index];
+    return (
     <div key={index} className={styles.codeBlock}>
       <div className={styles.codeHeader}>
         <span className={styles.codeLabel}>{cmd.label}</span>
         <div className={styles.headerButtons}>
+          {renderWrapButton(index)}
           {renderCopyButton(cmd.code, index)}
         </div>
       </div>
       <Highlight theme={prismTheme} code={cmd.code} language="bash">
         {({className, style, tokens, getLineProps, getTokenProps}) => (
-          <pre className={`${styles.codeContent} ${className}`} style={style}>
+          <pre className={`${styles.codeContent} ${className} ${isWrapped ? styles.codeContentWrap : ''}`} style={style}>
             {tokens.map((line, i) => {
               const lineProps = getLineProps({line});
               return (
@@ -192,7 +221,7 @@ export default function ImageNameConverter(): ReactNode {
         )}
       </Highlight>
     </div>
-  );
+  );};
 
   return (
     <div className={styles.container}>

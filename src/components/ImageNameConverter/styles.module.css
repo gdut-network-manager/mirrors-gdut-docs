@@ -314,6 +314,22 @@
   tab-size: 4;
 }
 
+.codeContentWrap {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+}
+
+.wrapButtonIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: currentColor;
+}
+
+.wrapButtonActive .wrapButtonIcon {
+  color: var(--ifm-color-primary);
+}
+
 .note {
   font-size: 0.75rem;
   color: var(--ifm-color-content-secondary);

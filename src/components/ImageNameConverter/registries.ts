@@ -95,6 +95,13 @@ export interface ParsedImage {
   originalInput: string;
 }
 
+function ensureTag(imageRef: string): string {
+  const lastSlash = imageRef.lastIndexOf('/');
+  const lastColon = imageRef.lastIndexOf(':');
+  if (lastColon > lastSlash) return imageRef;
+  return `${imageRef}:latest`;
+}
+
 export function parseImageName(input: string): ParsedImage | null {
   const trimmed = input.trim();
   if (!trimmed) return null;
@@ -104,14 +111,15 @@ export function parseImageName(input: string): ParsedImage | null {
   if (!hasSlash) {
     const registry = registries.find((r) => r.originalHost === 'docker.io');
     if (!registry) return null;
+    const tagged = ensureTag(trimmed);
     if (registry.isOfficialNamespace([trimmed])) {
       return {
         registry,
-        imagePart: `${registry.officialNamespacePrefix}/${trimmed}`,
-        originalInput: trimmed,
+        imagePart: `${registry.officialNamespacePrefix}/${tagged}`,
+        originalInput: tagged,
       };
     }
-    return {registry, imagePart: trimmed, originalInput: trimmed};
+    return {registry, imagePart: tagged, originalInput: tagged};
   }
 
   const parts = trimmed.split('/');
@@ -121,14 +129,15 @@ export function parseImageName(input: string): ParsedImage | null {
     const registry = registries.find((r) => r.originalHost === firstPart)!;
     const imagePart = parts.slice(1).join('/');
     if (!imagePart) return null;
+    const tagged = ensureTag(imagePart);
     if (registry.isOfficialNamespace(parts.slice(1))) {
       return {
         registry,
-        imagePart: `${registry.officialNamespacePrefix}/${imagePart}`,
-        originalInput: trimmed,
+        imagePart: `${registry.officialNamespacePrefix}/${tagged}`,
+        originalInput: `${firstPart}/${tagged}`,
       };
     }
-    return {registry, imagePart, originalInput: trimmed};
+    return {registry, imagePart: tagged, originalInput: `${firstPart}/${tagged}`};
   }
 
   const dockerHub = registries.find((r) => r.originalHost === 'docker.io');
@@ -137,12 +146,13 @@ export function parseImageName(input: string): ParsedImage | null {
   const looksLikeHost = firstPart.includes('.') || firstPart.includes(':');
   if (looksLikeHost) return null;
 
+  const tagged = ensureTag(trimmed);
   if (dockerHub.isOfficialNamespace(parts)) {
-    const imagePart = `${dockerHub.officialNamespacePrefix}/${trimmed}`;
-    return {registry: dockerHub, imagePart, originalInput: trimmed};
+    const imagePart = `${dockerHub.officialNamespacePrefix}/${tagged}`;
+    return {registry: dockerHub, imagePart, originalInput: tagged};
   }
 
-  return {registry: dockerHub, imagePart: trimmed, originalInput: trimmed};
+  return {registry: dockerHub, imagePart: tagged, originalInput: tagged};
 }
 
 export function isCompleteImage(input: string): boolean {
