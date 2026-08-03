@@ -284,7 +284,7 @@ export default function ImageNameConverter(): ReactNode {
           <div className={styles.commandsSection}>
             {commands?.map((cmd, i) => renderCodeBlock(cmd, i))}
             {runtime === 'ctr' && (
-              <div className={styles.note}>ctr 用户可能需要指定 namespace，如 `ctr -n k8s.io image pull ...`</div>
+              <div className={styles.note}>ctr 用户可能需要指定 namespace，如 <code>ctr -n k8s.io image pull ...</code></div>
             )}
             <div className={styles.copyAllBar}>
               <button
