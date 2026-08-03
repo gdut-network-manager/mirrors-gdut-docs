@@ -46,8 +46,7 @@ const config: Config = {
           sidebarCollapsed: false,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          //editUrl:
-          //  'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/gdut-network-manager/mirrors-gdut-docs/edit/master',
           remarkPlugins: [require('remark-math')],
           rehypePlugins: [require('rehype-katex')],
         },
@@ -59,8 +58,7 @@ const config: Config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          //editUrl:
-          //  'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/gdut-network-manager/mirrors-gdut-docs/edit/master',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -133,7 +131,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/chn-lee-yumi/mirrors-gdut',
+          href: 'https://github.com/gdut-network-manager/mirrors-gdut-docs',
           label: 'GitHub',
           position: 'right',
         },
@@ -184,7 +182,11 @@ const config: Config = {
             //  to: '/blog',
             //},
             {
-              label: 'GitHub',
+              label: '文档源码',
+              href: 'https://github.com/gdut-network-manager/mirrors-gdut-docs',
+            },
+            {
+              label: '镜像站源码',
               href: 'https://github.com/chn-lee-yumi/mirrors-gdut',
             },
           ],
