@@ -85,6 +85,14 @@ export const registries: RegistryConfig[] = [
     isOfficialNamespace: neverOfficial,
     officialNamespacePrefix: '',
   },
+  {
+    name: 'GitLab Container Registry',
+    originalHost: 'registry.gitlab.com',
+    proxyPrefix: 'registry.gitlab.com',
+    subdomain: 'gitlab.registry.gdut.edu.cn',
+    isOfficialNamespace: neverOfficial,
+    officialNamespacePrefix: '',
+  },
 ];
 
 const REGISTRY_HOSTS = new Set(registries.map((r) => r.originalHost));

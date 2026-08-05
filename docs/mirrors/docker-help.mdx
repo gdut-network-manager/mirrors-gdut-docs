@@ -25,6 +25,7 @@ import ImageNameConverter from '@site/src/components/ImageNameConverter';
   - Kubernetes Container Registry (k8s.gcr.io)
   - Elastic Docker Registry (docker.elastic.co)
   - NVIDIA Container Registry (nvcr.io)
+  - GitLab Container Registry (registry.gitlab.com)
 - **更新策略**：缓存加速
 
 ## 使用说明
@@ -96,6 +97,12 @@ docker pull registry.gdut.edu.cn/docker.elastic.co/elasticsearch/elasticsearch:8
 docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 ```
 
+#### GitLab Container Registry (registry.gitlab.com)
+
+```bash
+docker pull registry.gdut.edu.cn/registry.gitlab.com/gitlab-org/gitlab-runner:latest
+```
+
 拉取镜像后，如需重新打 Tag，请自行执行 `docker tag` 命令。
 
 #### 代理地址对照表
@@ -112,6 +119,7 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 | **Google Container Registry** | `gcr.io/foo/bar:latest` | `registry.gdut.edu.cn/gcr.io/foo/bar:latest` |
 | **Elastic Docker registry** | `docker.elastic.co/foo/bar:latest` | `registry.gdut.edu.cn/docker.elastic.co/foo/bar:latest` |
 | **NVIDIA Container Registry** | `nvcr.io/foo/bar:latest` | `registry.gdut.edu.cn/nvcr.io/foo/bar:latest` |
+| **GitLab Container Registry** | `registry.gitlab.com/foo/bar:latest` | `registry.gdut.edu.cn/registry.gitlab.com/foo/bar:latest` |
 
 ### 域名置换模式
 
@@ -131,6 +139,7 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 202.116.132.68 gcr.registry.gdut.edu.cn
 202.116.132.68 nvcr.registry.gdut.edu.cn
 202.116.132.68 elastic.registry.gdut.edu.cn
+202.116.132.68 gitlab.registry.gdut.edu.cn
 # GDUT Mirrors Registry END
 ```
 
@@ -152,6 +161,7 @@ docker pull registry.gdut.edu.cn/nvcr.io/nvidia/k8s-device-plugin:v0.17.0
 | **Google Container Registry** | `gcr.io/foo/bar:latest` | `gcr.registry.gdut.edu.cn/foo/bar:latest` |
 | **Elastic Docker registry** | `docker.elastic.co/foo/bar:latest` | `elastic.registry.gdut.edu.cn/foo/bar:latest` |
 | **NVIDIA Container Registry** | `nvcr.io/foo/bar:latest` | `nvcr.registry.gdut.edu.cn/foo/bar:latest` |
+| **GitLab Container Registry** | `registry.gitlab.com/foo/bar:latest` | `gitlab.registry.gdut.edu.cn/foo/bar:latest` |
 
 ### 各平台配置
 
