@@ -81,19 +81,30 @@ const config: Config = {
       require.resolve("@easyops-cn/docusaurus-search-local"),
       /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
       ({
-        // ... Your options.
-        // `hashed` is recommended as long-term-cache of index file is possible.
         hashed: true,
-
-        // For Docs using Chinese, it is recomended to set:
         language: ["en", "zh"],
-
-        // Customize the keyboard shortcut to focus search bar (default is "mod+k"):
-        // searchBarShortcutKeymap: "s", // Use 'S' key
-        // searchBarShortcutKeymap: "ctrl+shift+f", // Use Ctrl+Shift+F
-
-        // If you're using `noIndex: true`, set `forceIgnoreNoIndex` to enable local index:
-        // forceIgnoreNoIndex: true,
+        askAi: {
+          apiUrl: "https://mirrors.gdut.edu.cn/ai-proxy/api/chat",
+          project: "mirrors-docs",
+          hotkey: "mod+i",
+          exampleQuestions: [
+            "如何配置 Ubuntu 镜像源？",
+            "Docker 镜像名称转换工具怎么用？",
+            "支持哪些镜像源？",
+          ],
+          texts: {
+            triggerButtonText: "问 AI",
+            triggerButtonAriaLabel: "向 AI 提问",
+            drawerTitle: "AI 助手",
+            drawerCloseAriaLabel: "关闭",
+            drawerNewSessionAriaLabel: "新对话",
+            welcomeMessage: "你好！我是 GDUT 镜像站 AI 助手，有什么可以帮你的吗？",
+            exampleQuestionsTitle: "试试这些问题",
+            inputPlaceholder: "输入你的问题...",
+            sendButtonAriaLabel: "发送",
+            emptyResponseText: "抱歉，我没有理解你的问题，请换一种方式提问。",
+          },
+        },
       }),
     ],
   ],
