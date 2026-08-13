@@ -154,7 +154,14 @@ const config: Config = {
           label: '新闻公告',
           position: 'left',
         },
-	{
+        {
+          href: '/help/news/rss.xml',
+          label: 'RSS',
+          position: 'right',
+          target: '_blank',
+          rel: 'noopener',
+        },
+        {
           href: 'https://mirrors.gdut.edu.cn',
           label: '镜像站主页',
           position: 'right',
