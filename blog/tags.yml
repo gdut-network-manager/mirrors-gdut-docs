@@ -32,3 +32,8 @@
   label: 功能更新
   permalink: /tags/feature-update
   description: 站点功能改进通知
+
+技术博客:
+  label: 技术博客
+  permalink: /tags/tech-blog
+  description: 技术重构与实现细节
