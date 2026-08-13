@@ -1,0 +1,36 @@
+---
+slug: composer-mirror-launched
+title: PHP Composer 镜像上线
+authors: [gdutnic, gregPerlinLi]
+tags: [新镜像上线]
+date: 2026-07-31
+---
+
+本站现已上线 PHP Composer 镜像，为 PHP 社区提供 Packagist 依赖包的缓存代理服务，加速 `composer install` 与 `composer update` 等操作的下载速度。
+
+{/* truncate */}
+
+## 镜像信息
+
+- **地址**：`https://mirrors.gdut.edu.cn/nexus/repository/composer/`
+- **更新策略**：缓存代理，实时回源上游仓库
+
+## 使用方法
+
+使用以下命令将镜像源添加为 Composer 的仓库源：
+
+```bash
+composer config -g repositories.gdut-mirrors composer https://mirrors.gdut.edu.cn/nexus/repository/composer/
+```
+
+:::note[允许 HTTP 下载]
+
+Nexus 返回的包索引中可能包含 HTTP 的下载地址，新版 Composer 默认拒绝 HTTP 下载。执行以下命令允许 HTTP：
+
+```bash
+composer config -g secure-http false
+```
+
+:::
+
+详细的配置方法（含配置文件方式与恢复默认源）请参阅 [Composer 镜像使用帮助](/help/docs/mirrors/composer-help)。

@@ -1,0 +1,32 @@
+---
+slug: nuget-mirror-launched
+title: NuGet 镜像上线
+authors: [gdutnic, gregPerlinLi]
+tags: [新镜像上线]
+date: 2026-07-31
+---
+
+本站现已上线 NuGet 镜像，为 .NET 社区提供 NuGet Gallery（nuget.org）依赖包的缓存代理服务，加速 `dotnet add package` 与 `dotnet restore` 等操作的下载速度。
+
+{/* truncate */}
+
+## 镜像信息
+
+- **地址**：`https://mirrors.gdut.edu.cn/nexus/repository/nuget/`
+- **更新策略**：缓存代理，实时回源上游仓库
+
+## 使用方法
+
+使用以下命令将镜像源添加为 NuGet 包源：
+
+```bash
+dotnet nuget add source https://mirrors.gdut.edu.cn/nexus/repository/nuget/ -n gdut-mirror
+```
+
+配置后可通过以下命令验证是否成功：
+
+```bash
+dotnet nuget list source
+```
+
+详细的配置方法（含配置文件方式与移除镜像源）请参阅 [NuGet 镜像使用帮助](/help/docs/mirrors/nuget-help)。
