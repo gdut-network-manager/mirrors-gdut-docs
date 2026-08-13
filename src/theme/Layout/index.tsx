@@ -5,7 +5,7 @@ import type {ReactNode} from 'react';
 import {useEffect} from 'react';
 
 const GLASS_SELECTORS =
-  '.navbar, .footer, .card, .theme-code-block, .theme-doc-sidebar-container, .pagination-nav__link';
+  '.navbar, .footer, .card, .theme-code-block, .theme-doc-sidebar-container, .pagination-nav__link, .blog-wrapper aside.col--3 > nav, .blog-wrapper.blog-list-page article';
 
 export default function LayoutWrapper(props: Props): ReactNode {
   useEffect(() => {
