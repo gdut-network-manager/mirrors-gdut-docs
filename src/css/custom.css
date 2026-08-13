@@ -791,6 +791,16 @@ body {
   border-radius: var(--island-radius-pill);
 }
 
+.blog-wrapper [class*="tagWithCount"] {
+  border-left: 1px solid var(--ifm-color-emphasis-300);
+  padding: 0.2rem 0.6rem;
+}
+
+.blog-wrapper [class*="tagWithCount"]::before,
+.blog-wrapper [class*="tagWithCount"]::after {
+  display: none;
+}
+
 /* ── Blog List Page Article Cards ─────────────────────────────────── */
 
 .blog-wrapper.blog-list-page article {
