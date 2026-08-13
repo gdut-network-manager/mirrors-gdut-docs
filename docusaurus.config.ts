@@ -52,7 +52,8 @@ const config: Config = {
         },
         blog: {
           routeBasePath: '/news',
-          blogSidebarTitle: '最新公告',
+          blogSidebarTitle: '全部公告',
+          blogSidebarCount: 'ALL',
           showReadingTime: false,
           feedOptions: {
             type: ['rss', 'atom'],
