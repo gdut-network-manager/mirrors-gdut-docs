@@ -718,3 +718,31 @@ body {
 [data-theme='dark'] .tab-platform-icon {
   filter: brightness(0) invert(1);
 }
+
+/* ── Blog Pin Badge ───────────────────────────────────────────────── */
+
+.pin-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ifm-color-primary);
+  background: rgba(151, 25, 67, 0.1);
+  border-radius: var(--island-radius-pill);
+  white-space: nowrap;
+}
+
+[data-theme='dark'] .pin-badge {
+  background: rgba(151, 25, 67, 0.2);
+}

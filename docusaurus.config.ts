@@ -51,7 +51,8 @@ const config: Config = {
           rehypePlugins: [require('rehype-katex')],
         },
         blog: {
-          showReadingTime: true,
+          routeBasePath: '/news',
+          showReadingTime: false,
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
@@ -65,6 +66,16 @@ const config: Config = {
           onUntruncatedBlogPosts: 'warn',
           remarkPlugins: [require('remark-math')],
           rehypePlugins: [require('rehype-katex')],
+          // 置顶排序：pin: true 的公告排到最前面，各组内部仍按日期倒序
+          processBlogPosts: async ({blogPosts}) => {
+            const pinned = blogPosts.filter(
+              (post) => post.metadata.frontMatter.pin === true,
+            );
+            const unpinned = blogPosts.filter(
+              (post) => post.metadata.frontMatter.pin !== true,
+            );
+            return [...pinned, ...unpinned];
+          },
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -136,6 +147,11 @@ const config: Config = {
           position: 'left',
           label: '文档',
         },
+        {
+          to: '/news',
+          label: '新闻公告',
+          position: 'left',
+        },
 	{
           href: 'https://mirrors.gdut.edu.cn',
           label: '镜像站主页',
@@ -157,6 +173,10 @@ const config: Config = {
             {
               label: '使用文档',
               to: '/docs/intro',
+            },
+            {
+              label: '新闻公告',
+              to: '/news',
             },
           ],
         },

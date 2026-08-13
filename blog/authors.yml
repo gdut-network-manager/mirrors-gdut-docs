@@ -1,25 +1,11 @@
-yangshun:
-  name: Yangshun Tay
-  title: Ex-Meta Staff Engineer, Co-founder GreatFrontEnd
-  url: https://linkedin.com/in/yangshun
-  image_url: https://github.com/yangshun.png
-  page: true
-  socials:
-    x: yangshunz
-    linkedin: yangshun
-    github: yangshun
-    newsletter: https://www.greatfrontend.com
+gdutnic:
+  name: 广东工业大学学生网管队
+  title: 广东工业大学网络中心学生网管队
+  url: https://mirrors.gdut.edu.cn
+  image_url: https://mirrors.gdut.edu.cn/GDUT_Logo.png
 
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
-  page:
-    # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
-  socials:
-    x: sebastienlorber
-    linkedin: sebastienlorber
-    github: slorber
-    newsletter: https://thisweekinreact.com
+gregPerlinLi:
+  name: gregPerlinLi
+  title: -gregPerlinLi-
+  url: https://github.com/gregPerlinLi
+  image_url: https://cn-gz-2.oss.gdutnic.com/gdutnic/public/avatar/gregperlinli.png

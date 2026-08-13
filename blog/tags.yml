@@ -1,19 +1,34 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+公告:
+  label: 公告
+  permalink: /tags/announcement
+  description: 镜像站通用公告
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+故障通知:
+  label: 故障通知
+  permalink: /tags/incident
+  description: 镜像故障、服务异常通知
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+维护通知:
+  label: 维护通知
+  permalink: /tags/maintenance
+  description: 计划性维护、停机通知
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+新镜像上线:
+  label: 新镜像上线
+  permalink: /tags/new-mirror
+  description: 新增镜像源通知
+
+镜像下线:
+  label: 镜像下线
+  permalink: /tags/deprecated-mirror
+  description: 镜像停止维护通知
+
+同步异常:
+  label: 同步异常
+  permalink: /tags/sync-issue
+  description: 同步延迟或失败通知
+
+功能更新:
+  label: 功能更新
+  permalink: /tags/feature-update
+  description: 站点功能改进通知
