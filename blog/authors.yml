@@ -1,7 +1,7 @@
 gdutnic:
   name: 广东工业大学学生网管队
   title: 广东工业大学网络中心学生网管队
-  url: https://mirrors.gdut.edu.cn
+  url: https://github.com/gdut-network-manager
   image_url: https://mirrors.gdut.edu.cn/GDUT_Logo.png
 
 gregPerlinLi:

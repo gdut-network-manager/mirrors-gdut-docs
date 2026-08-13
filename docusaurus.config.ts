@@ -94,6 +94,7 @@ const config: Config = {
       ({
         hashed: true,
         language: ["en", "zh"],
+        blogRouteBasePath: "/news",
         askAi: {
           apiUrl: "https://mirrors.gdut.edu.cn/ai-proxy/api/chat",
           project: "mirrors-docs",

@@ -108,6 +108,7 @@ type SidebarLink = {label: string; to?: string; href?: string};
 
 const QUICK_LINKS: SidebarLink[] = [
   {label: '关于我们', to: '/docs/intro'},
+  {label: '新闻公告', to: '/news'},
   {label: '常见问题', to: '/docs/intro'},
   {label: '镜像站主页', href: 'https://mirrors.gdut.edu.cn'},
 ];
