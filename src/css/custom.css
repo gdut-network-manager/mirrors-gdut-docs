@@ -789,16 +789,30 @@ body {
 
 .blog-wrapper [class*="tag"] {
   border-radius: var(--island-radius-pill);
+  transition: background var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+              border-color var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+              color var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
 .blog-wrapper [class*="tagWithCount"] {
-  border-left: 1px solid var(--ifm-color-emphasis-300);
+  border: 1px solid var(--docusaurus-tag-list-border, var(--ifm-color-emphasis-300));
   padding: 0.2rem 0.6rem;
 }
 
 .blog-wrapper [class*="tagWithCount"]::before,
 .blog-wrapper [class*="tagWithCount"]::after {
   display: none;
+}
+
+.blog-wrapper [class*="tag"]:hover {
+  --docusaurus-tag-list-border: var(--ifm-color-primary);
+  background: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}
+
+.blog-wrapper [class*="tag"]:hover span {
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--ifm-color-white);
 }
 
 /* ── Blog List Page Article Cards ─────────────────────────────────── */
