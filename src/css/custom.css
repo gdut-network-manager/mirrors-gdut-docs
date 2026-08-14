@@ -10,16 +10,6 @@
 @import 'katex/dist/katex.min.css';
 
 @font-face {
-  font-family: 'MyriadPro';
-  src: url('/font/MyriadPro-Regular.otf');
-}
-@font-face {
-  font-family: 'MyriadPro';
-  src: url('/font/MyriadPro-Bold.otf');
-  font-weight: bold;
-}
-
-@font-face {
   font-family: 'FiraCode NerdFont';
   src: url('/font/FiraCodeNerdFont-Regular.ttf');
   font-weight: 400;

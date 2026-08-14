@@ -50,7 +50,7 @@
 - **AI 智能搜索**：基于 `@easyops-cn/docusaurus-search-local` 的离线中英文全文搜索，集成 AI 问答助手（`mod+i` 唤起）
 - **KaTeX 数学公式**：通过 remark-math + rehype-katex 支持行内与块级数学公式渲染
 - **语法高亮**：基于 Prism，亮色模式使用 GitHub 主题，暗色模式使用 Dracula 主题；额外注册了 bash、ini、toml、properties、lisp、powershell、perl 语言；并扩展了 PowerShell 语法以识别 CLI 命令和参数
-- **统一字体**：代码块统一使用 FiraCode NerdFont，字重 500；正文使用 Inter，标题使用 MyriadPro
+- **统一字体**：代码块统一使用 FiraCode NerdFont，字重 500；正文使用 Inter
 - **暗色模式**：支持手动切换与跟随系统偏好
 - **自动换行**：自定义代码块支持一键切换自动换行（与 Docusaurus 原生代码块一致）
 - **40+ 镜像帮助文档**：涵盖 Ubuntu、Debian、CentOS Stream、Arch Linux、Fedora、Docker、PyPI、npm、RubyGems、Go、Maven、Composer、NuGet 等
