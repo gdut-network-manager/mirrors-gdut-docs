@@ -31,11 +31,11 @@
   </tr>
   <tr>
     <td width="50%" align="center"><b>ImageNameConverter 镜像名称转换工具</b></td>
-    <td width="50%" align="center"></td>
+    <td width="50%" align="center"><b>新闻公告</b></td>
   </tr>
   <tr>
     <td><img src="screenshots/image-name-converter.png"></td>
-    <td></td>
+    <td><img src="screenshots/news.png"></td>
   </tr>
 </table>
 
@@ -45,20 +45,25 @@
 - **MirrorSources 交互组件**：支持版本选择、HTTPS/源代码/安全源等开关切换，实时生成配置文件与快速配置命令，覆盖 APT（传统格式 / DEB822）、YUM、Pacman、Maven 五种镜像类型
 - **ImageNameConverter 镜像名称转换工具**：输入 Docker 镜像名自动解析所属 Registry，生成本站加速拉取命令与恢复标签命令，支持 Docker/Podman/ctr 三种运行时与前缀添加/域名置换两种模式
 - **MirrorSelector 下拉组件**：同一页面内多段代码块联动切换镜像源地址（如 Nginx 缓存加速 / Nexus 缓存代理）
+- **PlatformIcon 组件**：在选项卡标签中渲染 Docker、Containerd、CRI-O、Podman、Windows、Linux 等平台图标
+- **新闻公告**：基于 Docusaurus Blog 模块，路由 `/news`，支持文章置顶、侧边栏全量展示、RSS/Atom 订阅源
+- **AI 智能搜索**：基于 `@easyops-cn/docusaurus-search-local` 的离线中英文全文搜索，集成 AI 问答助手（`mod+i` 唤起）
+- **KaTeX 数学公式**：通过 remark-math + rehype-katex 支持行内与块级数学公式渲染
 - **语法高亮**：基于 Prism，亮色模式使用 GitHub 主题，暗色模式使用 Dracula 主题；额外注册了 bash、ini、toml、properties、lisp、powershell、perl 语言；并扩展了 PowerShell 语法以识别 CLI 命令和参数
-- **统一字体**：代码块统一使用 FiraCode NerdFont，字重 500
-- **本地搜索**：基于 `@easyops-cn/docusaurus-search-local`，支持中英文全文搜索
+- **统一字体**：代码块统一使用 FiraCode NerdFont，字重 500；正文使用 Inter，标题使用 MyriadPro
 - **暗色模式**：支持手动切换与跟随系统偏好
 - **自动换行**：自定义代码块支持一键切换自动换行（与 Docusaurus 原生代码块一致）
-- **40+ 镜像帮助文档**：涵盖 Ubuntu、Debian、CentOS Stream、Arch Linux、Fedora、Docker、PyPI、npm、RubyGems、Go、Maven 等
+- **40+ 镜像帮助文档**：涵盖 Ubuntu、Debian、CentOS Stream、Arch Linux、Fedora、Docker、PyPI、npm、RubyGems、Go、Maven、Composer、NuGet 等
 
 ## 技术栈
 
 | 技术 | 说明 |
 | --- | --- |
 | [Docusaurus 3.10](https://docusaurus.io/) | 静态站点生成框架 |
+| [@docusaurus/faster](https://docusaurus.io/docs/api/plugins/@docusaurus/faster) | 构建加速（Rspack） |
 | [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) | 代码语法高亮 |
-| [@easyops-cn/docusaurus-search-local](https://github.com/easyops-cn/docusaurus-search-local) | 离线本地搜索 |
+| [@easyops-cn/docusaurus-search-local](https://github.com/easyops-cn/docusaurus-search-local) | 离线本地搜索 + AI 问答 |
+| [KaTeX](https://katex.org/) | 数学公式渲染（remark-math + rehype-katex） |
 | React 19 | 前端框架 |
 | TypeScript | 类型安全 |
 | Infima | Docusaurus 默认 CSS 框架 |
@@ -67,13 +72,17 @@
 
 ```
 mirrors-docs/
+├── blog/                          # 新闻公告（MDX）
+│   ├── 2026-05-14-fedora-mirror-launched.mdx
+│   ├── ...
+│   ├── authors.yml                # 作者定义
+│   └── tags.yml                   # 标签定义
 ├── docs/                          # 镜像帮助文档（Markdown / MDX）
 │   ├── intro.md                   # 关于我们
 │   └── mirrors/                   # 各镜像源使用帮助
 │       ├── ubuntu-help.mdx        # Ubuntu（含 MirrorSources 组件）
-│       ├── centos-stream-help.mdx # CentOS Stream
+│       ├── docker-help.mdx        # Docker（含 ImageNameConverter 组件）
 │       ├── rubygems-help.mdx      # RubyGems（含 MirrorSelector 组件）
-│       ├── docker-help.md         # Docker
 │       └── ...                    # 更多镜像帮助文档
 ├── src/
 │   ├── components/
@@ -86,9 +95,11 @@ mirrors-docs/
 │   │   │   ├── index.tsx          # 主组件（输入框、分段滑块、命令生成）
 │   │   │   ├── registries.ts      # Registry 配置数据与解析函数
 │   │   │   └── styles.module.css  # 组件样式
-│   │   └── MirrorSelector/        # 下拉镜像源切换组件
-│   │       ├── index.tsx          # MirrorSelector + MirrorContent
-│   │       └── styles.module.css  # 组件样式
+│   │   ├── MirrorSelector/        # 下拉镜像源切换组件
+│   │   │   ├── index.tsx          # MirrorSelector + MirrorContent
+│   │   │   └── styles.module.css  # 组件样式
+│   │   └── PlatformIcon/          # 平台图标组件（选项卡标签用）
+│   │       └── index.tsx
 │   ├── css/
 │   │   └── custom.css             # 全局自定义样式（主题色、毛玻璃、语法高亮等）
 │   ├── pages/
@@ -97,7 +108,8 @@ mirrors-docs/
 │       └── prism-include-languages/
 │           └── index.ts           # Prism 语言扩展（PowerShell CLI 增强）
 ├── static/
-│   └── font/                      # FiraCode NerdFont 字体文件
+│   ├── font/                      # 字体文件（FiraCode NerdFont / MyriadPro / SFMono）
+│   └── img/                       # Logo、图标、社交卡片等静态图片
 ├── screenshots/                   # README 截图
 ├── docusaurus.config.ts           # Docusaurus 配置
 ├── sidebars.ts                    # 侧边栏配置
@@ -155,7 +167,7 @@ npm run typecheck
 
 ### 普通文档
 
-在 `docs/mirrors/` 目录下创建 `.md` 文件，文件头部添加 frontmatter：
+在 `docs/mirrors/` 目录下创建 `.md` 或 `.mdx` 文件，文件头部添加 frontmatter：
 
 ```markdown
 ---
@@ -173,9 +185,11 @@ sidebar_position: 1
 ...
 ```
 
+需要使用 React 组件（MirrorSources、MirrorSelector、ImageNameConverter、Tabs 等）时，文件扩展名必须为 `.mdx`。
+
 ### 使用 MirrorSources 组件
 
-在 `.mdx` 文件中引入组件，支持 `apt-traditional`、`apt-deb822`、`yum`、`pacman` 四种类型：
+在 `.mdx` 文件中引入组件，支持 `apt-traditional`、`apt-deb822`、`yum`、`pacman`、`maven` 五种类型：
 
 ```mdx
 import MirrorSources from '@site/src/components/MirrorSources';
@@ -222,10 +236,27 @@ gem sources --add https://mirrors.gdut.edu.cn/nexus/repository/rubygems/ --remov
 </MirrorSelector>
 ```
 
+### 编写新闻公告
+
+在 `blog/` 目录下创建 `.mdx` 文件，文件命名格式为 `YYYY-MM-DD-slug.mdx`，头部添加 frontmatter：
+
+```yaml
+---
+slug: mirror-launched
+title: 镜像上线
+authors: [gdutnic, gregPerlinLi]
+tags: [新镜像上线]
+date: 2026-07-31
+---
+```
+
+作者与标签定义见 `blog/authors.yml` 和 `blog/tags.yml`。在正文简介后使用 `{/* truncate */}` 标记摘要截断点。支持 `pin: true` frontmatter 字段将公告置顶。
+
 ## 相关链接
 
 - [镜像站主页](https://mirrors.gdut.edu.cn)
-- [镜像站 GitHub](https://github.com/chn-lee-yumi/mirrors-gdut)
+- [文档中心源码](https://github.com/gdut-network-manager/mirrors-gdut-docs)
+- [镜像站源码](https://github.com/chn-lee-yumi/mirrors-gdut)
 - [广东工业大学](https://www.gdut.edu.cn/)
 - [网络中心](https://nic.gdut.edu.cn/)
 - [Docusaurus 文档](https://docusaurus.io/docs)
