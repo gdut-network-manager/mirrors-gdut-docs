@@ -38,6 +38,48 @@ export default function prismIncludeLanguages(
     });
   }
 
+  const groovy = PrismObject.languages.groovy;
+  if (groovy) {
+    if (groovy['boolean']) {
+      groovy['boolean'] = /\b(?:true|false|null)\b/;
+    }
+
+    PrismObject.languages.insertBefore('groovy', 'function', {
+      'gradle-block': {
+        pattern: /\b(?:allprojects|subprojects|buildscript|repositories|dependencies|configurations|plugins|publishing|sourceSets|artifacts|tasks|extensions|maven|mavenCentral|mavenLocal|google|flatDir|ivy|all|resolutionStrategy)\b(?=\s*\{)/,
+        alias: 'function',
+      },
+      'gradle-call': {
+        pattern: /\b(?:url|remove|include|exclude|force|eachDependency|dependsOn|doFirst|doLast)\b(?=\s)/,
+        alias: 'function',
+      },
+    });
+
+    PrismObject.languages.insertBefore('groovy', 'class-name', {
+      'gradle-type': {
+        pattern: /\b(?:MavenArtifactRepository|ArtifactRepository|Project|Gradle|Settings|Configuration|Dependency|ModuleDependency|Task|SourceSet|JavaVersion|ResolutionStrategy|DependencyHandler|RepositoryHandler|Closure|Action)\b/,
+        alias: 'builtin',
+      },
+    });
+  }
+
+  const kotlin = PrismObject.languages.kotlin;
+  if (kotlin) {
+    PrismObject.languages.insertBefore('kotlin', 'function', {
+      'gradle-block': {
+        pattern: /\b(?:allprojects|subprojects|buildscript|repositories|dependencies|configurations|plugins|publishing|sourceSets|artifacts|tasks|extensions|maven|mavenCentral|mavenLocal|google|flatDir|ivy|all|resolutionStrategy)\b(?=\s*\{)/,
+        alias: 'function',
+      },
+    });
+
+    PrismObject.languages.insertBefore('kotlin', 'class-name', {
+      'gradle-type': {
+        pattern: /\b(?:MavenArtifactRepository|ArtifactRepository|Project|Gradle|Settings|Configuration|Dependency|ModuleDependency|Task|SourceSet|JavaVersion|ResolutionStrategy|DependencyHandler|RepositoryHandler)\b/,
+        alias: 'builtin',
+      },
+    });
+  }
+
   delete (globalThis as Optional<typeof globalThis, 'Prism'>).Prism;
   if (typeof PrismBefore !== 'undefined') {
     globalThis.Prism = PrismObject;
