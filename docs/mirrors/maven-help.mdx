@@ -3,6 +3,8 @@ sidebar_position: 1
 ---
 
 import MirrorSources from '@site/src/components/MirrorSources';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Maven 镜像使用帮助
 
@@ -106,3 +108,46 @@ vim ./apache-maven-3.5.2/conf/settings.xml
 :::
 
 执行maven update更新一下即可。
+
+### 在 Gradle 中使用
+
+在用户目录下创建 Gradle 初始化脚本，会将所有项目中的 Maven 仓库（包括 Maven Central）替换为本站镜像。
+
+<Tabs groupId="gradle-dsl">
+  <TabItem value="groovy" label="Groovy DSL" default>
+
+```groovy title="~/.gradle/init.gradle"
+allprojects {
+    repositories {
+        def REPOSITORY_URL = 'https://mirrors.gdut.edu.cn/nexus/repository/maven/'
+        all { ArtifactRepository repo ->
+            if (repo instanceof MavenArtifactRepository) {
+                remove repo
+            }
+        }
+        maven { url REPOSITORY_URL }
+    }
+}
+```
+
+  </TabItem>
+  <TabItem value="kotlin" label="Kotlin DSL">
+
+```kotlin title="~/.gradle/init.gradle.kts"
+allprojects {
+    repositories {
+        val REPOSITORY_URL = uri("https://mirrors.gdut.edu.cn/nexus/repository/maven/")
+        all {
+            if (this is MavenArtifactRepository) {
+                remove(this)
+            }
+        }
+        maven { url = REPOSITORY_URL }
+    }
+}
+```
+
+  </TabItem>
+</Tabs>
+
+创建脚本后无需额外操作，Gradle 会在每次构建时自动读取并应用。
