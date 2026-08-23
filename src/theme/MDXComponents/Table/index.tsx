@@ -91,7 +91,6 @@ export default function Table(props: ComponentProps<'table'>): JSX.Element {
           aria-label="展开表格"
         >
           <ExpandIcon />
-          <span>展开</span>
         </button>
       )}
       {modalOpen && createPortal(
