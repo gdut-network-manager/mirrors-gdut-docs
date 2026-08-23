@@ -162,21 +162,21 @@ Slowroll 注：Slowroll 安装后默认会启用 oss, non-oss, update, 3 个官�
 
    点击 `下一步` 保存并刷新仓库缓存。
 
-   #### 仓库和发行版分支对应关系
+#### 仓库和发行版分支对应关系
 
-   此处给出通常情况下需要手工添加的仓库和发行版分支对应关系：
+此处给出通常情况下需要手工添加的仓库和发行版分支对应关系：
 
-   | 发行版 | 仓库名称 | URL | 备注 |
-   |:---:|:---:|:---:|:---:|
-   | Leap | OSS | `https://mirrors.gdut.edu.cn/opensuse/distribution/leap/$releasever/repo/oss/` | - |
-   | Leap | NON-OSS | `https://mirrors.gdut.edu.cn/opensuse/distribution/leap/$releasever/repo/non-oss/` | - |
-   | Leap | UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/leap/$releasever/oss/` | - |
-   | Leap | UPDATE-NON-OSS | `https://mirrors.gdut.edu.cn/opensuse/update/leap/$releasever/non-oss/` | - |
-   | Leap | SLE-UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/leap/$releasever/sle/` | 仅使用 Backport 时需要添加 |
-   | Leap | SLE-BACKPORT-UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/leap/$releasever/backports/` | 仅使用 Backport 时需要添加 |
-   | Tumbleweed | OSS | `https://mirrors.gdut.edu.cn/opensuse/tumbleweed/repo/oss/` | - |
-   | Tumbleweed | NON-OSS | `https://mirrors.gdut.edu.cn/opensuse/tumbleweed/repo/non-oss/` | - |
-   | Tumbleweed | UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/tumbleweed/` | - |
-   | Slowroll | OSS | `https://mirrors.gdut.edu.cn/opensuse/slowroll/repo/oss/` | - |
-   | Slowroll | NON-OSS | `https://mirrors.gdut.edu.cn/opensuse/slowroll/repo/non-oss/` | - |
-   | Slowroll | UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/slowroll/repo/oss/` | - |
+| 发行版 | 仓库名称 | URL | 备注 |
+|:---:|:---:|:---:|:---:|
+| Leap | OSS | `https://mirrors.gdut.edu.cn/opensuse/distribution/leap/$releasever/repo/oss/` | - |
+| Leap | NON-OSS | `https://mirrors.gdut.edu.cn/opensuse/distribution/leap/$releasever/repo/non-oss/` | - |
+| Leap | UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/leap/$releasever/oss/` | - |
+| Leap | UPDATE-NON-OSS | `https://mirrors.gdut.edu.cn/opensuse/update/leap/$releasever/non-oss/` | - |
+| Leap | SLE-UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/leap/$releasever/sle/` | 仅使用 Backport 时需要添加 |
+| Leap | SLE-BACKPORT-UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/leap/$releasever/backports/` | 仅使用 Backport 时需要添加 |
+| Tumbleweed | OSS | `https://mirrors.gdut.edu.cn/opensuse/tumbleweed/repo/oss/` | - |
+| Tumbleweed | NON-OSS | `https://mirrors.gdut.edu.cn/opensuse/tumbleweed/repo/non-oss/` | - |
+| Tumbleweed | UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/tumbleweed/` | - |
+| Slowroll | OSS | `https://mirrors.gdut.edu.cn/opensuse/slowroll/repo/oss/` | - |
+| Slowroll | NON-OSS | `https://mirrors.gdut.edu.cn/opensuse/slowroll/repo/non-oss/` | - |
+| Slowroll | UPDATE | `https://mirrors.gdut.edu.cn/opensuse/update/slowroll/repo/oss/` | - |
