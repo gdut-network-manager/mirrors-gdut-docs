@@ -285,11 +285,11 @@ export function generateMaven(
 
   return [
     '<mirror>',
-    '    <id>gdutnic</id>',
-    '    <name>gdutnic maven</name>',
-    `    <url>${url}</url>`,
-    '    <mirrorOf>*</mirrorOf>',
-    '</mirror>',
+    '        <id>gdutnic</id>',
+    '        <name>gdutnic maven</name>',
+    `        <url>${url}</url>`,
+    '        <mirrorOf>*</mirrorOf>',
+    '    </mirror>',
   ].join('\n');
 }
 
