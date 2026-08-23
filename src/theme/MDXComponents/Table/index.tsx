@@ -48,7 +48,7 @@ export default function Table(props: ComponentProps<'table'>): JSX.Element {
     if (!container) return;
     let node = container.previousElementSibling;
     while (node) {
-      if (node.tagName === 'H2' || node.tagName === 'H3') {
+      if (node.tagName === 'H2' || node.tagName === 'H3' || node.tagName === 'H4' || node.tagName === 'H5' || node.tagName === 'H6') {
         setTitle(node.textContent || '表格详情');
         return;
       }

@@ -347,11 +347,14 @@ export function generateQuickConfig(
   }
 
   if (quickType === 'maven') {
-    // For maven, write a complete settings.xml with the mirror snippet
+    const indentedConfig = configText
+      .split('\n')
+      .map((line) => '        ' + line)
+      .join('\n');
     const settingsXml = [
       '<settings>',
       '    <mirrors>',
-      '        ' + configText,
+      indentedConfig,
       '    </mirrors>',
       '</settings>',
     ].join('\n');
