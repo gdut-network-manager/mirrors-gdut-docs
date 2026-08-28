@@ -20,10 +20,10 @@ crates.io 是 Rust 编程语言的官方包仓库。本镜像提供 crates.io �
 
 ```toml title="config.toml"
 [registries]
-cargo-gdut = { index = "sparse+http://mirrors.gdut.edu.cn/repository/crates.io-index/" }
+cargo-gdut = { index = "sparse+http://repo.gdut.edu.cn/repository/crates.io-index/" }
 
 [registries.cargo-hosted]
-index = "sparse+http://mirrors.gdut.edu.cn/repository/crates.io-index/"
+index = "sparse+http://repo.gdut.edu.cn/repository/crates.io-index/"
 
 [source.crates-io]
 replace-with = "cargo-gdut"
