@@ -18,7 +18,7 @@ build:
       - node_modules/
   before_script:
     # 配置 NPM 使用广工镜像站
-    - npm config set registry https://mirrors.gdut.edu.cn/nexus/repository/npm
+    - npm config set registry https://repo.gdut.edu.cn/repository/npm
   script:
     - echo "Installing dependencies..."
     - npm ci
