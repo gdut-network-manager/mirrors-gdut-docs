@@ -17,7 +17,7 @@ RubyGems 是 Ruby 的包管理器，提供了 Ruby 程序和库的分发与安�
 | 方式 | 地址 |
 | --- | --- |
 | **Nginx 缓存加速**（推荐） | `https://mirrors.gdut.edu.cn/rubygems/` |
-| **Nexus 缓存代理** | `https://mirrors.gdut.edu.cn/nexus/repository/rubygems/` |
+| **Nexus 缓存代理** | `https://repo.gdut.edu.cn/repository/rubygems/` |
 
 - **更新策略**：缓存代理。所有 gem 包在被请求后即会缓存到服务器，缓存 30 天。
 
@@ -47,7 +47,7 @@ gem sources -l
 
 ```bash
 # 添加镜像源并移除默认源
-gem sources --add https://mirrors.gdut.edu.cn/nexus/repository/rubygems/ --remove https://rubygems.org/
+gem sources --add https://repo.gdut.edu.cn/repository/rubygems/ --remove https://rubygems.org/
 # 列出已有源
 gem sources -l
 # 应该只有镜像源一个
@@ -76,7 +76,7 @@ gem sources -l
 ```yaml title="~/.gemrc"
 ---
 :sources:
-- https://mirrors.gdut.edu.cn/nexus/repository/rubygems/
+- https://repo.gdut.edu.cn/repository/rubygems/
 :update_sources: true
 :verbose: true
 :backtrace: false
@@ -100,7 +100,7 @@ bundle config set --global mirror.https://rubygems.org https://mirrors.gdut.edu.
 <MirrorContent type="nexus">
 
 ```bash
-bundle config set --global mirror.https://rubygems.org https://mirrors.gdut.edu.cn/nexus/repository/rubygems
+bundle config set --global mirror.https://rubygems.org https://repo.gdut.edu.cn/repository/rubygems
 ```
 
 </MirrorContent>
@@ -135,7 +135,7 @@ gem 'puma'
 # 将默认源
 # source 'https://rubygems.org'
 # 替换为镜像源
-source 'https://mirrors.gdut.edu.cn/nexus/repository/rubygems/'
+source 'https://repo.gdut.edu.cn/repository/rubygems/'
 
 gem 'rails'
 gem 'puma'

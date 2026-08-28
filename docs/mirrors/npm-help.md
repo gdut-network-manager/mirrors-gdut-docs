@@ -19,13 +19,13 @@ npm 是 Node.js 的默认包管理器，用于安装、共享和管理 JavaScrip
 ### 临时使用
 
 ```bash
-npm --registry https://mirrors.gdut.edu.cn/nexus/repository/npm install express
+npm --registry https://repo.gdut.edu.cn/repository/npm install express
 ```
 
 ### 持久使用
 
 ```bash
-npm config set registry https://mirrors.gdut.edu.cn/nexus/repository/npm
+npm config set registry https://repo.gdut.edu.cn/repository/npm
 # 配置后可通过下面方式来验证是否成功
 npm config get registry
 # 或

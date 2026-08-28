@@ -30,7 +30,7 @@ Maven 是 Java 项目管理和构建工具，用于管理项目的依赖、构�
        <mirror>
             <id>gdutnic</id>
             <name>gdutnic maven</name>
-            <url>https://mirrors.gdut.edu.cn/nexus/repository/maven/</url>
+            <url>https://repo.gdut.edu.cn/repository/maven/</url>
             <mirrorOf>*</mirrorOf>
        </mirror>
     </mirrors>
@@ -61,8 +61,8 @@ vim ./apache-maven-3.5.2/conf/settings.xml
 
 <MirrorSources
   type="maven"
-  host="mirrors.gdut.edu.cn"
-  path="/nexus/repository/maven"
+  host="repo.gdut.edu.cn"
+  path="/repository/maven"
   versions={[{ label: 'Maven', codename: 'maven' }]}
   options={{ https: true }}
 />
@@ -78,7 +78,7 @@ vim ./apache-maven-3.5.2/conf/settings.xml
     <repository>
         <id>nexus-gdut</id>
         <name>Nexus gdut</name>
-        <url>https://mirrors.gdut.edu.cn/nexus/repository/maven/</url>
+        <url>https://repo.gdut.edu.cn/repository/maven/</url>
         <layout>default</layout>
         <snapshots>
             <enabled>false</enabled>
@@ -92,7 +92,7 @@ vim ./apache-maven-3.5.2/conf/settings.xml
     <pluginRepository>
         <id>nexus-gdut</id>
         <name>Nexus gdut</name>
-        <url>https://mirrors.gdut.edu.cn/nexus/repository/maven/</url>
+        <url>https://repo.gdut.edu.cn/repository/maven/</url>
         <snapshots>
             <enabled>false</enabled>
         </snapshots>
@@ -119,7 +119,7 @@ vim ./apache-maven-3.5.2/conf/settings.xml
 ```groovy title="~/.gradle/init.gradle"
 allprojects {
     repositories {
-        def REPOSITORY_URL = 'https://mirrors.gdut.edu.cn/nexus/repository/maven/'
+        def REPOSITORY_URL = 'https://repo.gdut.edu.cn/repository/maven/'
         all { ArtifactRepository repo ->
             if (repo instanceof MavenArtifactRepository) {
                 remove repo
@@ -136,7 +136,7 @@ allprojects {
 ```kotlin title="~/.gradle/init.gradle.kts"
 allprojects {
     repositories {
-        val REPOSITORY_URL = uri("https://mirrors.gdut.edu.cn/nexus/repository/maven/")
+        val REPOSITORY_URL = uri("https://repo.gdut.edu.cn/repository/maven/")
         all {
             if (this is MavenArtifactRepository) {
                 remove(this)

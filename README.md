@@ -228,7 +228,7 @@ gem sources --add https://mirrors.gdut.edu.cn/rubygems/ --remove https://rubygem
 <MirrorContent type="nexus">
 
 ```bash
-gem sources --add https://mirrors.gdut.edu.cn/nexus/repository/rubygems/ --remove https://rubygems.org/
+gem sources --add https://repo.gdut.edu.cn/repository/rubygems/ --remove https://rubygems.org/
 ```
 
 </MirrorContent>

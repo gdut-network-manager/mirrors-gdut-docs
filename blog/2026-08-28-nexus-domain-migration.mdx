@@ -1,0 +1,40 @@
+---
+slug: nexus-domain-migration
+title: Nexus 镜像域名迁移公告
+authors: [gdutnic, gregPerlinLi]
+tags: [功能更新]
+date: 2026-08-28
+---
+
+本站 Nexus 镜像服务已迁移至独立域名 `repo.gdut.edu.cn`，原地址 `mirrors.gdut.edu.cn/nexus` 不再使用。请已配置镜像源的用户尽快更新配置。
+
+{/* truncate */}
+
+## 迁移说明
+
+| 项目 | 旧地址 | 新地址 |
+|:---:|:---:|:---:|
+| 域名 | `mirrors.gdut.edu.cn/nexus` | `repo.gdut.edu.cn` |
+
+迁移仅需将配置中的域名部分替换，路径保持不变。例如：
+
+- 旧：`https://mirrors.gdut.edu.cn/nexus/repository/maven/`
+- 新：`https://repo.gdut.edu.cn/repository/maven/`
+
+:::note[旧地址兼容]
+迁移后旧地址仍可在一段时间内正常访问，但建议尽早更新配置，以免后续旧地址停用后影响使用。
+:::
+
+## 受影响的镜像
+
+以下 5 个镜像使用了 Nexus 仓库，需更新配置中的地址：
+
+| 镜像 | 新地址 |
+|:---:|:---:|
+| Maven | `https://repo.gdut.edu.cn/repository/maven/` |
+| RubyGems | `https://repo.gdut.edu.cn/repository/rubygems/` |
+| Composer | `https://repo.gdut.edu.cn/repository/composer/` |
+| NuGet | `https://repo.gdut.edu.cn/repository/nuget/` |
+| npm | `https://repo.gdut.edu.cn/repository/npm` |
+
+各镜像的详细配置方法请参阅对应的使用帮助文档。

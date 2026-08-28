@@ -21,7 +21,7 @@ Composer 是 PHP 的依赖管理工具，用于管理 PHP 项目的依赖库。�
 使用以下命令将镜像源添加为 Composer 的仓库源：
 
 ```bash
-composer config -g repositories.gdut-mirrors composer https://mirrors.gdut.edu.cn/nexus/repository/composer/
+composer config -g repositories.gdut-mirrors composer https://repo.gdut.edu.cn/repository/composer/
 ```
 
 :::note[允许 HTTP 下载]
@@ -46,7 +46,7 @@ composer config -g secure-http false
         {
             "name": "gdut-mirrors",
             "type": "composer",
-            "url": "https://mirrors.gdut.edu.cn/nexus/repository/composer/"
+            "url": "https://repo.gdut.edu.cn/repository/composer/"
         }
     ]
 }

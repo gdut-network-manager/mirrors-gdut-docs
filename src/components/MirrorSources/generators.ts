@@ -270,7 +270,7 @@ export function generatePacman(
  *   <mirror>
  *       <id>gdutnic</id>
  *       <name>gdutnic maven</name>
- *       <url>https://mirrors.gdut.edu.cn/nexus/repository/maven/</url>
+ *       <url>https://repo.gdut.edu.cn/repository/maven/</url>
  *       <mirrorOf>*</mirrorOf>
  *   </mirror>
  */

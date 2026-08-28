@@ -21,7 +21,7 @@ NuGet 是 .NET 的包管理器，用于安装、共享和管理 .NET 依赖包�
 使用以下命令将镜像源添加为 NuGet 包源：
 
 ```bash
-dotnet nuget add source https://mirrors.gdut.edu.cn/nexus/repository/nuget/ -n gdut-mirror
+dotnet nuget add source https://repo.gdut.edu.cn/repository/nuget/ -n gdut-mirror
 ```
 
 配置后可通过以下命令验证是否成功：
@@ -38,7 +38,7 @@ dotnet nuget list source
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <packageSources>
-        <add key="gdut-mirror" value="https://mirrors.gdut.edu.cn/nexus/repository/nuget/" />
+        <add key="gdut-mirror" value="https://repo.gdut.edu.cn/repository/nuget/" />
     </packageSources>
 </configuration>
 ```
