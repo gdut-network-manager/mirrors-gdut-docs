@@ -59,6 +59,12 @@ vim ./apache-maven-3.5.2/conf/settings.xml
 
 添加一个的Mirror子节点：
 
+### 在 Maven 项目 POM 中使用
+
+打开项目配置文件 `pom.xml`，添加或修改 `<repositories>` 和 `<pluginRepositories>`。
+
+settings.xml 的 `<mirror>` 片段和 POM 配置均支持 HTTPS 开关联动：
+
 <MirrorSources
   type="maven"
   host="repo.gdut.edu.cn"
@@ -66,10 +72,6 @@ vim ./apache-maven-3.5.2/conf/settings.xml
   versions={[{ label: 'Maven', codename: 'maven' }]}
   options={{ https: true }}
 />
-
-### 在 Maven 项目 POM 中使用
-
-打开项目配置文件 `pom.xml`，在上方配置选项中切换到「POM 配置」选项卡，添加或修改 `<repositories>` 和 `<pluginRepositories>`：
 
 执行maven update更新一下即可。
 
