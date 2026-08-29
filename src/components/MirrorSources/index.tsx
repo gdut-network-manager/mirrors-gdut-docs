@@ -54,6 +54,7 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
     components = [],
     filePath,
     options,
+    mavenPomOnly,
   } = props;
 
   // Guard: require at least one version
@@ -355,20 +356,10 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
         </div>
       </div>
 
-      {quickConfigType === 'none' ? (
+      {mavenPomOnly ? (
+        renderCodeBlock('pom.xml', pomText, 'config', 'markup')
+      ) : quickConfigType === 'none' ? (
         renderCodeBlock(displayFilePath, configText, 'config', configLanguage)
-      ) : type === 'maven' ? (
-        <Tabs className={styles.tabs}>
-          <TabItem value="manual" label="手动配置">
-            {renderCodeBlock(displayFilePath, configText, 'config', configLanguage)}
-          </TabItem>
-          <TabItem value="pom" label="POM 配置">
-            {renderCodeBlock('pom.xml', pomText, 'quick', 'markup')}
-          </TabItem>
-          <TabItem value="quick" label="快速配置">
-            {renderCodeBlock('快速配置命令', quickConfigText, 'quick', 'bash')}
-          </TabItem>
-        </Tabs>
       ) : (
         <Tabs className={styles.tabs}>
           <TabItem value="manual" label="手动配置">

@@ -64,6 +64,8 @@ export interface MirrorSourcesProps {
   branch?: string;
   /** Quick config command type (default: based on type) */
   quickConfigType?: 'apt' | 'yum' | 'pacman' | 'maven' | 'none';
+  /** Render POM config instead of settings.xml mirror snippet (maven only) */
+  mavenPomOnly?: boolean;
 }
 
 /**
