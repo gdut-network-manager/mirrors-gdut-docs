@@ -293,6 +293,48 @@ export function generateMaven(
   ].join('\n');
 }
 
+// ── Maven POM (pom.xml repositories) ──────────────────────────────────
+
+export function generateMavenPom(
+  props: MirrorSourcesProps,
+  state: GenState,
+): string {
+  const {host, path} = props;
+  const protocol = state.https ? 'https' : 'http';
+  const basePath = normalizePath(path);
+  const url = `${protocol}://${host}${basePath}/`;
+
+  return [
+    '<repositories>',
+    '    <repository>',
+    '        <id>nexus-gdut</id>',
+    '        <name>Nexus gdut</name>',
+    `        <url>${url}</url>`,
+    '        <layout>default</layout>',
+    '        <snapshots>',
+    '            <enabled>false</enabled>',
+    '        </snapshots>',
+    '        <releases>',
+    '            <enabled>true</enabled>',
+    '        </releases>',
+    '    </repository>',
+    '</repositories>',
+    '<pluginRepositories>',
+    '    <pluginRepository>',
+    '        <id>nexus-gdut</id>',
+    '        <name>Nexus gdut</name>',
+    `        <url>${url}</url>`,
+    '        <snapshots>',
+    '            <enabled>false</enabled>',
+    '        </snapshots>',
+    '        <releases>',
+    '            <enabled>true</enabled>',
+    '        </releases>',
+    '    </pluginRepository>',
+    '</pluginRepositories>',
+  ].join('\n');
+}
+
 // ── Quick Configuration Command ───────────────────────────────────────
 
 /**

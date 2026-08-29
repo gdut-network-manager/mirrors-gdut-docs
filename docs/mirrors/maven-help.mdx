@@ -69,43 +69,7 @@ vim ./apache-maven-3.5.2/conf/settings.xml
 
 ### 在 Maven 项目 POM 中使用
 
-打开项目配置文件 `pom.xml`
-
-添加或修改
-
-```xml title="pom.xml"
-<repositories>
-    <repository>
-        <id>nexus-gdut</id>
-        <name>Nexus gdut</name>
-        <url>https://repo.gdut.edu.cn/repository/maven/</url>
-        <layout>default</layout>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-        <releases>
-            <enabled>true</enabled>
-        </releases>
-    </repository>
-</repositories>
-<pluginRepositories>
-    <pluginRepository>
-        <id>nexus-gdut</id>
-        <name>Nexus gdut</name>
-        <url>https://repo.gdut.edu.cn/repository/maven/</url>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-        <releases>
-            <enabled>true</enabled>
-        </releases>
-    </pluginRepository>
-</pluginRepositories>
-```
-
-:::tip[协议切换提示]
-上方配置选项中的 HTTPS 开关联动的仅是 settings.xml 的 `<mirror>` 片段。如需在 POM 中也使用 HTTP，请将上方开关切换为关闭后，将下方 POM 中的 `<url>` 协议改为 `http://`。
-:::
+打开项目配置文件 `pom.xml`，在上方配置选项中切换到「POM 配置」选项卡，添加或修改 `<repositories>` 和 `<pluginRepositories>`：
 
 执行maven update更新一下即可。
 

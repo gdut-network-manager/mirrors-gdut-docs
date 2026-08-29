@@ -23,6 +23,7 @@ import {
   generateYum,
   generatePacman,
   generateMaven,
+  generateMavenPom,
   generateQuickConfig,
 } from './generators';
 import styles from './styles.module.css';
@@ -112,6 +113,11 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
     if (quickConfigType === 'none') return '';
     return generateQuickConfig(props, state, configText);
   }, [props, state, configText, quickConfigType]);
+
+  const pomText = useMemo(() => {
+    if (type !== 'maven') return '';
+    return generateMavenPom(props, state);
+  }, [props, state, type]);
 
   // ── Default file path ──────────────────────────────────────────────
 
@@ -351,6 +357,18 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
 
       {quickConfigType === 'none' ? (
         renderCodeBlock(displayFilePath, configText, 'config', configLanguage)
+      ) : type === 'maven' ? (
+        <Tabs className={styles.tabs}>
+          <TabItem value="manual" label="手动配置">
+            {renderCodeBlock(displayFilePath, configText, 'config', configLanguage)}
+          </TabItem>
+          <TabItem value="pom" label="POM 配置">
+            {renderCodeBlock('pom.xml', pomText, 'quick', 'markup')}
+          </TabItem>
+          <TabItem value="quick" label="快速配置">
+            {renderCodeBlock('快速配置命令', quickConfigText, 'quick', 'bash')}
+          </TabItem>
+        </Tabs>
       ) : (
         <Tabs className={styles.tabs}>
           <TabItem value="manual" label="手动配置">
