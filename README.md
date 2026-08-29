@@ -255,6 +255,7 @@ date: 2026-07-31
 ## 相关链接
 
 - [镜像站主页](https://mirrors.gdut.edu.cn)
+- [制品仓库](https://repo.gdut.edu.cn)
 - [文档中心源码](https://github.com/gdut-network-manager/mirrors-gdut-docs)
 - [镜像站源码](https://github.com/chn-lee-yumi/mirrors-gdut)
 - [广东工业大学](https://www.gdut.edu.cn/)

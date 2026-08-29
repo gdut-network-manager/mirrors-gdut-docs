@@ -117,6 +117,7 @@ const RELATED_LINKS: SidebarLink[] = [
   {label: '广东工业大学首页', href: 'https://www.gdut.edu.cn/'},
   {label: '镜像站状态', href: 'https://mirrors.gdut.edu.cn/status.html'},
   {label: '容器镜像库', href: 'https://registry.gdut.edu.cn/'},
+  {label: '制品仓库', href: 'https://repo.gdut.edu.cn'},
   {label: '校内测速', href: 'https://speed.gdut.edu.cn'},
   {label: 'GitHub', href: 'https://github.com/chn-lee-yumi/mirrors-gdut'},
 ];

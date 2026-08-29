@@ -209,6 +209,10 @@ const config: Config = {
               label: '容器镜像库',
               href: 'https://registry.gdut.edu.cn/',
             },
+            {
+              label: '制品仓库',
+              href: 'https://repo.gdut.edu.cn',
+            },
 	          {
               label: '校内测速站',
               href: 'https://speed.gdut.edu.cn',
