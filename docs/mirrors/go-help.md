@@ -18,7 +18,7 @@ Go 模块代理（GOPROXY）用于加速 Go 语言模块的下载。本镜像提
 
 ```bash
 export GO111MODULE=on
-export GOPROXY=http://repo.gdut.edu.cn/repository/go/
+export GOPROXY=https://repo.gdut.edu.cn/repository/go/
 export GOSUMDB=off
 ```
 
@@ -28,7 +28,7 @@ export GOSUMDB=off
 
 ```bash title="~/.bash_profile"
 export GO111MODULE=on
-export GOPROXY=http://repo.gdut.edu.cn/repository/go/
+export GOPROXY=https://repo.gdut.edu.cn/repository/go/
 export GOSUMDB=off
 ```
 
