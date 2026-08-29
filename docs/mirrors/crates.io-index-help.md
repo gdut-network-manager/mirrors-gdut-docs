@@ -22,6 +22,9 @@ crates.io 是 Rust 编程语言的官方包仓库。本镜像提供 crates.io �
 [source.crates-io]
 replace-with = "cargo-gdut"
 
+[source.cargo-gdut]
+registry = "sparse+https://repo.gdut.edu.cn/repository/crates.io-index/"
+
 [registries.cargo-gdut]
 index = "sparse+https://repo.gdut.edu.cn/repository/crates.io-index/"
 ```
