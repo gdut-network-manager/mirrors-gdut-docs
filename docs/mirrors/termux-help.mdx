@@ -37,14 +37,18 @@ deb https://mirrors.gdut.edu.cn/termux stable main
 
 <Tabs>
   <TabItem value="http" label="HTTP">
+
 ```ini title="$PREFIX/etc/apt/sources.list"
 deb http://mirrors.gdut.edu.cn/termux stable main
 ```
+
   </TabItem>
   <TabItem value="https" label="HTTPS">
+
 ```ini title="$PREFIX/etc/apt/sources.list"
 deb https://mirrors.gdut.edu.cn/termux stable main
 ```
+
   </TabItem>
 </Tabs>
 
@@ -61,29 +65,33 @@ Components: main
 
 <Tabs>
   <TabItem value="http" label="HTTP">
+
 ```yaml title="$PREFIX/etc/apt/sources.list.d/termux.sources"
 Types: deb
 URIs: http://mirrors.gdut.edu.cn/termux
 Suites: stable
 Components: main
 ```
+
   </TabItem>
   <TabItem value="https" label="HTTPS">
+
 ```yaml title="$PREFIX/etc/apt/sources.list.d/termux.sources"
 Types: deb
 URIs: https://mirrors.gdut.edu.cn/termux
 Suites: stable
 Components: main
 ```
+
   </TabItem>
 </Tabs>
 
-快速替换命令：
+快速替换命令（兼容新旧上游地址）：
 
 ```bash
 # DEB822 格式
-sed -i 's@https://packages.termux.org@https://mirrors.gdut.edu.cn/termux@g' $PREFIX/etc/apt/sources.list.d/termux.sources
+sed -i -e 's@https://packages.termux.dev/apt/termux-main@https://mirrors.gdut.edu.cn/termux@g' -e 's@https://packages-cf.termux.dev/apt/termux-main@https://mirrors.gdut.edu.cn/termux@g' -e 's@https://packages.termux.org@https://mirrors.gdut.edu.cn/termux@g' $PREFIX/etc/apt/sources.list.d/termux.sources
 # 传统格式
-sed -i 's@https://packages.termux.org@https://mirrors.gdut.edu.cn/termux@g' $PREFIX/etc/apt/sources.list
+sed -i -e 's@https://packages.termux.dev/apt/termux-main@https://mirrors.gdut.edu.cn/termux@g' -e 's@https://packages-cf.termux.dev/apt/termux-main@https://mirrors.gdut.edu.cn/termux@g' -e 's@https://packages.termux.org@https://mirrors.gdut.edu.cn/termux@g' $PREFIX/etc/apt/sources.list
 apt update && apt upgrade
 ```
