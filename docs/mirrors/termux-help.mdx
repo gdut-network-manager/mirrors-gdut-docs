@@ -1,0 +1,89 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Termux 镜像使用帮助
+
+## 简介
+
+Termux 是一个 Android 终端模拟器和 Linux 环境应用，无需 root 权限或额外设置即可直接使用。本镜像提供 Termux 软件包仓库的镜像服务，加速 Termux 软件包的下载。
+
+## 镜像信息
+
+- **更新策略**：每 6 小时更新一次
+
+## 使用说明
+
+Termux 的软件源配置文件在传统格式下为 `$PREFIX/etc/apt/sources.list`，在 DEB822 格式下为 `$PREFIX/etc/apt/sources.list.d/termux.sources`（需 Termux 0.118+ / APT 2.4+）。
+
+### 传统格式（`$PREFIX/etc/apt/sources.list`）
+
+执行如下命令对源进行替换和更新：
+
+```bash
+sed -i 's@^\(deb.*stable main\)$@#\1\ndeb http://mirrors.gdut.edu.cn/termux stable main@' $PREFIX/etc/apt/sources.list
+apt update && apt upgrade
+```
+
+或者修改 `$PREFIX/etc/apt/sources.list` 为如下内容：
+
+```ini title="$PREFIX/etc/apt/sources.list"
+# The termux repository mirror from GDUT:
+deb https://mirrors.gdut.edu.cn/termux stable main
+```
+
+<Tabs>
+  <TabItem value="http" label="HTTP">
+```ini title="$PREFIX/etc/apt/sources.list"
+deb http://mirrors.gdut.edu.cn/termux stable main
+```
+  </TabItem>
+  <TabItem value="https" label="HTTPS">
+```ini title="$PREFIX/etc/apt/sources.list"
+deb https://mirrors.gdut.edu.cn/termux stable main
+```
+  </TabItem>
+</Tabs>
+
+### DEB822 格式（`$PREFIX/etc/apt/sources.list.d/termux.sources`）
+
+自 Termux 支持 DEB822 以来，推荐使用 `.sources` 格式：
+
+```yaml title="$PREFIX/etc/apt/sources.list.d/termux.sources"
+Types: deb
+URIs: https://mirrors.gdut.edu.cn/termux
+Suites: stable
+Components: main
+```
+
+<Tabs>
+  <TabItem value="http" label="HTTP">
+```yaml title="$PREFIX/etc/apt/sources.list.d/termux.sources"
+Types: deb
+URIs: http://mirrors.gdut.edu.cn/termux
+Suites: stable
+Components: main
+```
+  </TabItem>
+  <TabItem value="https" label="HTTPS">
+```yaml title="$PREFIX/etc/apt/sources.list.d/termux.sources"
+Types: deb
+URIs: https://mirrors.gdut.edu.cn/termux
+Suites: stable
+Components: main
+```
+  </TabItem>
+</Tabs>
+
+快速替换命令：
+
+```bash
+# DEB822 格式
+sed -i 's@https://packages.termux.org@https://mirrors.gdut.edu.cn/termux@g' $PREFIX/etc/apt/sources.list.d/termux.sources
+# 传统格式
+sed -i 's@https://packages.termux.org@https://mirrors.gdut.edu.cn/termux@g' $PREFIX/etc/apt/sources.list
+apt update && apt upgrade
+```

@@ -1,0 +1,81 @@
+---
+sidebar_position: 1
+---
+
+import MirrorSources from '@site/src/components/MirrorSources';
+
+# RaspberryPi 镜像使用帮助
+
+## 简介
+
+树莓派的 archive.raspberrypi.org 软件源。是由树莓派基金会提供的软件源，包括 ui 相关程序 ( 如 Raspberry Pi OS 的桌面环境 ) 及部分由树莓派基金会为树莓派编写的软件。
+
+## 镜像信息
+
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：每6小时更新一次
+
+## 使用说明
+
+如果使用 Raspbian，推荐同时修改[Raspbian 源](raspbian-help)。
+
+Raspberry Pi OS 的软件源配置文件在传统格式下为 `/etc/apt/sources.list.d/raspi.list`，在 DEB822 格式下为 `/etc/apt/sources.list.d/raspi.sources`。
+
+可以通过以下命令查看当前系统版本：
+
+```bash
+cat /etc/os-release
+```
+
+输出示例：
+
+```bash
+PRETTY_NAME="Raspbian GNU/Linux 13 (trixie)"
+VERSION_CODENAME=trixie
+ID=raspbian
+```
+
+`VERSION_CODENAME` 后面的是代号。**请在下面的配置中选择与当前系统一致的代号，否则之后的更新操作可能导致系统出现问题。**
+
+### 传统格式（`/etc/apt/sources.list.d/raspi.list`）
+
+根据对应的 Debian 版本，编辑 `/etc/apt/sources.list.d/raspi.list` 文件，修改为如下内容。（操作前请做好相应备份）
+
+<MirrorSources
+  type="apt-traditional"
+  host="mirrors.gdut.edu.cn"
+  path="/raspberrypi/debian"
+  versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
+    { label: '12 (bookworm)', codename: 'bookworm' },
+  ]}
+  components={['main']}
+  filePath="/etc/apt/sources.list.d/raspi.list"
+  options={{ https: true, source: true, proposed: false, security: false }}
+/>
+
+### DEB822 格式（`/etc/apt/sources.list.d/raspi.sources`）
+
+<MirrorSources
+  type="apt-deb822"
+  host="mirrors.gdut.edu.cn"
+  path="/raspberrypi/debian"
+  versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
+    { label: '12 (bookworm)', codename: 'bookworm' },
+  ]}
+  components={['main']}
+  filePath="/etc/apt/sources.list.d/raspi.sources"
+  options={{ https: true, source: true, proposed: false, security: false }}
+  signedByKey="/usr/share/keyrings/raspberrypi-archive-keyring.gpg"
+/>
+
+或者直接使用以下命令进行替换：
+
+```bash
+# 传统格式
+sed -i 's|archive.raspberrypi.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list.d/raspi.list
+# DEB822 格式
+sed -i 's|archive.raspberrypi.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list.d/raspi.sources
+```

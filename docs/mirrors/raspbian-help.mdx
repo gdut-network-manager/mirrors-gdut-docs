@@ -28,6 +28,32 @@ Raspbian 是树莓派的开发与维护机构 The Raspbeery Pi Foundation "树�
 
 推荐同时修改[RaspberryPi源](raspberrypi-help)。
 
+在 Raspbian 12 (bookworm) 之前，Raspbian 的软件源配置文件使用传统的 One-Line-Style，路径为 `/etc/apt/sources.list`；从 Raspbian 13 (trixie) 开始，Raspbian 的软件源配置文件变更为 DEB822 格式，路径为 `/etc/apt/sources.list.d/raspbian.sources`。
+
+可以通过以下命令查看当前系统版本：
+
+```bash
+cat /etc/os-release
+```
+
+输出示例：
+
+```bash
+PRETTY_NAME="Raspbian GNU/Linux 13 (trixie)"
+NAME="Raspbian GNU/Linux"
+VERSION_ID="13"
+VERSION="13 (trixie)"
+VERSION_CODENAME=trixie
+ID=raspbian
+HOME_URL="http://www.raspbian.org/"
+SUPPORT_URL="http://www.raspbian.org/RaspbianForums"
+BUG_REPORT_URL="http://www.raspbian.org/RaspbianBugs"
+```
+
+`VERSION_CODENAME` 后面的是代号。**请在下面的配置中选择与当前系统一致的代号，否则之后的更新操作可能导致系统出现问题。**
+
+### 传统格式（`/etc/apt/sources.list`）
+
 根据对应的 Debian 版本，编辑 `/etc/apt/sources.list` 文件，修改为如下内容。（操作前请做好相应备份）
 
 <MirrorSources
@@ -35,13 +61,45 @@ Raspbian 是树莓派的开发与维护机构 The Raspbeery Pi Foundation "树�
   host="mirrors.gdut.edu.cn"
   path="/raspbian/raspbian"
   versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
     { label: '12 (bookworm)', codename: 'bookworm' },
-    { label: '11 (bullseye)', codename: 'bullseye' },
-    { label: '10 (buster)', codename: 'buster' },
   ]}
-  components={['main', 'non-free', 'contrib']}
+  components={['main', 'contrib', 'non-free', 'rpi']}
   filePath="/etc/apt/sources.list"
   options={{ https: true, source: true, proposed: false, security: true }}
   securityHost="deb.debian.org"
   securityPath="/debian-security"
 />
+
+:::note[提示]
+
+`rpi` 组件为树莓派相关软件包，`firmware` 组件包含固件（如需可自行添加）。
+
+:::
+
+### DEB822 格式（`/etc/apt/sources.list.d/raspbian.sources`）
+
+<MirrorSources
+  type="apt-deb822"
+  host="mirrors.gdut.edu.cn"
+  path="/raspbian/raspbian"
+  versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
+    { label: '12 (bookworm)', codename: 'bookworm' },
+  ]}
+  components={['main', 'contrib', 'non-free', 'rpi']}
+  filePath="/etc/apt/sources.list.d/raspbian.sources"
+  options={{ https: true, source: true, proposed: false, security: true }}
+  securityHost="deb.debian.org"
+  securityPath="/debian-security"
+  signedByKey="/usr/share/keyrings/raspbian-archive-keyring.gpg"
+/>
+
+或者直接使用以下命令进行替换：
+
+```bash
+# 传统格式
+sed -i 's|raspbian.raspberrypi.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list
+# DEB822 格式
+sed -i 's|raspbian.raspberrypi.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list.d/raspbian.sources
+```

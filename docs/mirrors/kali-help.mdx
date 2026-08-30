@@ -18,6 +18,10 @@ Kali Linux 是一个基于 Debian 的 Linux 发行版，专为数字取证和渗
 
 ## 使用说明
 
+Kali Linux 的软件源配置文件在传统格式下为 `/etc/apt/sources.list`，在 DEB822 格式下为 `/etc/apt/sources.list.d/kali.sources`。Kali 官方自 2023 年起已推荐使用 DEB822 格式。
+
+### 传统格式（`/etc/apt/sources.list`）
+
 根据对应的 Kali 版本，编辑 `/etc/apt/sources.list` 文件，修改为如下内容。（操作前请做好相应备份）
 
 <MirrorSources
@@ -25,13 +29,30 @@ Kali Linux 是一个基于 Debian 的 Linux 发行版，专为数字取证和渗
   host="mirrors.gdut.edu.cn"
   path="/kali"
   versions={[{ label: 'kali-rolling', codename: 'kali-rolling' }]}
-  components={['main', 'non-free', 'contrib']}
+  components={['main', 'contrib', 'non-free', 'non-free-firmware']}
   filePath="/etc/apt/sources.list"
   options={{ https: true, source: true, proposed: false, security: false }}
+/>
+
+### DEB822 格式（`/etc/apt/sources.list.d/kali.sources`）
+
+<MirrorSources
+  type="apt-deb822"
+  host="mirrors.gdut.edu.cn"
+  path="/kali"
+  versions={[{ label: 'kali-rolling', codename: 'kali-rolling' }]}
+  components={['main', 'contrib', 'non-free', 'non-free-firmware']}
+  filePath="/etc/apt/sources.list.d/kali.sources"
+  options={{ https: true, source: true, proposed: false, security: false }}
+  signedByKey="/usr/share/keyrings/kali-archive-keyring.gpg"
 />
 
 或者直接使用以下命令进行替换：
 
 ```bash
+# 传统格式
 sed -i 's|http.kali.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list
+sed -i 's|https://mirrors.gdut.edu.cn|http://mirrors.gdut.edu.cn|g' /etc/apt/sources.list  # 如需 HTTP
+# DEB822 格式
+sed -i 's|http.kali.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list.d/kali.sources
 ```

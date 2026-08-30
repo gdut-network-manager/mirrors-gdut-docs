@@ -18,6 +18,8 @@ Debian 是一个完全由自由软件组成的类 Unix 操作系统，由 Debian
 
 ## 使用说明
 
+在 Debian 12 之前，Debian 的软件源配置文件使用传统的 One-Line-Style，路径为 `/etc/apt/sources.list`；从 Debian 12 的容器镜像和 Debian 13 (trixie) 开始，Debian 的软件源配置文件变更为 DEB822 格式，路径为 `/etc/apt/sources.list.d/debian.sources`。
+
 可以通过以下命令查看当前系统版本：
 
 ```bash
@@ -27,11 +29,11 @@ cat /etc/os-release
 输出示例：
 
 ```bash
-PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
 NAME="Debian GNU/Linux"
-VERSION_ID="12"
-VERSION="12 (bookworm)"
-VERSION_CODENAME=bookworm
+VERSION_ID="13"
+VERSION="13 (trixie)"
+VERSION_CODENAME=trixie
 ID=debian
 HOME_URL="https://www.debian.org/"
 SUPPORT_URL="https://www.debian.org/support"
@@ -40,17 +42,17 @@ BUG_REPORT_URL="https://bugs.debian.org/"
 
 `VERSION_ID` 后面的数字即为当前系统版本号，`VERSION_CODENAME` 后面的是代号。**请在下面的配置中选择符合你的机器的版本，在替换配置前确认代号一致，否则之后的更新操作可能导致系统出现问题。**
 
-根据对应的 Debian 版本，编辑 `/etc/apt/sources.list` 文件，修改为如下内容。（操作前请做好相应备份）
+### 传统格式（`/etc/apt/sources.list`）
+
+将系统自带的 `/etc/apt/sources.list` 文件做个备份，然后根据下方配置替换内容即可。
 
 <MirrorSources
   type="apt-traditional"
   host="mirrors.gdut.edu.cn"
   path="/debian"
   versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
     { label: '12 (bookworm)', codename: 'bookworm' },
-    { label: '11 (bullseye)', codename: 'bullseye' },
-    { label: '10 (buster)', codename: 'buster' },
-    { label: '9 (stretch)', codename: 'stretch' },
   ]}
   components={['main', 'contrib', 'non-free', 'non-free-firmware']}
   filePath="/etc/apt/sources.list"
@@ -61,12 +63,41 @@ BUG_REPORT_URL="https://bugs.debian.org/"
 
 :::note[提示]
 
-`non-free-firmware` 组件仅在 Debian 12 (bookworm) 及以上版本中可用，低版本请忽略该组件。
+`non-free-firmware` 组件仅在 Debian 12 (bookworm) 及以上版本中可用。
+
+:::
+
+### DEB822 格式（`/etc/apt/sources.list.d/debian.sources`）
+
+自 Debian 12 的容器镜像和 Debian 13 (trixie) 起，Debian 开始支持通过 DEB822 格式的配置文件来配置镜像源。
+
+<MirrorSources
+  type="apt-deb822"
+  host="mirrors.gdut.edu.cn"
+  path="/debian"
+  versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
+    { label: '12 (bookworm)', codename: 'bookworm' },
+  ]}
+  components={['main', 'contrib', 'non-free', 'non-free-firmware']}
+  filePath="/etc/apt/sources.list.d/debian.sources"
+  options={{ https: true, source: true, proposed: false, security: true }}
+  securityHost="deb.debian.org"
+  securityPath="/debian-security"
+  signedByKey="/usr/share/keyrings/debian-archive-keyring.gpg"
+/>
+
+:::note[提示]
+
+因镜像站同步有延迟，可能会导致生产环境系统不能及时检查、安装上最新的安全更新，不建议替换 security 源。如有此需求，可关闭上方「本站安全源」开关，安全更新将使用官方源。
 
 :::
 
 或者直接使用以下命令进行替换：
 
 ```bash
+# 传统格式
 sed -i 's|deb.debian.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list
+# DEB822 格式
+sed -i 's|deb.debian.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list.d/debian.sources
 ```
