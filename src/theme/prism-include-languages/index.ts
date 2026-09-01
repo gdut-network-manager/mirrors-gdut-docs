@@ -38,6 +38,31 @@ export default function prismIncludeLanguages(
     });
   }
 
+  const ini = PrismObject.languages.ini;
+  if (ini) {
+    const DOMAIN =
+      /(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.){1,}[a-z]{2,}/.source;
+
+    PrismObject.languages.insertBefore('ini', 'key', {
+      'hosts-entry': {
+        pattern: new RegExp(
+          `^[ \\t]*(\\d{1,3}(?:\\.\\d{1,3}){3})((?:[ \\t]+${DOMAIN})+)`,
+          'gm',
+        ),
+        inside: {
+          'hosts-ip': {
+            pattern: /\d{1,3}(?:\.\d{1,3}){3}/,
+            alias: 'number',
+          },
+          'hosts-domain': {
+            pattern: new RegExp(DOMAIN),
+            alias: 'attr-value',
+          },
+        },
+      },
+    });
+  }
+
   const groovy = PrismObject.languages.groovy;
   if (groovy) {
     if (groovy['boolean']) {
