@@ -1,6 +1,8 @@
 export interface RegistryConfig {
   name: string;
   originalHost: string;
+  aliasHosts?: string[];
+  hostPattern?: RegExp;
   proxyPrefix: string;
   subdomain: string;
   isOfficialNamespace: (parts: string[]) => boolean;
@@ -16,6 +18,14 @@ export const registries: RegistryConfig[] = [
   {
     name: 'Docker Hub',
     originalHost: 'docker.io',
+    aliasHosts: [
+      'index.docker.io',
+      'index.docker.com',
+      'registry.docker.io',
+      'registry.docker.com',
+      'registry.hub.docker.com',
+    ],
+    hostPattern: /^registry-\d+\.docker\.(io|com)$/,
     proxyPrefix: 'docker',
     subdomain: 'docker.registry.gdut.edu.cn',
     isOfficialNamespace: isDockerHubOfficial,
@@ -95,7 +105,21 @@ export const registries: RegistryConfig[] = [
   },
 ];
 
-const REGISTRY_HOSTS = new Set(registries.map((r) => r.originalHost));
+const REGISTRY_HOSTS = new Set(
+  registries.flatMap((r) => [r.originalHost, ...(r.aliasHosts ?? [])]),
+);
+
+function findRegistryByHost(host: string): RegistryConfig | undefined {
+  const exact = registries.find(
+    (r) =>
+      r.originalHost === host ||
+      (r.aliasHosts && r.aliasHosts.includes(host)),
+  );
+  if (exact) return exact;
+  return registries.find(
+    (r) => r.hostPattern && r.hostPattern.test(host),
+  );
+}
 
 export interface ParsedImage {
   registry: RegistryConfig;
@@ -147,8 +171,9 @@ export function parseImageName(input: string): ParsedImage | null {
   const parts = lowered.split('/');
   const firstPart = parts[0];
 
-  if (REGISTRY_HOSTS.has(firstPart)) {
-    const registry = registries.find((r) => r.originalHost === firstPart)!;
+  const matchedRegistry = findRegistryByHost(firstPart);
+  if (matchedRegistry) {
+    const registry = matchedRegistry;
     const imagePart = parts.slice(1).join('/');
     if (!imagePart) return null;
     const tagged = ensureTag(imagePart);
@@ -156,10 +181,10 @@ export function parseImageName(input: string): ParsedImage | null {
       return {
         registry,
         imagePart: withOfficialPrefix(tagged, registry.officialNamespacePrefix),
-        originalInput: `${firstPart}/${tagged}`,
+        originalInput: `${registry.originalHost}/${tagged}`,
       };
     }
-    return {registry, imagePart: tagged, originalInput: `${firstPart}/${tagged}`};
+    return {registry, imagePart: tagged, originalInput: `${registry.originalHost}/${tagged}`};
   }
 
   const dockerHub = registries.find((r) => r.originalHost === 'docker.io');
@@ -183,8 +208,7 @@ export function isCompleteImage(input: string): boolean {
   const parts = trimmed.split('/');
   if (parts.length < 1) return false;
 
-  const REGISTRY_HOSTS = new Set(registries.map((r) => r.originalHost));
-  if (REGISTRY_HOSTS.has(parts[0])) {
+  if (REGISTRY_HOSTS.has(parts[0]) || findRegistryByHost(parts[0])) {
     return parts.length >= 2 && parts[1].length > 0;
   }
 

@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef, useCallback} from 'react';
 import {createPortal} from 'react-dom';
-import type {ComponentProps} from 'react';
+import type {ComponentProps, ReactElement} from 'react';
 
 const ExpandIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
@@ -20,7 +20,7 @@ const CloseIcon = () => (
   </svg>
 );
 
-export default function Table(props: ComponentProps<'table'>): JSX.Element {
+export default function Table(props: ComponentProps<'table'>): ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
   const [overflow, setOverflow] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
