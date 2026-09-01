@@ -361,7 +361,7 @@ export default function MirrorSources(props: MirrorSourcesProps): ReactNode {
       ) : quickConfigType === 'none' ? (
         renderCodeBlock(displayFilePath, configText, 'config', configLanguage)
       ) : (
-        <Tabs className={styles.tabs}>
+        <Tabs groupId="mirror-config" className={styles.tabs}>
           <TabItem value="manual" label="手动配置">
             {renderCodeBlock(displayFilePath, configText, 'config', configLanguage)}
           </TabItem>
