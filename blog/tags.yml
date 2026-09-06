@@ -37,3 +37,8 @@
   label: 技术博客
   permalink: /tags/tech-blog
   description: 技术重构与实现细节
+
+协会招新:
+  label: 协会招新
+  permalink: /tags/recruitment
+  description: 网络服务协会招新公告
