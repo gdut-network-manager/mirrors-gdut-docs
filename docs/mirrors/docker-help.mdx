@@ -212,6 +212,97 @@ Docker 通过修改 Daemon 配置文件实现镜像加速。Docker 仅支持域�
 </Tabs>
 
   </TabItem>
+  <TabItem value="buildx" label={<PlatformIcon name="docker" label="Docker Buildx" />}>
+
+Docker Buildx 构建时**不会**读取 Docker Daemon 的 `registry-mirrors` 配置，需要通过 `buildkitd.toml` 为其指定镜像加速地址。
+
+**创建配置文件**
+
+将以下内容保存为 `buildkitd.toml`（Windows 保存到如 `C:\Users\<用户名>\buildkitd.toml`，macOS / Linux 保存到如 `~/buildkitd.toml`）：
+
+```toml title="buildkitd.toml"
+[registry."docker.io"]
+  mirrors = ["https://docker.registry.gdut.edu.cn"]
+
+[registry."ghcr.io"]
+  mirrors = ["https://ghcr.registry.gdut.edu.cn"]
+
+[registry."quay.io"]
+  mirrors = ["https://quay.registry.gdut.edu.cn"]
+
+[registry."registry.k8s.io"]
+  mirrors = ["https://k8s.registry.gdut.edu.cn"]
+
+[registry."mcr.microsoft.com"]
+  mirrors = ["https://mcr.registry.gdut.edu.cn"]
+
+[registry."gcr.io"]
+  mirrors = ["https://gcr.registry.gdut.edu.cn"]
+
+[registry."nvcr.io"]
+  mirrors = ["https://nvcr.registry.gdut.edu.cn"]
+
+[registry."docker.elastic.co"]
+  mirrors = ["https://elastic.registry.gdut.edu.cn"]
+
+[registry."registry.gitlab.com"]
+  mirrors = ["https://gitlab.registry.gdut.edu.cn"]
+```
+
+:::note[域名置换模式前置步骤]
+
+Buildx 走的是域名置换模式，使用前需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)。
+
+:::
+
+**创建 Builder 实例**
+
+删除旧的 builder（如存在），然后用 `--buildkitd-config` 指定配置创建新的 builder：
+
+<Tabs groupId="operating-systems">
+  <TabItem value="win" label={<PlatformIcon name="windows" label="Windows" />}>
+    ```powershell
+    # 删除旧 builder（如存在）
+    docker buildx rm gdut-builder 2>$null
+
+    # 创建并应用配置
+    docker buildx create --use --bootstrap `
+      --name gdut-builder `
+      --driver docker-container `
+      --buildkitd-config "C:\Users\<用户名>\buildkitd.toml"
+    ```
+  </TabItem>
+  <TabItem value="linux" label={<PlatformIcon name="linux" label="macOS / Linux" />}>
+    ```bash
+    # 删除旧 builder（如存在）
+    docker buildx rm gdut-builder 2>/dev/null || true
+
+    # 创建并应用配置
+    docker buildx create --use --bootstrap \
+      --name gdut-builder \
+      --driver docker-container \
+      --buildkitd-config ~/buildkitd.toml
+    ```
+  </TabItem>
+</Tabs>
+
+:::tip[配置生效说明]
+
+`buildkitd.toml` 在 builder 容器创建时注入，已存在的 builder 无法热加载新配置，修改配置后需要删除并重建 builder。也可以将配置文件放在 `~/.docker/buildx/buildkitd.default.toml`，之后创建的新 builder 会自动使用。
+
+:::
+
+**验证配置**
+
+```bash
+# 查看 builder 状态
+docker buildx inspect gdut-builder
+
+# 测试构建
+docker buildx build --builder gdut-builder -t test .
+```
+
+  </TabItem>
   <TabItem value="containerd" label={<PlatformIcon name="containerd" label="Containerd" />}>
 
 Containerd 2.x 推荐使用 `config_path` + `hosts.toml` 方式配置镜像加速（旧的 `[plugins."io.containerd.grpc.v1.cri".registry.mirrors]` 已废弃）。
@@ -555,91 +646,6 @@ oc get imagetagmirrorset
 ```
 
 > `mirrorSourcePolicy: AllowContactingSource` 允许 mirror 失败时回退到源 registry，离线环境改为 `NeverContactSource`。
-
-  </TabItem>
-  <TabItem value="buildx" label={<PlatformIcon name="docker" label="Docker Buildx" />}>
-
-Docker Buildx 构建时**不会**读取 Docker Daemon 的 `registry-mirrors` 配置，需要通过 `buildkitd.toml` 为其指定镜像加速地址。
-
-**创建配置文件**
-
-将以下内容保存为 `buildkitd.toml`（Windows 保存到如 `C:\Users\<用户名>\buildkitd.toml`，macOS / Linux 保存到如 `~/buildkitd.toml`）：
-
-```toml title="buildkitd.toml"
-[registry."docker.io"]
-  mirrors = ["https://docker.registry.gdut.edu.cn"]
-
-[registry."ghcr.io"]
-  mirrors = ["https://ghcr.registry.gdut.edu.cn"]
-
-[registry."quay.io"]
-  mirrors = ["https://quay.registry.gdut.edu.cn"]
-
-[registry."registry.k8s.io"]
-  mirrors = ["https://k8s.registry.gdut.edu.cn"]
-
-[registry."mcr.microsoft.com"]
-  mirrors = ["https://mcr.registry.gdut.edu.cn"]
-
-[registry."gcr.io"]
-  mirrors = ["https://gcr.registry.gdut.edu.cn"]
-
-[registry."nvcr.io"]
-  mirrors = ["https://nvcr.registry.gdut.edu.cn"]
-
-[registry."docker.elastic.co"]
-  mirrors = ["https://elastic.registry.gdut.edu.cn"]
-
-[registry."registry.gitlab.com"]
-  mirrors = ["https://gitlab.registry.gdut.edu.cn"]
-```
-
-:::note[域名置换模式前置步骤]
-
-Buildx 走的是域名置换模式，使用前需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)。
-
-:::
-
-**创建 Builder 实例**
-
-删除旧的 builder（如存在），然后用 `--buildkitd-config` 指定配置创建新的 builder：
-
-```bash
-# 删除旧 builder（--keep-state 可保留构建缓存）
-docker buildx rm gdut-builder 2>/dev/null || true
-
-# 创建并应用配置
-docker buildx create --use --bootstrap \
-  --name gdut-builder \
-  --driver docker-container \
-  --buildkitd-config /path/to/buildkitd.toml
-```
-
-Windows PowerShell 用户：
-
-```powershell
-docker buildx rm gdut-builder 2>$null
-docker buildx create --use --bootstrap `
-  --name gdut-builder `
-  --driver docker-container `
-  --buildkitd-config "C:\Users\<用户名>\buildkitd.toml"
-```
-
-:::tip[配置生效说明]
-
-`buildkitd.toml` 在 builder 容器创建时注入，已存在的 builder 无法热加载新配置，修改配置后需要删除并重建 builder。也可以将配置文件放在 `~/.docker/buildx/buildkitd.default.toml`，之后创建的新 builder 会自动使用。
-
-:::
-
-**验证配置**
-
-```bash
-# 查看 builder 状态
-docker buildx inspect gdut-builder
-
-# 测试构建
-docker buildx build --builder gdut-builder -t test .
-```
 
   </TabItem>
 </Tabs>
