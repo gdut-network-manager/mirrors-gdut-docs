@@ -2,9 +2,16 @@ import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import {usePluginData} from '@docusaurus/useGlobalData';
 import Layout from '@theme/Layout';
 
 import styles from './index.module.css';
+
+interface Announcement {
+  slug: string;
+  title: string;
+  dateLabel: string;
+}
 
 type IconProps = React.ComponentProps<'svg'>;
 
@@ -75,6 +82,23 @@ function MailIcon(props: IconProps) {
       {...props}>
       <rect width="20" height="16" x="2" y="4" rx="2" />
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  );
+}
+
+function BellIcon(props: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}>
+      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
     </svg>
   );
 }
@@ -179,6 +203,8 @@ function SidebarIsland({
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
+  const announcements =
+    usePluginData<Announcement[]>('announcements-plugin') ?? [];
   return (
     <Layout title={siteConfig.title} description="广东工业大学开源镜像站帮助文档">
       <Hero title={siteConfig.title} />
@@ -204,6 +230,27 @@ export default function Home(): ReactNode {
             </div>
           </section>
           <aside className={styles.bentoSidebar}>
+            <div className={clsx(styles.island, styles.islandCompact)}>
+              <div className={styles.islandHeader}>
+                <BellIcon className={styles.islandIcon} />
+                <h2 className={styles.islandTitle}>最新公告</h2>
+              </div>
+              <ul className={styles.linkList}>
+                {announcements.map((post) => (
+                  <li key={post.slug} className={styles.linkListItem}>
+                    <Link to={`/news/${post.slug}`} className={styles.announcementItem}>
+                      <span className={styles.announcementTitle}>{post.title}</span>
+                      <span className={styles.announcementDate}>{post.dateLabel}</span>
+                    </Link>
+                  </li>
+                ))}
+                <li className={styles.linkListItem}>
+                  <Link to="/news" className={clsx(styles.linkItem, styles.announcementAll)}>
+                    查看全部公告 →
+                  </Link>
+                </li>
+              </ul>
+            </div>
             <SidebarIsland
               icon={<BookIcon className={styles.islandIcon} />}
               title="快速入口"

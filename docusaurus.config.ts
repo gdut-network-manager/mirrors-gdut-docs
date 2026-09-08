@@ -88,6 +88,8 @@ const config: Config = {
 
   stylesheets: [],
 
+  plugins: [require.resolve('./plugins/announcements.ts')],
+
   themes: [
     // ... Your other themes.
     [

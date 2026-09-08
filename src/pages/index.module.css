@@ -258,6 +258,38 @@
   text-decoration: none;
 }
 
+.announcementItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--ifm-color-content);
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.announcementItem:hover {
+  color: var(--ifm-color-primary);
+  padding-left: 4px;
+  text-decoration: none;
+}
+
+.announcementTitle {
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.announcementDate {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.announcementAll {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+
 /* ── Responsive ───────────────────────────────────────────────────── */
 
 @media screen and (max-width: 996px) {
