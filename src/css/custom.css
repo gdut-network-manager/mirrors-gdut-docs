@@ -207,6 +207,7 @@ body {
 .theme-doc-sidebar-container {
   position: sticky !important;
   align-self: flex-start;
+  flex-shrink: 0 !important;
   top: calc(var(--ifm-navbar-height) + var(--island-margin));
   height: calc(100vh - var(--ifm-navbar-height) - var(--island-margin) * 2);
   background: var(--glass-bg-sidebar);
@@ -220,7 +221,8 @@ body {
   overflow: hidden;
   border-right: none;
   clip-path: none;
-  transition: transform var(--ifm-transition-fast) var(--ifm-transition-timing-default),
+  transition: width var(--ifm-transition-fast) ease,
+              transform var(--ifm-transition-fast) var(--ifm-transition-timing-default),
               box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
