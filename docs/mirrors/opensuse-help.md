@@ -10,6 +10,8 @@ openSUSE 项目是一个由 SUSE 赞助的社区项目。该项目旨在推进 L
 
 此发行版现在默认提供包括 [Leap](https://get.opensuse.org/leap/)，[Tumbleweed](https://get.opensuse.org/tumbleweed/)，[Slowroll](https://en.opensuse.org/openSUSE:Slowroll)，[leap micro](https://get.opensuse.org/leapmicro) 和 [Micro OS](https://get.opensuse.org/microos/) 在内的五个发行版变体。
 
+- **更新策略**：缓存代理，实时回源上游仓库。
+
 openSUSE 默认使用 [MirrorCache](https://zh.opensuse.org/MirrorCache) 替换旧的 [MirrorBrain](https://zh.opensuse.org/MirrorBrain) 作为技术统一镜像入口进行镜像站点的监测和管理以及下载时的镜像源分配服务，免去用户需要手动更换镜像的不确定性和困难，并从 2023.07 开始一并使用 fastly CDN (cdn.opensuse.org) 进行分发，从而给用户提供更好的便利性和安全性，通常情况下使用默认配置即可。MirrorBrain 和 MirrorCache 的具体区别可参见此[链接](https://opensuse.github.io/MirrorCache/mb_compare/)。
 
 ## 关于统一镜像分发
