@@ -42,6 +42,10 @@ BUG_REPORT_URL="https://bugs.debian.org/"
 
 根据对应的 Debian 版本，编辑 `/etc/apt/sources.list` 文件，修改为如下内容。（操作前请做好相应备份）
 
+大部分 Debian 系统的软件源配置文件使用传统 One-Line-Style，路径为 `/etc/apt/sources.list`；对于容器镜像等场景，从 Debian 12 (bookworm) 开始，软件源配置文件变更为 DEB822 格式，路径为 `/etc/apt/sources.list.d/debian.sources`。请按你的系统选择对应的配置方式。
+
+### 传统格式（`/etc/apt/sources.list`）
+
 <MirrorSources
   type="apt-traditional"
   host="mirrors.gdut.edu.cn"
@@ -70,3 +74,23 @@ BUG_REPORT_URL="https://bugs.debian.org/"
 ```bash
 sed -i 's|deb.debian.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list
 ```
+
+### DEB822 格式（`/etc/apt/sources.list.d/debian.sources`）
+
+从 Debian 12 (bookworm) 开始支持通过 DEB822 格式的配置文件来配置软件源：
+
+<MirrorSources
+  type="apt-deb822"
+  host="mirrors.gdut.edu.cn"
+  path="/debian"
+  versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
+    { label: '12 (bookworm)', codename: 'bookworm' },
+  ]}
+  components={['main', 'contrib', 'non-free', 'non-free-firmware']}
+  filePath="/etc/apt/sources.list.d/debian.sources"
+  options={{ https: true, source: true, proposed: false, security: true }}
+  securityHost="deb.debian.org"
+  securityPath="/debian-security"
+  signedByKey="/usr/share/keyrings/debian-archive-keyring.gpg"
+/>

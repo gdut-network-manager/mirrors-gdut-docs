@@ -66,6 +66,8 @@ export interface MirrorSourcesProps {
   quickConfigType?: 'apt' | 'yum' | 'pacman' | 'maven' | 'none';
   /** Render POM config instead of settings.xml mirror snippet (maven only) */
   mavenPomOnly?: boolean;
+  /** Generate only the security suite lines (apt types) */
+  securityOnly?: boolean;
 }
 
 /**

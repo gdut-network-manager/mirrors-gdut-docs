@@ -1,0 +1,75 @@
+---
+sidebar_position: 2
+---
+
+import MirrorSources from '@site/src/components/MirrorSources';
+
+# Debian Security 镜像使用帮助
+
+## 简介
+
+Debian Security 是 Debian 官方的安全更新软件源，提供已发布版本的漏洞修复与安全更新软件包。本镜像提供 Debian Security 仓库的同步服务。
+
+## 镜像信息
+
+- **架构**：全部
+- **版本**：全部
+- **更新策略**：每6小时更新一次
+
+## 使用说明
+
+:::tip[安全更新时效性说明]
+
+为保证安全更新的时效性，Debian 官方不推荐用户使用安全更新镜像源——镜像站存在同步延迟，可能使系统不能及时安装最新的安全更新。如非必要，建议安全更新继续使用官方源 `security.debian.org`；如确需使用本镜像，请知悉同步延迟带来的影响。
+
+:::
+
+本镜像的安全套件统一使用 `<代号>-security` 命名（如 `trixie-security`、`bookworm-security`）。可以通过以下命令查看当前系统代号：
+
+```bash
+cat /etc/os-release
+```
+
+### 传统格式（`/etc/apt/sources.list`）
+
+在 `/etc/apt/sources.list` 中添加（或替换 `security.debian.org` 对应的行）：
+
+<MirrorSources
+  type="apt-traditional"
+  host="mirrors.gdut.edu.cn"
+  path="/debian-security"
+  versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
+    { label: '12 (bookworm)', codename: 'bookworm' },
+    { label: '11 (bullseye)', codename: 'bullseye' },
+  ]}
+  components={['main', 'contrib', 'non-free', 'non-free-firmware']}
+  filePath="/etc/apt/sources.list"
+  options={{ https: true, source: true, proposed: false, security: false }}
+  securityOnly
+/>
+
+### DEB822 格式（`/etc/apt/sources.list.d/debian.sources`）
+
+从 Debian 12 (bookworm) 开始支持通过 DEB822 格式的配置文件来配置软件源：
+
+<MirrorSources
+  type="apt-deb822"
+  host="mirrors.gdut.edu.cn"
+  path="/debian-security"
+  versions={[
+    { label: '13 (trixie)', codename: 'trixie' },
+    { label: '12 (bookworm)', codename: 'bookworm' },
+  ]}
+  components={['main', 'contrib', 'non-free', 'non-free-firmware']}
+  filePath="/etc/apt/sources.list.d/debian.sources"
+  options={{ https: true, source: true, proposed: false, security: false }}
+  signedByKey="/usr/share/keyrings/debian-archive-keyring.gpg"
+  securityOnly
+/>
+
+:::note[与 Debian 主仓库配合使用]
+
+本仓库仅包含安全更新，请配合 [Debian 镜像使用帮助](debian-help) 配置主仓库使用。
+
+:::

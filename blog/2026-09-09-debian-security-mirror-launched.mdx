@@ -1,0 +1,32 @@
+---
+slug: debian-security-mirror-launched
+title: Debian Security 镜像上线
+authors: [gdutnic, gregPerlinLi]
+tags: [新镜像上线]
+date: 2026-09-09
+---
+
+本站现已上线 Debian Security 镜像，提供 Debian 官方安全更新仓库的同步服务，加速校内用户的 `apt` 安全更新下载。
+
+{/* truncate */}
+
+## 镜像信息
+
+- **地址**：`https://mirrors.gdut.edu.cn/debian-security/`
+- **更新策略**：每 6 小时同步一次
+
+## 使用方法
+
+本镜像安全套件统一使用 `<代号>-security` 命名（如 `trixie-security`、`bookworm-security`）。以 Debian 13 (trixie) 为例，在 `/etc/apt/sources.list` 中添加：
+
+```bash
+deb https://mirrors.gdut.edu.cn/debian-security trixie-security main contrib non-free non-free-firmware
+```
+
+:::note[安全更新时效性提示]
+
+镜像站存在同步延迟，为保证安全更新第一时间安装，建议安全更新继续使用官方源 `security.debian.org`。是否切换请按需选择。
+
+:::
+
+详细配置方法（含 DEB822 格式）请参阅 [Debian Security 镜像使用帮助](/help/docs/mirrors/debian-security-help)。

@@ -106,6 +106,11 @@ export function generateAptTraditional(
     }
   };
 
+  if (props.securityOnly) {
+    addDebLines(`${codename}-security`);
+    return lines.join('\n');
+  }
+
   // Main, updates, backports
   addDebLines(codename);
   addDebLines(`${codename}-updates`);
@@ -170,6 +175,12 @@ export function generateAptDeb822(
     }
     return fields.join('\n');
   };
+
+  if (props.securityOnly) {
+    stanzas.push(buildStanza('deb', baseUri, `${codename}-security`));
+    stanzas.push(buildStanza('deb-src', baseUri, `${codename}-security`, !source));
+    return stanzas.join('\n\n');
+  }
 
   // Main stanza
   stanzas.push(
