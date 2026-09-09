@@ -68,6 +68,8 @@ export interface MirrorSourcesProps {
   mavenPomOnly?: boolean;
   /** Generate only the security suite lines (apt types) */
   securityOnly?: boolean;
+  /** Distro variant for suite naming: Debian uses <codename>-proposed-updates (default: ubuntu) */
+  distro?: 'ubuntu' | 'debian';
 }
 
 /**

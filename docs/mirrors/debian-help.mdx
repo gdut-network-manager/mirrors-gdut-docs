@@ -50,6 +50,7 @@ BUG_REPORT_URL="https://bugs.debian.org/"
   type="apt-traditional"
   host="mirrors.gdut.edu.cn"
   path="/debian"
+  distro="debian"
   versions={[
     { label: '13 (trixie)', codename: 'trixie' },
     { label: '12 (bookworm)', codename: 'bookworm' },
@@ -59,7 +60,7 @@ BUG_REPORT_URL="https://bugs.debian.org/"
   ]}
   components={['main', 'contrib', 'non-free', 'non-free-firmware']}
   filePath="/etc/apt/sources.list"
-  options={{ https: true, source: true, proposed: false, security: true }}
+  options={{ https: true, source: true, proposed: true, security: true }}
   securityHost="deb.debian.org"
   securityPath="/debian-security"
 />
@@ -84,13 +85,14 @@ sed -i 's|deb.debian.org|mirrors.gdut.edu.cn|g' /etc/apt/sources.list
   type="apt-deb822"
   host="mirrors.gdut.edu.cn"
   path="/debian"
+  distro="debian"
   versions={[
     { label: '13 (trixie)', codename: 'trixie' },
     { label: '12 (bookworm)', codename: 'bookworm' },
   ]}
   components={['main', 'contrib', 'non-free', 'non-free-firmware']}
   filePath="/etc/apt/sources.list.d/debian.sources"
-  options={{ https: true, source: true, proposed: false, security: true }}
+  options={{ https: true, source: true, proposed: true, security: true }}
   securityHost="deb.debian.org"
   securityPath="/debian-security"
   signedByKey="/usr/share/keyrings/debian-archive-keyring.gpg"

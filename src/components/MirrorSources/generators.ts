@@ -93,6 +93,7 @@ export function generateAptTraditional(
   const protocol = https ? 'https' : 'http';
   const comps = components.join(' ');
   const {codename} = version;
+  const proposedSuite = props.distro === 'debian' ? `${codename}-proposed-updates` : `${codename}-proposed`;
 
   const baseUri = `${protocol}://${host}${normalizePath(path)}`;
   const lines: string[] = [];
@@ -125,7 +126,7 @@ export function generateAptTraditional(
   }
 
   // Proposed (commented when disabled, uncommented when enabled)
-  addDebLines(`${codename}-proposed`, !proposed);
+  addDebLines(proposedSuite, !proposed);
 
   return lines.join('\n');
 }
@@ -200,7 +201,8 @@ export function generateAptDeb822(
   stanzas.push(buildStanza('deb', secUri, `${codename}-security`));
 
   // Proposed stanza (commented when disabled, uncommented when enabled)
-  stanzas.push(buildStanza('deb', baseUri, `${codename}-proposed`, !proposed));
+  const proposedSuite = props.distro === 'debian' ? `${codename}-proposed-updates` : `${codename}-proposed`;
+  stanzas.push(buildStanza('deb', baseUri, proposedSuite, !proposed));
 
   return stanzas.join('\n\n');
 }
