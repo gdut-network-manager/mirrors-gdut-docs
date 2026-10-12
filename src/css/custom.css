@@ -667,6 +667,78 @@ body {
   color: color-mix(in srgb, var(--adm-accent) 45%, #f1f5f9);
 }
 
+/* ── Tabs (Island underline rail, ref: Next.js docs / GitHub UnderlineNav) ── */
+
+.tabs-container {
+  margin: 1rem 0;
+}
+
+.tabs-container .tabs {
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px 0;
+  margin: 0;
+  border-bottom: 0;
+  background: rgba(151, 25, 67, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: inset 0 -1px 0 rgba(151, 25, 67, 0.15);
+  overflow-x: auto;
+}
+
+.tabs-container .tabs__item {
+  position: relative;
+  padding: 0.5rem 0.875rem 0.625rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: var(--island-radius-sm) var(--island-radius-sm) 0 0;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ifm-color-content-secondary);
+  white-space: nowrap;
+  transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.tabs-container .tabs__item:hover {
+  color: var(--ifm-color-content);
+  background: rgba(151, 25, 67, 0.08);
+}
+
+.tabs-container .tabs__item--active {
+  color: var(--ifm-color-primary);
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    rgba(151, 25, 67, 0.12),
+    rgba(151, 25, 67, 0) 75%
+  );
+  border-bottom-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .tabs-container .tabs {
+  background: rgba(151, 25, 67, 0.1);
+  box-shadow: inset 0 -1px 0 rgba(151, 25, 67, 0.3);
+}
+
+[data-theme='dark'] .tabs-container .tabs__item:hover {
+  background: rgba(151, 25, 67, 0.16);
+}
+
+[data-theme='dark'] .tabs-container .tabs__item--active {
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    rgba(151, 25, 67, 0.22),
+    rgba(151, 25, 67, 0) 75%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs-container .tabs__item {
+    transition: none;
+  }
+}
+
 /* ── Footer (solid surface, no glass) ─────────────────────────────── */
 
 .footer {
