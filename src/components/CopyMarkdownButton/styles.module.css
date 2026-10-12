@@ -66,7 +66,7 @@
   top: calc(100% + 0.3rem);
   right: 0;
   z-index: 10;
-  min-width: 11rem;
+  min-width: 12.5rem;
   margin: 0;
   padding: 0.35rem;
   list-style: none;
@@ -106,4 +106,22 @@
   background: rgba(151, 25, 67, 0.08);
   color: var(--ifm-color-primary);
   text-decoration: none;
+}
+
+.menuItemWithIcon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.menuIcon {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.menuItemWithIcon:hover .menuIcon {
+  opacity: 1;
 }

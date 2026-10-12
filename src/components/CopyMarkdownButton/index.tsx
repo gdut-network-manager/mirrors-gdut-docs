@@ -8,6 +8,19 @@ function getMarkdownSourceUrl(): string | null {
   return window.location.pathname.replace(/\/$/, '') + '.md';
 }
 
+async function openMarkdownInNewTab(url: string): Promise<void> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+    return;
+  }
+  const markdown = await response.text();
+  const blob = new Blob([markdown], {type: 'text/plain; charset=utf-8'});
+  const blobUrl = URL.createObjectURL(blob);
+  window.open(blobUrl, '_blank', 'noopener,noreferrer');
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 60_000);
+}
+
 export default function CopyMarkdownButton(): React.ReactElement {
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
@@ -113,24 +126,51 @@ export default function CopyMarkdownButton(): React.ReactElement {
           <button
             type="button"
             role="menuitem"
-            className={styles.menuItem}
+            className={clsx(styles.menuItem, styles.menuItemWithIcon)}
             onClick={() => {
               setOpen(false);
               void handleClick();
             }}>
+            <svg
+              className={styles.menuIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true">
+              <rect width="14" height="14" x="8" y="8" rx="2" />
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+            </svg>
             复制 Markdown
           </button>
         </li>
         {viewUrl && (
           <li role="none">
-            <a
+            <button
+              type="button"
               role="menuitem"
-              className={styles.menuItem}
-              href={viewUrl}
-              target="_blank"
-              rel="noopener noreferrer">
+              className={clsx(styles.menuItem, styles.menuItemWithIcon)}
+              onClick={() => {
+                setOpen(false);
+                void openMarkdownInNewTab(viewUrl);
+              }}>
+              <svg
+                className={styles.menuIcon}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true">
+                <path d="M15 3h6v6" />
+                <path d="M10 14 21 3" />
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              </svg>
               以 Markdown 格式查看
-            </a>
+            </button>
           </li>
         )}
       </ul>
