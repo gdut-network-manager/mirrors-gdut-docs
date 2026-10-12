@@ -1,10 +1,14 @@
+.container {
+  position: relative;
+  display: inline-flex;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   background: var(--ifm-background-surface-color);
   border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: var(--island-radius-sm);
   color: var(--ifm-color-content-secondary);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -13,9 +17,27 @@
   transition: color 150ms ease, border-color 150ms ease;
 }
 
-.button:hover {
+.button:first-child {
+  border-radius: var(--island-radius-sm) 0 0 var(--island-radius-sm);
+  border-right: none;
+}
+
+.caretButton {
+  padding: 0.3rem 0.45rem;
+  border-radius: 0 var(--island-radius-sm) var(--island-radius-sm) 0;
+}
+
+.caretButtonOpen,
+.button:hover,
+.caretButton:hover,
+.container.open .button,
+.container.open .caretButton {
   color: var(--ifm-color-primary);
   border-color: var(--ifm-color-primary);
+}
+
+.container.open .button {
+  border-right: none;
 }
 
 .button.copied {
@@ -29,8 +51,59 @@
   flex-shrink: 0;
 }
 
-@media screen and (max-width: 768px) {
-  .button {
-    margin-bottom: 0.75rem;
-  }
+.caret {
+  width: 0.8rem;
+  height: 0.8rem;
+  transition: transform 150ms ease;
+}
+
+.container.open .caret {
+  transform: rotate(180deg);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 0.3rem);
+  right: 0;
+  z-index: 10;
+  min-width: 11rem;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-sm);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 150ms ease, transform 150ms ease, visibility 150ms ease;
+}
+
+.container.open .menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 0.375rem;
+  color: var(--ifm-color-content);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.menuItem:hover {
+  background: rgba(151, 25, 67, 0.08);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
 }
