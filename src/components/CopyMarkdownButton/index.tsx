@@ -10,7 +10,10 @@ function getMarkdownSourceUrl(): string | null {
 
 async function openMarkdownInNewTab(url: string): Promise<void> {
   const response = await fetch(url);
-  if (!response.ok) {
+  const contentType = response.headers.get('Content-Type') ?? '';
+  const hasCharset = contentType.includes('charset');
+  const isMarkdown = contentType.includes('markdown') || contentType.includes('text/plain');
+  if (response.ok && isMarkdown && hasCharset) {
     window.open(url, '_blank', 'noopener,noreferrer');
     return;
   }
