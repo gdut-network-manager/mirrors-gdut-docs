@@ -591,6 +591,79 @@ body {
   position: relative;
 }
 
+/* ── Admonitions (Island card style) ─────────────────────────────── */
+
+[class*='admonition']:not([class*='admonitionIcon']):not([class*='admonitionHeading']):not([class*='admonitionContent']):not([class*='admonitionTitle']) {
+  --admonition-accent: var(--ifm-color-primary);
+
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg-card);
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
+  border: var(--glass-border);
+  border-radius: var(--island-radius-md);
+  box-shadow: var(--island-shadow);
+  border-left: 3px solid var(--admonition-accent);
+}
+
+[class*='admonition']:not([class*='admonitionIcon']):not([class*='admonitionHeading']):not([class*='admonitionContent']):not([class*='admonitionTitle'])::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(135deg, var(--admonition-accent) 0%, transparent 140%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+[class*='admonition'][class*='admonition-note'] {
+  --admonition-accent: #5b7a9d;
+}
+
+[class*='admonition'][class*='admonition-tip'] {
+  --admonition-accent: #2e8b57;
+}
+
+[class*='admonition'][class*='admonition-info'] {
+  --admonition-accent: #4a7fb5;
+}
+
+[class*='admonition'][class*='admonition-warning'] {
+  --admonition-accent: #d97706;
+}
+
+[class*='admonition'][class*='admonition-danger'] {
+  --admonition-accent: #c0392b;
+}
+
+[class*='admonition'][class*='admonition-caution'] {
+  --admonition-accent: #d97706;
+}
+
+[class*='admonitionTitle'],
+[class*='admonition-heading'] h5 {
+  font-weight: 700;
+  color: var(--ifm-color-content);
+}
+
+[class*='admonitionIcon'] svg {
+  color: var(--admonition-accent, var(--ifm-color-primary));
+}
+
+[class*='admonition']:not([class*='admonitionIcon']):hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*='admonition']:not([class*='admonitionIcon']):hover {
+    transform: none;
+  }
+}
+
 /* ── Footer (solid surface, no glass) ─────────────────────────────── */
 
 .footer {
