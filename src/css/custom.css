@@ -591,6 +591,14 @@ body {
   position: relative;
 }
 
+/* ── Admonitions (Island touch: radius + shadow, keep native colors) ── */
+
+[class*='theme-admonition'] {
+  border-radius: var(--island-radius-sm);
+  box-shadow: var(--island-shadow);
+  overflow: hidden;
+}
+
 /* ── Footer (solid surface, no glass) ─────────────────────────────── */
 
 .footer {
