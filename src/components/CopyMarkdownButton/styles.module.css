@@ -1,8 +1,3 @@
-.container {
-  position: relative;
-  display: inline-flex;
-}
-
 .button {
   display: inline-flex;
   align-items: center;
@@ -87,7 +82,10 @@
 }
 
 .menuItem {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
   width: 100%;
   text-align: left;
   background: none;
@@ -108,13 +106,6 @@
   text-decoration: none;
 }
 
-.menuItemWithIcon {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
-}
-
 .menuIcon {
   width: 0.85rem;
   height: 0.85rem;
@@ -124,4 +115,10 @@
 
 .menuItemWithIcon:hover .menuIcon {
   opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .button {
+    margin-bottom: 0.75rem;
+  }
 }

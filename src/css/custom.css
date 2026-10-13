@@ -591,6 +591,34 @@ body {
   position: relative;
 }
 
+/* Button row: absolute top-right of the content anchor (beside h1) */
+.copy-markdown-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Separator below the page h1 (ref: GitHub Docs) and above each h2 */
+article h1 {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+article h2 {
+  position: relative;
+  padding-top: 0.5rem;
+}
+
+article h2::before {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ifm-color-emphasis-300);
+  pointer-events: none;
+}
+
 /* ── Admonitions (Island glass tint, ref: Nuxt subtle / Mintlify dark) ── */
 
 .theme-admonition {
