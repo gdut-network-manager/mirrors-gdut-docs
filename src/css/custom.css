@@ -591,14 +591,13 @@ body {
   position: relative;
 }
 
-/* Title row: h1 on the left, copy-markdown button on the right
+/* Page title row: h1, then copy-markdown button below-left
    (ref: GitHub Docs), followed by a full-width separator */
 .doc-title-header {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
   padding-bottom: 0.75rem;
   margin-bottom: 0.25rem;
   border-bottom: 1px solid var(--ifm-color-emphasis-300);
