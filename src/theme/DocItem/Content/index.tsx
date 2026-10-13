@@ -1,5 +1,7 @@
 import React from 'react';
 import type {ReactNode} from 'react';
+import {useDoc} from '@docusaurus/plugin-content-docs/client';
+import Heading from '@theme/Heading';
 import MDXContent from '@theme/MDXContent';
 import CopyMarkdownButton from '@site/src/components/CopyMarkdownButton';
 
@@ -8,20 +10,20 @@ export default function DocItemContentWrapper({
 }: {
   children: ReactNode;
 }): React.ReactElement {
+  const {metadata, frontMatter} = useDoc();
+  const showTitleRow = frontMatter.hide_title !== true;
+
   return (
-    <div
-      className="copy-markdown-anchor"
-      style={{position: 'relative'}}>
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          zIndex: 2,
-        }}>
-        <CopyMarkdownButton />
-      </div>
+    <>
+      {showTitleRow && (
+        <header className="doc-title-header">
+          <Heading as="h1">{metadata.title}</Heading>
+          <div className="doc-title-actions">
+            <CopyMarkdownButton />
+          </div>
+        </header>
+      )}
       <MDXContent>{children}</MDXContent>
-    </div>
+    </>
   );
 }

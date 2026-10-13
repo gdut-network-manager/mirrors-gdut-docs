@@ -591,18 +591,30 @@ body {
   position: relative;
 }
 
-/* Button row: absolute top-right of the content anchor (beside h1) */
-.copy-markdown-row {
+/* Title row: h1 on the left, copy-markdown button on the right
+   (ref: GitHub Docs), followed by a full-width separator */
+.doc-title-header {
   display: flex;
-  justify-content: flex-end;
-}
-
-/* Separator below the page h1 (ref: GitHub Docs) and above each h2 */
-article h1 {
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
   padding-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
   border-bottom: 1px solid var(--ifm-color-emphasis-300);
 }
 
+.doc-title-header h1 {
+  margin-bottom: 0;
+}
+
+/* Hide the original h1 rendered by MDX (we render our own above) */
+article > header:not(.doc-title-header),
+article > header:not(.doc-title-header) h1 {
+  display: none;
+}
+
+/* Separator above each h2 */
 article h2 {
   position: relative;
   padding-top: 0.5rem;

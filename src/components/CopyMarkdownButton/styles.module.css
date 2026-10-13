@@ -18,8 +18,9 @@
 }
 
 .caretButton {
-  padding: 0.3rem 0.45rem;
+  padding: 0.3rem 0.55rem;
   border-radius: 0 var(--island-radius-sm) var(--island-radius-sm) 0;
+  align-self: stretch;
 }
 
 .caretButtonOpen,
