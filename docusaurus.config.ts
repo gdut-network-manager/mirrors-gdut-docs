@@ -174,7 +174,7 @@ const config: Config = {
         },
         {
           type: 'custom-mirrorLineDropdown',
-          position: 'right',
+          position: 'left',
         },
         {
           href: '/help/news/rss.xml',
