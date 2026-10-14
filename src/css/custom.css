@@ -630,6 +630,11 @@ article h2::before {
   pointer-events: none;
 }
 
+/* The first h2 follows the title separator — skip it to avoid a double line */
+article h2:first-of-type::before {
+  display: none;
+}
+
 /* ── Admonitions (Island glass tint, ref: Nuxt subtle / Mintlify dark) ── */
 
 .theme-admonition {
