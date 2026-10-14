@@ -34,14 +34,13 @@
 .caretButtonOpen,
 .button:hover,
 .caretButton:hover,
-.container.open .button,
-.container.open .caretButton {
+.button.copied {
   color: var(--ifm-color-primary);
   border-color: var(--ifm-color-primary);
 }
 
-.container.open .button {
-  border-right: none;
+.caretButtonOpen {
+  border-right-color: var(--ifm-color-emphasis-300);
 }
 
 .button.copied {
