@@ -216,9 +216,44 @@ Docker 通过修改 Daemon 配置文件实现镜像加速。Docker 仅支持域�
 
 Docker Buildx 构建时**不会**读取 Docker Daemon 的 `registry-mirrors` 配置，需要通过 `buildkitd.toml` 为其指定镜像加速地址。
 
-**创建配置文件**
+Buildx 同时支持前缀添加与域名置换两种模式（需 BuildKit v0.12.0 及以上），可任选其一：
 
-将以下内容保存为 `buildkitd.toml`（Windows 保存到如 `C:\Users\<用户名>\buildkitd.toml`，macOS / Linux 保存到如 `~/buildkitd.toml`）：
+**方式一：前缀添加模式（推荐）**
+
+无需配置 Hosts 与 CA 证书，走主域名 `registry.gdut.edu.cn` 的正式证书。将以下内容保存为 `buildkitd.toml`（Windows 保存到如 `C:\Users\<用户名>\buildkitd.toml`，macOS / Linux 保存到如 `~/buildkitd.toml`）：
+
+```toml title="buildkitd.toml"
+[registry."docker.io"]
+  mirrors = ["https://registry.gdut.edu.cn/docker"]
+
+[registry."ghcr.io"]
+  mirrors = ["https://registry.gdut.edu.cn/ghcr.io"]
+
+[registry."quay.io"]
+  mirrors = ["https://registry.gdut.edu.cn/quay.io"]
+
+[registry."registry.k8s.io"]
+  mirrors = ["https://registry.gdut.edu.cn/registry.k8s.io"]
+
+[registry."mcr.microsoft.com"]
+  mirrors = ["https://registry.gdut.edu.cn/mcr.microsoft.com"]
+
+[registry."gcr.io"]
+  mirrors = ["https://registry.gdut.edu.cn/gcr.io"]
+
+[registry."nvcr.io"]
+  mirrors = ["https://registry.gdut.edu.cn/nvcr.io"]
+
+[registry."docker.elastic.co"]
+  mirrors = ["https://registry.gdut.edu.cn/docker.elastic.co"]
+
+[registry."registry.gitlab.com"]
+  mirrors = ["https://registry.gdut.edu.cn/registry.gitlab.com"]
+```
+
+**方式二：域名置换模式**
+
+使用各 registry 的独立子域名，需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)：
 
 ```toml title="buildkitd.toml"
 [registry."docker.io"]
@@ -249,15 +284,9 @@ Docker Buildx 构建时**不会**读取 Docker Daemon 的 `registry-mirrors` 配
   mirrors = ["https://gitlab.registry.gdut.edu.cn"]
 ```
 
-:::note[域名置换模式前置步骤]
-
-Buildx 走的是域名置换模式，使用前需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)。
-
-:::
-
 **创建 Builder 实例**
 
-删除旧的 builder（如存在），然后用 `--buildkitd-config` 指定配置创建新的 builder：
+删除旧的 builder（如存在），然后用 `--buildkitd-config` 指定上面保存的配置文件创建新的 builder（需 BuildKit v0.12.0 及以上，新版 Docker Desktop / Docker Engine 自带的 BuildKit 均已满足）：
 
 <Tabs groupId="operating-systems">
   <TabItem value="win" label={<PlatformIcon name="windows" label="Windows" />}>
