@@ -218,8 +218,8 @@ Docker Buildx 构建时**不会**读取 Docker Daemon 的 `registry-mirrors` 配
 
 Buildx 同时支持前缀添加与域名置换两种模式（需 BuildKit v0.12.0 及以上），可任选其一：
 
-**方式一：前缀添加模式（推荐）**
-
+<Tabs groupId="buildx-mode">
+  <TabItem value="prefix" label="前缀添加模式（推荐）" default>
 无需配置 Hosts 与 CA 证书，走主域名 `registry.gdut.edu.cn` 的正式证书。将以下内容保存为 `buildkitd.toml`（Windows 保存到如 `C:\Users\<用户名>\buildkitd.toml`，macOS / Linux 保存到如 `~/buildkitd.toml`）：
 
 ```toml title="buildkitd.toml"
@@ -251,8 +251,8 @@ Buildx 同时支持前缀添加与域名置换两种模式（需 BuildKit v0.12.
   mirrors = ["https://registry.gdut.edu.cn/registry.gitlab.com"]
 ```
 
-**方式二：域名置换模式**
-
+  </TabItem>
+  <TabItem value="domain" label="域名置换模式">
 使用各 registry 的独立子域名，需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)：
 
 ```toml title="buildkitd.toml"
@@ -284,6 +284,10 @@ Buildx 同时支持前缀添加与域名置换两种模式（需 BuildKit v0.12.
   mirrors = ["https://gitlab.registry.gdut.edu.cn"]
 ```
 
+  </TabItem>
+</Tabs>
+
+**创建 Builder 实例**
 **创建 Builder 实例**
 
 删除旧的 builder（如存在），然后用 `--buildkitd-config` 指定上面保存的配置文件创建新的 builder（需 BuildKit v0.12.0 及以上，新版 Docker Desktop / Docker Engine 自带的 BuildKit 均已满足）：
