@@ -168,7 +168,6 @@ docker pull registry.gdut.edu.cn/registry.gitlab.com/gitlab-org/gitlab-runner:la
 以下按容器运行时平台分别介绍配置方法，可通过选项卡切换。除 Docker 仅支持域名置换模式外，其余平台均支持前缀添加模式与域名置换模式两种配置方式。
 
 <Tabs groupId="container-platforms">
-
   <TabItem value="docker" label={<PlatformIcon name="docker" label="Docker" />} default>
 
 Docker 通过修改 Daemon 配置文件实现镜像加速。Docker 仅支持域名置换模式（子域名方式），不支持前缀添加模式的自动配置。
@@ -335,8 +334,6 @@ docker buildx build --builder gdut-builder -t test .
   </TabItem>
   <TabItem value="containerd" label={<PlatformIcon name="containerd" label="Containerd" />}>
 
-  
-
 Containerd 2.x 推荐使用 `config_path` + `hosts.toml` 方式配置镜像加速（旧的 `[plugins."io.containerd.grpc.v1.cri".registry.mirrors]` 已废弃）。
 
 **修改主配置文件**
@@ -354,7 +351,7 @@ version = 3
 > 如果是 Containerd 1.x，插件路径为 `[plugins."io.containerd.grpc.v1.cri".registry]`。
 
 <Tabs groupId="mirror-mode-containerd">
-<TabItem value="prefix" label="前缀添加模式（推荐）" default>
+  <TabItem value="prefix" label="前缀添加模式（推荐）" default>
 
 使用主域名 `registry.gdut.edu.cn`，无需配置 Hosts 与 CA 证书。为每个上游 registry 创建对应的 `hosts.toml`：
 
@@ -379,8 +376,7 @@ server = "https://gcr.io"
 其他 registry（`ghcr.io`、`quay.io`、`registry.k8s.io` 等）按相同结构创建目录和 `hosts.toml` 即可。
 
   </TabItem>
-  
-<TabItem value="domain" label="域名置换模式">
+  <TabItem value="domain" label="域名置换模式">
 
 使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)），将 host 指向对应的子域名：
 
@@ -400,6 +396,10 @@ server = "https://gcr.io"
   capabilities = ["pull", "resolve"]
 ```
 
+
+  </TabItem>
+</Tabs>
+
 **重启 Containerd**
 
 修改 `config.toml` 后需重启，后续仅修改 `hosts.toml` 无需重启：
@@ -409,17 +409,12 @@ sudo systemctl restart containerd
 ```
 
   </TabItem>
-</Tabs>
-
-  </TabItem>
   <TabItem value="crio" label={<PlatformIcon name="crio" label="CRI-O" />}>
-
-  
 
 CRI-O 从 `/etc/containers/registries.conf` 读取 registry 配置（与 Podman 共享）。`crio.conf` 中的 `registries` 字段已废弃。
 
 <Tabs groupId="mirror-mode-crio">
-<TabItem value="prefix" label="前缀添加模式（推荐）" default>
+  <TabItem value="prefix" label="前缀添加模式（推荐）" default>
 
 使用主域名 `registry.gdut.edu.cn`，无需配置 Hosts 与 CA 证书：
 
@@ -444,8 +439,7 @@ location = "gcr.io"
 其他 registry（`ghcr.io`、`quay.io`、`registry.k8s.io` 等）按相同结构添加即可。
 
   </TabItem>
-  
-<TabItem value="domain" label="域名置换模式">
+  <TabItem value="domain" label="域名置换模式">
 
 使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)）：
 
@@ -467,6 +461,10 @@ location = "gcr.io"
   location = "gcr.registry.gdut.edu.cn"
 ```
 
+
+  </TabItem>
+</Tabs>
+
 **重启 CRI-O**
 
 ```bash
@@ -476,17 +474,12 @@ sudo systemctl restart crio
 > 也可通过 SIGHUP 热加载（需在 `crio.conf` 中设置 `auto_reload_registries = true`）：`sudo kill -SIGHUP $(pidof crio)`
 
   </TabItem>
-</Tabs>
-
-  </TabItem>
   <TabItem value="podman" label={<PlatformIcon name="podman" label="Podman" />}>
-
-  
 
 Podman 与 CRI-O 共用 `/etc/containers/registries.conf`，配置语法完全相同。Podman 是无守护进程的（daemonless），修改配置后无需重启，下次执行 `podman pull` 时自动生效。
 
 <Tabs groupId="mirror-mode-podman">
-<TabItem value="prefix" label="前缀添加模式（推荐）" default>
+  <TabItem value="prefix" label="前缀添加模式（推荐）" default>
 
 使用主域名 `registry.gdut.edu.cn`，无需配置 Hosts 与 CA 证书：
 
@@ -519,8 +512,7 @@ location = "quay.io"
 ```
 
   </TabItem>
-  
-<TabItem value="domain" label="域名置换模式">
+  <TabItem value="domain" label="域名置换模式">
 
 使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)）：
 
@@ -544,22 +536,21 @@ location = "gcr.io"
   location = "gcr.registry.gdut.edu.cn"
 ```
 
+
+  </TabItem>
+</Tabs>
+
 **无需重启**
 
 Podman 是无守护进程的，配置文件在下次执行 `podman pull` 时自动生效。
 
   </TabItem>
-</Tabs>
-
-  </TabItem>
   <TabItem value="rke2" label={<PlatformIcon name="rke2" label="RKE2" />}>
-
-  
 
 RKE2 内嵌 containerd，启动时读取 `/etc/rancher/rke2/registries.yaml` 并生成 containerd 配置。支持通过 `rewrite` 字段实现路径前缀添加。
 
 <Tabs groupId="mirror-mode-rke2">
-<TabItem value="prefix" label="前缀添加模式（推荐）" default>
+  <TabItem value="prefix" label="前缀添加模式（推荐）" default>
 
 使用主域名 `registry.gdut.edu.cn`，通过 `rewrite` 将镜像路径前缀添加上游 registry 名，无需配置 Hosts 与 CA 证书：
 
@@ -589,8 +580,7 @@ mirrors:
 ```
 
   </TabItem>
-  
-<TabItem value="domain" label="域名置换模式">
+  <TabItem value="domain" label="域名置换模式">
 
 使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)），直接指向对应子域名：
 
@@ -611,6 +601,10 @@ mirrors:
       - "https://quay.registry.gdut.edu.cn"
 ```
 
+
+  </TabItem>
+</Tabs>
+
 **重启 RKE2**
 
 ```bash
@@ -623,17 +617,12 @@ sudo systemctl restart rke2-agent
 > 如果在节点首次启动前配置好 `registries.yaml`，则无需重启。
 
   </TabItem>
-</Tabs>
-
-  </TabItem>
   <TabItem value="openshift" label={<PlatformIcon name="openshift" label="OpenShift" />}>
-
-  
 
 OpenShift 4.x 通过 Kubernetes CRD 对象配置 registry mirror，应用后由 Machine Config Operator 自动将配置写入节点的 `/etc/containers/registries.conf`。推荐使用 `ImageDigestMirrorSet`（digest 拉取）和 `ImageTagMirrorSet`（tag 拉取），旧的 `ImageContentSourcePolicy` 已废弃。
 
 <Tabs groupId="mirror-mode-openshift">
-<TabItem value="prefix" label="前缀添加模式（推荐）" default>
+  <TabItem value="prefix" label="前缀添加模式（推荐）" default>
 
 使用主域名 `registry.gdut.edu.cn`，无需配置 Hosts 与 CA 证书：
 
@@ -674,8 +663,7 @@ spec:
 ```
 
   </TabItem>
-  
-<TabItem value="domain" label="域名置换模式">
+  <TabItem value="domain" label="域名置换模式">
 
 使用子域名（需先完成 [Hosts 与 CA 证书配置](#配置-hosts-文件)）：
 
@@ -701,6 +689,10 @@ spec:
     mirrorSourcePolicy: AllowContactingSource
 ```
 
+
+  </TabItem>
+</Tabs>
+
 **应用配置**
 
 ```bash
@@ -717,5 +709,3 @@ oc get imagetagmirrorset
   </TabItem>
 </Tabs>
 
-  </TabItem>
-</Tabs>
