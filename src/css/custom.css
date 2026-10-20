@@ -631,9 +631,14 @@ article h2::before {
   pointer-events: none;
 }
 
-/* The first h2 follows the title separator — skip it to avoid a double line */
+/* The first h2 in docs follows the title separator — skip it to avoid a double line.
+   Blog posts have no title separator, so their first h2 keeps its line. */
 article h2:first-of-type::before {
   display: none;
+}
+
+.blog-wrapper article h2:first-of-type::before {
+  display: block;
 }
 
 /* ── Admonitions (Island glass tint, ref: Nuxt subtle / Mintlify dark) ── */
