@@ -607,9 +607,10 @@ body {
   margin-bottom: 0;
 }
 
-/* Hide the original h1 rendered by MDX (we render our own above) */
-article > header:not(.doc-title-header),
-article > header:not(.doc-title-header) h1 {
+/* Hide the duplicate h1 rendered by MDX inside the docs content
+   (it is the element right after our synthetic title header) */
+.doc-title-header + * h1:first-child,
+.doc-title-header ~ div > header h1:first-child {
   display: none;
 }
 
