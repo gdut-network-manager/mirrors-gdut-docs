@@ -4,6 +4,7 @@ import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import Heading from '@theme/Heading';
 import MDXContent from '@theme/MDXContent';
 import CopyMarkdownButton from '@site/src/components/CopyMarkdownButton';
+import EditThisPage from '@theme/EditThisPage';
 
 export default function DocItemContentWrapper({
   children,
@@ -20,6 +21,7 @@ export default function DocItemContentWrapper({
           <Heading as="h1">{metadata.title}</Heading>
           <div className="doc-title-actions">
             <CopyMarkdownButton />
+            {metadata.editUrl && <EditThisPage editUrl={metadata.editUrl} />}
           </div>
         </header>
       )}

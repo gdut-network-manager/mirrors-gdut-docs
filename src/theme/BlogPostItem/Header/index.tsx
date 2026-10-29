@@ -1,10 +1,15 @@
 import React from 'react';
+import {useBlogPost} from '@docusaurus/plugin-content-blog/client';
 import BlogPostItemHeaderTitle from '@theme/BlogPostItem/Header/Title';
 import BlogPostItemHeaderInfo from '@theme/BlogPostItem/Header/Info';
 import BlogPostItemHeaderAuthors from '@theme/BlogPostItem/Header/Authors';
 import CopyMarkdownButton from '@site/src/components/CopyMarkdownButton';
+import EditThisPage from '@theme/EditThisPage';
 
 export default function BlogPostItemHeaderWrapper(): React.ReactElement {
+  const {metadata} = useBlogPost();
+  const {editUrl} = metadata;
+
   return (
     <header>
       <BlogPostItemHeaderTitle />
@@ -17,7 +22,10 @@ export default function BlogPostItemHeaderWrapper(): React.ReactElement {
           gap: '0.5rem',
         }}>
         <BlogPostItemHeaderInfo />
-        <CopyMarkdownButton />
+        <div style={{display: 'inline-flex', gap: '0.5rem'}}>
+          <CopyMarkdownButton />
+          {editUrl && <EditThisPage editUrl={editUrl} />}
+        </div>
       </div>
       <BlogPostItemHeaderAuthors />
     </header>

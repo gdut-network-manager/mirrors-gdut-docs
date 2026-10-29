@@ -1,0 +1,35 @@
+import React from 'react';
+import clsx from 'clsx';
+import {ThemeClassNames} from '@docusaurus/theme-common';
+import {useDoc} from '@docusaurus/plugin-content-docs/client';
+import TagsListInline from '@theme/TagsListInline';
+
+// Footer with the Edit-this-page link removed (it moved to the title row);
+// tags and paginator are preserved.
+export default function DocItemFooter(): React.ReactElement | null {
+  const {metadata} = useDoc();
+  const {tags} = metadata;
+  const canDisplayTagsRow = tags.length > 0;
+  if (!canDisplayTagsRow) {
+    return null;
+  }
+  return (
+    <footer
+      className={clsx(
+        ThemeClassNames.docs.docFooter,
+        'docusaurus-mt-lg',
+      )}>
+      {canDisplayTagsRow && (
+        <div
+          className={clsx(
+            'row margin-top--sm',
+            ThemeClassNames.docs.docFooterTagsRow,
+          )}>
+          <div className="col">
+            <TagsListInline tags={tags} />
+          </div>
+        </div>
+      )}
+    </footer>
+  );
+}
