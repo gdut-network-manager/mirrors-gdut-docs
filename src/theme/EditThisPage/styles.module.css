@@ -8,7 +8,9 @@
   color: var(--ifm-color-content-secondary);
   font-size: 0.8125rem;
   font-weight: 500;
+  line-height: 1.4;
   padding: 0.3rem 0.75rem;
+  height: 31px;
   cursor: pointer;
   transition: color 150ms ease, border-color 150ms ease;
 }

@@ -607,6 +607,12 @@ body {
   margin-bottom: 0;
 }
 
+.doc-title-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* Hide the duplicate h1 rendered by MDX inside the docs content
    (it is the element right after our synthetic title header) */
 .doc-title-header + * h1:first-child,
