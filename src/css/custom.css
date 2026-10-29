@@ -647,6 +647,11 @@ article h2:first-of-type::before {
   display: block;
 }
 
+/* Blog list view: each card's title IS an h2 — no separator above titles */
+.blog-wrapper.blog-list-page article h2::before {
+  display: none;
+}
+
 /* ── Admonitions (Island glass tint, ref: Nuxt subtle / Mintlify dark) ── */
 
 .theme-admonition {
