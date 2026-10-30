@@ -1,0 +1,42 @@
+{
+  "theme.SearchBar.label": {
+    "message": "搜索",
+    "description": "The ARIA label and placeholder for search button"
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "查看全部结果",
+    "description": "The label for the see all search results link"
+  },
+  "theme.SearchBar.noResultsText": {
+    "message": "未找到相关结果",
+    "description": "The message shown when no search results are found"
+  },
+  "theme.SearchBar.searchInContext": {
+    "message": "查看“{context}”内的全部结果",
+    "description": "The label for the see all results in context link"
+  },
+  "theme.SearchBar.seeAllOutsideContext": {
+    "message": "查看“{context}”外的全部结果",
+    "description": "The label for the see all results outside context link"
+  },
+  "theme.SearchPage.existingResultsTitle": {
+    "message": "“{query}” 的搜索结果",
+    "description": "The title of the search results page for a query with results"
+  },
+  "theme.SearchPage.emptyResultsTitle": {
+    "message": "搜索文档",
+    "description": "The title of the search results page when no query is given"
+  },
+  "theme.SearchPage.documentsFound.plurals": {
+    "message": "找到 {count} 篇文档",
+    "description": "Pluralized label for \"{count} documents found\""
+  },
+  "theme.SearchPage.noResultsText": {
+    "message": "未找到相关结果",
+    "description": "The paragraph for empty search result"
+  },
+  "theme.SearchPage.searchContext.everywhere": {
+    "message": "全站",
+    "description": "The label for searching everywhere context"
+  }
+}

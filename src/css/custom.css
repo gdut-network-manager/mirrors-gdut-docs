@@ -1208,3 +1208,212 @@ article h2:first-of-type::before {
 [data-theme='dark'] .pin-badge {
   background: rgba(151, 25, 67, 0.2);
 }
+
+/* ── Search UI (docusaurus-search-local override) ─────────────────── */
+
+/* The plugin reads every color/spacing from --search-local-* vars,
+   so most overrides win without specificity fights. */
+.navbar__search {
+  --search-local-spacing: 10px;
+  --search-local-hit-height: 44px;
+  --search-local-modal-background: var(--glass-bg-card);
+  --search-local-modal-shadow: var(--shadow-xl);
+  --search-local-hit-background: transparent;
+  --search-local-hit-shadow: none;
+  --search-local-hit-color: var(--ifm-color-content);
+  --search-local-muted-color: var(--color-text-muted);
+  --search-local-highlight-color: var(--ifm-color-primary);
+  --search-local-hit-active-color: #971943;
+  --search-local-input-active-border-color: transparent;
+}
+
+[data-theme='dark'] .navbar__search {
+  --search-local-hit-active-color: #c83063;
+}
+
+/* Navbar search input pill */
+.navbar [class*='searchInput'] {
+  background: var(--glass-bg-card);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-pill);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease,
+    background 0.16s ease;
+}
+
+.navbar [class*='searchInput']:focus {
+  outline: none;
+  border-color: rgba(151, 25, 67, 0.55);
+  box-shadow: 0 0 0 3px rgba(151, 25, 67, 0.12);
+  background: var(--ifm-background-surface-color);
+}
+
+.navbar kbd[class*='searchHint'] {
+  padding: 0.125rem 0.375rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  box-shadow: 0 1px 0 var(--ifm-color-emphasis-300);
+}
+
+.navbar [class*='searchClearButton'] {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  transition: color 0.16s ease, background 0.16s ease;
+}
+
+.navbar [class*='searchClearButton']:hover {
+  color: var(--ifm-color-primary);
+  background: rgba(151, 25, 67, 0.08);
+}
+
+/* Dropdown panel: glass card on the same level as sidebar/cards.
+   !important needed: same specificity as the plugin's rule but emitted earlier. */
+[class*='searchBar'] [class*='dropdownMenu'] {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-md) !important;
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
+  animation: search-dropdown-in 0.16s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes search-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* Rows: flat on the glass panel; cursor/hover = crimson tint row
+   (autoselect puts the cursor on the Ask AI row, so this restyles it) */
+[class*='searchBar'] [class*='dropdownMenu'] [class*='suggestion'] {
+  border-radius: var(--island-radius-sm);
+  transition: background-color 0.12s ease;
+}
+
+.navbar__search [class*='searchBar'] [class*='dropdownMenu'] [class*='suggestion']:hover,
+.navbar__search [class*='searchBar'] [class*='dropdownMenu'] [class*='suggestion'][class*='cursor'] {
+  background-color: rgba(151, 25, 67, 0.08);
+}
+
+[data-theme='dark'] .navbar__search [class*='searchBar'] [class*='dropdownMenu'] [class*='suggestion']:hover,
+[data-theme='dark'] .navbar__search [class*='searchBar'] [class*='dropdownMenu'] [class*='suggestion'][class*='cursor'] {
+  background-color: rgba(151, 25, 67, 0.22);
+}
+
+[class*='searchBar'] [class*='hitFooter'] a {
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+[class*='searchBar'] [class*='hitFooter'] a:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Highlight marks: crimson tint instead of the default yellow */
+mark {
+  background: rgba(151, 25, 67, 0.1);
+  color: inherit;
+  font-weight: 600;
+  border-radius: 3px;
+}
+
+[data-theme='dark'] mark {
+  background: rgba(151, 25, 67, 0.24);
+}
+
+/* Dropdown marks: tinted too (plugin sets background:none on them) */
+[class*='searchBar'] [class*='hitWrapper'] mark {
+  background: rgba(151, 25, 67, 0.1);
+  color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] [class*='searchBar'] [class*='hitWrapper'] mark {
+  background: rgba(151, 25, 67, 0.24);
+}
+
+/* Search page */
+input[class*='searchQueryInput'],
+select[class*='searchContextInput'] {
+  background: var(--glass-bg-card);
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-md);
+  padding: 0.625rem 1rem;
+  color: var(--ifm-color-content);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+input[class*='searchQueryInput']:focus,
+select[class*='searchContextInput']:focus {
+  outline: none;
+  border-color: rgba(151, 25, 67, 0.55);
+  box-shadow: 0 0 0 3px rgba(151, 25, 67, 0.12);
+}
+
+/* Result cards: same glass-card family as the blog list */
+article[class*='searchResultItem'] {
+  background: var(--glass-bg-card);
+  -webkit-backdrop-filter: var(--glass-blur-card);
+  backdrop-filter: var(--glass-blur-card);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-md);
+  box-shadow: var(--island-shadow);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+article[class*='searchResultItem']:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+article[class*='searchResultItem'] > h2 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+article[class*='searchResultItem'] > h2 a {
+  color: var(--ifm-color-primary);
+}
+
+article[class*='searchResultItem'] > h2 a:hover {
+  color: var(--ifm-color-primary-darker);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+p[class*='searchResultItemPath'] {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  margin: 0.25rem 0 0;
+}
+
+p[class*='searchResultItemSummary'] {
+  color: var(--ifm-color-content-secondary);
+  font-size: 0.9rem;
+  font-style: normal;
+  margin: 0.5rem 0 0;
+}
+
+.container.margin-vert--lg > p:has(+ section) {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*='searchBar'] [class*='dropdownMenu'] {
+    animation: none;
+  }
+
+  article[class*='searchResultItem']:hover {
+    transform: none;
+  }
+}
