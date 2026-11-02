@@ -642,7 +642,7 @@ article h2:first-of-type::before {
 }
 
 /* Blog list view: each card's title IS an h2 — no separator above titles */
-.blog-wrapper.blog-list-page article h2::before {
+.blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article h2::before {
   display: none;
 }
 
@@ -822,7 +822,7 @@ article h2:first-of-type::before {
 .card::before,
 .theme-doc-sidebar-container::before,
 .blog-wrapper aside.col--3 > nav::before,
-.blog-wrapper.blog-list-page article::before {
+.blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article::before {
   content: '';
   position: absolute;
   top: 0;
@@ -839,7 +839,7 @@ article h2:first-of-type::before {
 .card:hover::before,
 .theme-doc-sidebar-container:hover::before,
 .blog-wrapper aside.col--3 > nav:hover::before,
-.blog-wrapper.blog-list-page article:hover::before {
+.blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article:hover::before {
   opacity: 1;
 }
 
@@ -856,7 +856,7 @@ article h2:first-of-type::before {
 .theme-code-block::after,
 .theme-doc-sidebar-container::after,
 .blog-wrapper aside.col--3 > nav::after,
-.blog-wrapper.blog-list-page article::after {
+.blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -876,7 +876,7 @@ article h2:first-of-type::before {
 .theme-code-block:hover::after,
 .theme-doc-sidebar-container:hover::after,
 .blog-wrapper aside.col--3 > nav:hover::after,
-.blog-wrapper.blog-list-page article:hover::after {
+.blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article:hover::after {
   opacity: 1;
 }
 
@@ -885,7 +885,7 @@ article h2:first-of-type::before {
 [data-theme='dark'] .theme-code-block::after,
 [data-theme='dark'] .theme-doc-sidebar-container::after,
 [data-theme='dark'] .blog-wrapper aside.col--3 > nav::after,
-[data-theme='dark'] .blog-wrapper.blog-list-page article::after {
+[data-theme='dark'] .blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article::after {
   background: radial-gradient(
     circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
     rgba(255, 255, 255, 0.08),
@@ -897,7 +897,7 @@ article h2:first-of-type::before {
 
 @supports (backdrop-filter: url(#x)) {
   .card,
-  .blog-wrapper.blog-list-page article {
+  .blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article {
     backdrop-filter: url(#liquid-glass-refraction) blur(12px) saturate(1.5);
   }
 }
@@ -910,7 +910,7 @@ article h2:first-of-type::before {
   .card,
   .theme-code-block,
   .blog-wrapper aside.col--3 > nav,
-  .blog-wrapper.blog-list-page article {
+  .blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article {
     background: var(--ifm-background-color);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -921,7 +921,7 @@ article h2:first-of-type::before {
   .card:hover,
   .theme-doc-sidebar-container:hover,
   .blog-wrapper aside.col--3 > nav:hover,
-  .blog-wrapper.blog-list-page article:hover {
+  .blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article:hover {
     transform: none;
   }
 }
@@ -1161,7 +1161,7 @@ article h2:first-of-type::before {
 
 /* ── Blog List Page Article Cards ─────────────────────────────────── */
 
-.blog-wrapper.blog-list-page article {
+.blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article {
   position: relative;
   background: var(--glass-bg-card);
   -webkit-backdrop-filter: var(--glass-blur-card);
@@ -1176,7 +1176,7 @@ article h2:first-of-type::before {
               box-shadow var(--ifm-transition-fast) var(--ifm-transition-timing-default);
 }
 
-.blog-wrapper.blog-list-page article:hover {
+.blog-wrapper:is(.blog-list-page, .blog-tags-post-list-page) article:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
 }
@@ -1416,4 +1416,57 @@ p[class*='searchResultItemSummary'] {
   article[class*='searchResultItem']:hover {
     transform: none;
   }
+}
+
+/* ── Blog Tag Pages ───────────────────────────────────────────────── */
+
+/* Tag detail page: header (title / description / all-tags link) */
+.blog-tags-post-list-page main > header {
+  margin-bottom: 2rem;
+}
+
+.blog-tags-post-list-page main > header h1 {
+  font-size: 1.75rem;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+
+.blog-tags-post-list-page main > header p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+/* "View all tags" link as a pill button */
+.blog-tags-post-list-page main > header > a:last-child {
+  display: inline-flex;
+  align-items: center;
+  height: 31px;
+  padding: 0 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ifm-color-content-secondary);
+  background: var(--glass-bg-card);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--island-radius-pill);
+  text-decoration: none;
+  transition: color var(--ifm-transition-fast)
+      var(--ifm-transition-timing-default),
+    border-color var(--ifm-transition-fast)
+      var(--ifm-transition-timing-default),
+    background var(--ifm-transition-fast)
+      var(--ifm-transition-timing-default);
+}
+
+.blog-tags-post-list-page main > header > a:last-child:hover {
+  color: var(--ifm-color-primary);
+  background: rgba(151, 25, 67, 0.08);
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+/* Tag list page: the grid component supplies its own spacing */
+.blog-tags-list-page main > h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0;
 }
