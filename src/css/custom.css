@@ -743,6 +743,7 @@ article h2:first-of-type::before {
 
 .tabs-container .tabs__item {
   position: relative;
+  z-index: 0;
   padding: 0.5rem 0.875rem 0.625rem;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -753,7 +754,41 @@ article h2:first-of-type::before {
   line-height: 1.4;
   color: var(--ifm-color-content-secondary);
   white-space: nowrap;
-  transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+  transition: color 0.16s ease, background 0.16s ease;
+}
+
+/* Active tint as a layer we can cross-fade (a gradient can't be transitioned) */
+.tabs-container .tabs__item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    rgba(151, 25, 67, 0.12),
+    rgba(151, 25, 67, 0) 75%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+/* Underline that grows out from the centre instead of snapping on */
+.tabs-container .tabs__item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--ifm-color-primary);
+  transform: scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.16s ease;
 }
 
 .tabs-container .tabs__item:hover {
@@ -763,12 +798,38 @@ article h2:first-of-type::before {
 
 .tabs-container .tabs__item--active {
   color: var(--ifm-color-primary);
-  background: radial-gradient(
-    120% 100% at 50% 0%,
-    rgba(151, 25, 67, 0.12),
-    rgba(151, 25, 67, 0) 75%
-  );
-  border-bottom-color: var(--ifm-color-primary);
+}
+
+/* Hovering the active tab keeps just the gradient (as before, when the
+   gradient was the element's own background) */
+.tabs-container .tabs__item--active:hover {
+  background: transparent;
+}
+
+.tabs-container .tabs__item--active::before {
+  opacity: 1;
+}
+
+.tabs-container .tabs__item--active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Panel enter: <Tabs groupId> keeps every synced group in one React commit,
+   so each newly-visible panel restarts this animation in parallel — the
+   linkage needs no JS. `hidden` toggles display, which restarts the
+   animation; no fill-mode keeps the final state transform-free.
+   Gated on first interaction so page load (and the post-hydration
+   remount of <Tabs>) stays static — see useTabsSwitchAnimation. */
+@keyframes tabs-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+html[data-tabs-interacted] .tabs-container [role='tabpanel'] {
+  animation: tabs-panel-enter 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-theme='dark'] .tabs-container .tabs {
@@ -780,7 +841,7 @@ article h2:first-of-type::before {
   background: rgba(151, 25, 67, 0.16);
 }
 
-[data-theme='dark'] .tabs-container .tabs__item--active {
+[data-theme='dark'] .tabs-container .tabs__item--active::before {
   background: radial-gradient(
     120% 100% at 50% 0%,
     rgba(151, 25, 67, 0.22),
@@ -789,8 +850,16 @@ article h2:first-of-type::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tabs-container .tabs__item {
+  .tabs-container .tabs__item,
+  .tabs-container .tabs__item::before,
+  .tabs-container .tabs__item::after {
     transition: none;
+  }
+
+  /* Specificity has to match the gated rule above, which is more specific
+     than a plain `.tabs-container [role='tabpanel']` selector */
+  html[data-tabs-interacted] .tabs-container [role='tabpanel'] {
+    animation: none;
   }
 }
 
