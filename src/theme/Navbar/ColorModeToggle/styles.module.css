@@ -1,0 +1,7 @@
+/**
+ * Same rule the stock Navbar/ColorModeToggle ships; kept so the swizzled
+ * wrapper renders identically on a dark navbar.
+ */
+.darkNavbarColorModeToggle:hover {
+  background: var(--ifm-color-gray-800);
+}

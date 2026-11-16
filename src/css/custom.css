@@ -1539,3 +1539,32 @@ p[class*='searchResultItemSummary'] {
   font-size: 1.75rem;
   margin-bottom: 0;
 }
+
+/* ── Theme switch: circular reveal (View Transition) ──────────────── */
+
+/* The default root crossfade is replaced by the clip-path animation JS
+   drives on ::view-transition-new(root), so both are muted here. */
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Old theme underneath, new theme clipped in on top */
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* While snapshots are taken, colour transitions must be off or the new
+   snapshot captures half-faded colours. Removed once the transition starts. */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+}
