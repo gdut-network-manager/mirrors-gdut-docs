@@ -5,10 +5,10 @@
   vertical-align: middle;
 }
 
+/* Font size/weight come from `.navbar__link` so the label matches the other
+   navbar items instead of drifting from them. */
 .label {
   color: var(--ifm-navbar-link-color);
-  font-size: 0.9rem;
-  font-weight: 400;
   transition: color var(--ifm-transition-fast) ease;
   cursor: default;
 }
