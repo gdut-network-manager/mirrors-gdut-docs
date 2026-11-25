@@ -198,6 +198,33 @@ body {
   border-radius: inherit;
 }
 
+/* Desktop navbar: items are flex children with the default `min-width: auto`,
+   and Chinese text has a one-character min-content width, so a cramped bar
+   used to break labels between characters (文档 → 文 / 档). Keep them on one
+   line instead and let the site title take the squeeze — it already truncates
+   with an ellipsis. */
+@media (min-width: 997px) {
+  .navbar__inner .navbar__item,
+  .navbar__inner .navbar__link {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+/* Reclaim enough room between the mobile breakpoint (996px) and a comfortable
+   desktop width so the title does not have to shrink much: tighter item
+   padding and a slightly narrower search field. */
+@media (min-width: 997px) and (max-width: 1200px) {
+  .navbar__inner .navbar__item {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .navbar__search-input {
+    width: 10rem;
+  }
+}
+
 /* ── Sidebar (glass island — preserve sticky/scroll/width) ────────── */
 
 .theme-doc-sidebar-container {
